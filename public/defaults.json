@@ -1,0 +1,2319 @@
+[
+  {
+    "key": "General_content_0001",
+    "section": "General",
+    "label": "meta content: width=device-width,initial-scale=1",
+    "type": "text",
+    "value": "width=device-width,initial-scale=1"
+  },
+  {
+    "key": "General_text_0002",
+    "section": "General",
+    "label": "M",
+    "type": "text",
+    "value": "M"
+  },
+  {
+    "key": "General_text_0003",
+    "section": "General",
+    "label": "Md. Salman",
+    "type": "text",
+    "value": "Md. Salman"
+  },
+  {
+    "key": "General_text_0004",
+    "section": "General",
+    "label": "WordPress Developer",
+    "type": "text",
+    "value": "WordPress Developer"
+  },
+  {
+    "key": "General_text_0005",
+    "section": "General",
+    "label": "Home",
+    "type": "text",
+    "value": "Home"
+  },
+  {
+    "key": "General_text_0006",
+    "section": "General",
+    "label": "About",
+    "type": "text",
+    "value": "About"
+  },
+  {
+    "key": "General_text_0007",
+    "section": "General",
+    "label": "Services",
+    "type": "text",
+    "value": "Services"
+  },
+  {
+    "key": "General_text_0008",
+    "section": "General",
+    "label": "Portfolio",
+    "type": "text",
+    "value": "Portfolio"
+  },
+  {
+    "key": "General_text_0009",
+    "section": "General",
+    "label": "Experience",
+    "type": "text",
+    "value": "Experience"
+  },
+  {
+    "key": "General_text_0010",
+    "section": "General",
+    "label": "Skills",
+    "type": "text",
+    "value": "Skills"
+  },
+  {
+    "key": "General_text_0011",
+    "section": "General",
+    "label": "Education",
+    "type": "text",
+    "value": "Education"
+  },
+  {
+    "key": "General_text_0012",
+    "section": "General",
+    "label": "Contact",
+    "type": "text",
+    "value": "Contact"
+  },
+  {
+    "key": "General_text_0013",
+    "section": "General",
+    "label": "Hire Me",
+    "type": "text",
+    "value": "Hire Me "
+  },
+  {
+    "key": "home_text_0014",
+    "section": "home",
+    "label": "👋   Hello, I'm",
+    "type": "text",
+    "value": "👋   Hello, I'm"
+  },
+  {
+    "key": "home_text_0015",
+    "section": "home",
+    "label": "WORDPRESS DEVELOPER · WEB DESIGNER",
+    "type": "text",
+    "value": "WORDPRESS DEVELOPER · WEB DESIGNER"
+  },
+  {
+    "key": "home_text_0016",
+    "section": "home",
+    "label": "Md. Salman",
+    "type": "text",
+    "value": "Md. Salman "
+  },
+  {
+    "key": "home_text_0017",
+    "section": "home",
+    "label": "Dewan",
+    "type": "text",
+    "value": "Dewan"
+  },
+  {
+    "key": "home_text_0018",
+    "section": "home",
+    "label": "WordPress Developer",
+    "type": "text",
+    "value": "WordPress Developer"
+  },
+  {
+    "key": "home_text_0019",
+    "section": "home",
+    "label": "Dhaka, Bangladesh",
+    "type": "text",
+    "value": " Dhaka, Bangladesh "
+  },
+  {
+    "key": "home_text_0020",
+    "section": "home",
+    "label": "Available for new projects",
+    "type": "text",
+    "value": " Available for new projects"
+  },
+  {
+    "key": "home_text_0021",
+    "section": "home",
+    "label": "I build modern, responsive and high-performing websites that help businesses gro",
+    "type": "text",
+    "value": "I build modern, responsive and high-performing websites that help businesses grow. With 7+ years of experience in WordPress, Shopify, Wix and more, I turn your ideas into reality with clean code and creative design."
+  },
+  {
+    "key": "home_text_0022",
+    "section": "home",
+    "label": "Start a Project",
+    "type": "text",
+    "value": "Start a Project "
+  },
+  {
+    "key": "home_text_0023",
+    "section": "home",
+    "label": "Download CV",
+    "type": "text",
+    "value": "Download CV "
+  },
+  {
+    "key": "home_href_0024",
+    "section": "home",
+    "label": "a href: https://www.linkedin.com/in/md-salman-253a80174/",
+    "type": "url",
+    "value": "https://www.linkedin.com/in/md-salman-253a80174/"
+  },
+  {
+    "key": "home_text_0025",
+    "section": "home",
+    "label": "in",
+    "type": "text",
+    "value": "in"
+  },
+  {
+    "key": "home_text_0026",
+    "section": "home",
+    "label": "fi",
+    "type": "text",
+    "value": "fi"
+  },
+  {
+    "key": "home_text_0027",
+    "section": "home",
+    "label": "up",
+    "type": "text",
+    "value": "up"
+  },
+  {
+    "key": "home_src_0028",
+    "section": "home",
+    "label": "img src: assets/images/salman-profile.png",
+    "type": "image",
+    "value": "assets/images/salman-profile.png"
+  },
+  {
+    "key": "home_text_0029",
+    "section": "home",
+    "label": "W",
+    "type": "text",
+    "value": "W"
+  },
+  {
+    "key": "home_text_0030",
+    "section": "home",
+    "label": "WordPress",
+    "type": "text",
+    "value": "WordPress"
+  },
+  {
+    "key": "home_text_0031",
+    "section": "home",
+    "label": "Expert",
+    "type": "text",
+    "value": "Expert"
+  },
+  {
+    "key": "home_text_0032",
+    "section": "home",
+    "label": "Shopify",
+    "type": "text",
+    "value": "Shopify"
+  },
+  {
+    "key": "home_text_0033",
+    "section": "home",
+    "label": "Store Management",
+    "type": "text",
+    "value": "Store Management"
+  },
+  {
+    "key": "home_text_0034",
+    "section": "home",
+    "label": "WIX",
+    "type": "text",
+    "value": "WIX"
+  },
+  {
+    "key": "home_text_0035",
+    "section": "home",
+    "label": "Wix",
+    "type": "text",
+    "value": "Wix"
+  },
+  {
+    "key": "home_text_0036",
+    "section": "home",
+    "label": "Website Design",
+    "type": "text",
+    "value": "Website Design"
+  },
+  {
+    "key": "home_text_0037",
+    "section": "home",
+    "label": "</>",
+    "type": "text",
+    "value": "</>"
+  },
+  {
+    "key": "home_text_0038",
+    "section": "home",
+    "label": "Clean Code",
+    "type": "text",
+    "value": "Clean Code"
+  },
+  {
+    "key": "home_text_0039",
+    "section": "home",
+    "label": "& Performance",
+    "type": "text",
+    "value": "& Performance"
+  },
+  {
+    "key": "home_text_0040",
+    "section": "home",
+    "label": "Let’s",
+    "type": "text",
+    "value": "Let’s"
+  },
+  {
+    "key": "home_text_0041",
+    "section": "home",
+    "label": "Awesome",
+    "type": "text",
+    "value": "Awesome "
+  },
+  {
+    "key": "home_text_0042",
+    "section": "home",
+    "label": "Build Something",
+    "type": "text",
+    "value": "Build Something"
+  },
+  {
+    "key": "home_text_0043",
+    "section": "home",
+    "label": "↙",
+    "type": "text",
+    "value": "↙"
+  },
+  {
+    "key": "home_text_0044",
+    "section": "home",
+    "label": "7+",
+    "type": "text",
+    "value": "7+"
+  },
+  {
+    "key": "home_text_0045",
+    "section": "home",
+    "label": "Years Experience",
+    "type": "text",
+    "value": "Years Experience"
+  },
+  {
+    "key": "home_text_0046",
+    "section": "home",
+    "label": "500+",
+    "type": "text",
+    "value": "500+"
+  },
+  {
+    "key": "home_text_0047",
+    "section": "home",
+    "label": "Connections",
+    "type": "text",
+    "value": "Connections"
+  },
+  {
+    "key": "home_text_0048",
+    "section": "home",
+    "label": "2,370",
+    "type": "text",
+    "value": "2,370"
+  },
+  {
+    "key": "home_text_0049",
+    "section": "home",
+    "label": "Followers",
+    "type": "text",
+    "value": "Followers"
+  },
+  {
+    "key": "services_text_0050",
+    "section": "services",
+    "label": "MY SERVICES",
+    "type": "text",
+    "value": "MY SERVICES"
+  },
+  {
+    "key": "services_text_0051",
+    "section": "services",
+    "label": "What I Do",
+    "type": "text",
+    "value": "What I Do "
+  },
+  {
+    "key": "services_text_0052",
+    "section": "services",
+    "label": "Best",
+    "type": "text",
+    "value": "Best"
+  },
+  {
+    "key": "services_text_0053",
+    "section": "services",
+    "label": "I offer a wide range of digital services to help your business grow and succeed ",
+    "type": "text",
+    "value": "I offer a wide range of digital services to help your business grow and succeed online."
+  },
+  {
+    "key": "services_text_0054",
+    "section": "services",
+    "label": "View All Services",
+    "type": "text",
+    "value": "View All Services "
+  },
+  {
+    "key": "services_text_0055",
+    "section": "services",
+    "label": "W",
+    "type": "text",
+    "value": "W"
+  },
+  {
+    "key": "services_text_0056",
+    "section": "services",
+    "label": "WordPress Design",
+    "type": "text",
+    "value": "WordPress Design"
+  },
+  {
+    "key": "services_text_0057",
+    "section": "services",
+    "label": "& Development",
+    "type": "text",
+    "value": "& Development"
+  },
+  {
+    "key": "services_text_0058",
+    "section": "services",
+    "label": "Custom, responsive and SEO-friendly WordPress websites.",
+    "type": "text",
+    "value": "Custom, responsive and SEO-friendly WordPress websites."
+  },
+  {
+    "key": "services_text_0059",
+    "section": "services",
+    "label": "→",
+    "type": "text",
+    "value": "→"
+  },
+  {
+    "key": "services_text_0060",
+    "section": "services",
+    "label": "▣",
+    "type": "text",
+    "value": "▣"
+  },
+  {
+    "key": "services_text_0061",
+    "section": "services",
+    "label": "Web Design",
+    "type": "text",
+    "value": "Web Design"
+  },
+  {
+    "key": "services_text_0062",
+    "section": "services",
+    "label": "Modern, clean and user-friendly design for your brand.",
+    "type": "text",
+    "value": "Modern, clean and user-friendly design for your brand."
+  },
+  {
+    "key": "services_text_0063",
+    "section": "services",
+    "label": "→",
+    "type": "text",
+    "value": "→"
+  },
+  {
+    "key": "services_text_0064",
+    "section": "services",
+    "label": "♟",
+    "type": "text",
+    "value": "♟"
+  },
+  {
+    "key": "services_text_0065",
+    "section": "services",
+    "label": "Lead Generation",
+    "type": "text",
+    "value": "Lead Generation"
+  },
+  {
+    "key": "services_text_0066",
+    "section": "services",
+    "label": "High-quality B2B leads and targeted prospect list building.",
+    "type": "text",
+    "value": "High-quality B2B leads and targeted prospect list building."
+  },
+  {
+    "key": "services_text_0067",
+    "section": "services",
+    "label": "→",
+    "type": "text",
+    "value": "→"
+  },
+  {
+    "key": "services_text_0068",
+    "section": "services",
+    "label": "▤",
+    "type": "text",
+    "value": "▤"
+  },
+  {
+    "key": "services_text_0069",
+    "section": "services",
+    "label": "Data Entry &",
+    "type": "text",
+    "value": "Data Entry &"
+  },
+  {
+    "key": "services_text_0070",
+    "section": "services",
+    "label": "Online Research",
+    "type": "text",
+    "value": "Online Research"
+  },
+  {
+    "key": "services_text_0071",
+    "section": "services",
+    "label": "Accurate, fast and reliable data support.",
+    "type": "text",
+    "value": "Accurate, fast and reliable data support."
+  },
+  {
+    "key": "services_text_0072",
+    "section": "services",
+    "label": "→",
+    "type": "text",
+    "value": "→"
+  },
+  {
+    "key": "services_text_0073",
+    "section": "services",
+    "label": "▰",
+    "type": "text",
+    "value": "▰"
+  },
+  {
+    "key": "services_text_0074",
+    "section": "services",
+    "label": "E-commerce Management",
+    "type": "text",
+    "value": "E-commerce Management"
+  },
+  {
+    "key": "services_text_0075",
+    "section": "services",
+    "label": "Shopify, Wix & WooCommerce store management and optimization.",
+    "type": "text",
+    "value": "Shopify, Wix & WooCommerce store management and optimization."
+  },
+  {
+    "key": "services_text_0076",
+    "section": "services",
+    "label": "→",
+    "type": "text",
+    "value": "→"
+  },
+  {
+    "key": "services_text_0077",
+    "section": "services",
+    "label": "⚙",
+    "type": "text",
+    "value": "⚙"
+  },
+  {
+    "key": "services_text_0078",
+    "section": "services",
+    "label": "Fiverr & Platform Support",
+    "type": "text",
+    "value": "Fiverr & Platform Support"
+  },
+  {
+    "key": "services_text_0079",
+    "section": "services",
+    "label": "Gig setup, optimization and buyer communication.",
+    "type": "text",
+    "value": "Gig setup, optimization and buyer communication."
+  },
+  {
+    "key": "services_text_0080",
+    "section": "services",
+    "label": "→",
+    "type": "text",
+    "value": "→"
+  },
+  {
+    "key": "about_src_0081",
+    "section": "about",
+    "label": "img src: assets/images/salman-profile.png",
+    "type": "image",
+    "value": "assets/images/salman-profile.png"
+  },
+  {
+    "key": "about_text_0082",
+    "section": "about",
+    "label": "Md. Salman",
+    "type": "text",
+    "value": "Md. Salman"
+  },
+  {
+    "key": "about_text_0083",
+    "section": "about",
+    "label": "ABOUT ME",
+    "type": "text",
+    "value": "ABOUT ME"
+  },
+  {
+    "key": "about_text_0084",
+    "section": "about",
+    "label": "Turning Ideas Into",
+    "type": "text",
+    "value": "Turning Ideas Into"
+  },
+  {
+    "key": "about_text_0085",
+    "section": "about",
+    "label": "Digital Success",
+    "type": "text",
+    "value": "Digital Success"
+  },
+  {
+    "key": "about_text_0086",
+    "section": "about",
+    "label": "Hi, I’m",
+    "type": "text",
+    "value": "Hi, I’m "
+  },
+  {
+    "key": "about_text_0087",
+    "section": "about",
+    "label": "— a dedicated and results-driven professional specializing in B2B Lead Generatio",
+    "type": "text",
+    "value": " — a dedicated and results-driven professional specializing in B2B Lead Generation, Data Entry, and "
+  },
+  {
+    "key": "about_text_0088",
+    "section": "about",
+    "label": "With 7+ years of experience, I’ve helped businesses grow by delivering high-qual",
+    "type": "text",
+    "value": " With 7+ years of experience, I’ve helped businesses grow by delivering high-quality leads, managing online stores, and handling client communication with care and professionalism."
+  },
+  {
+    "key": "about_text_0089",
+    "section": "about",
+    "label": "Md. Salman Dewan",
+    "type": "text",
+    "value": "Md. Salman Dewan"
+  },
+  {
+    "key": "about_text_0090",
+    "section": "about",
+    "label": "Website Management.",
+    "type": "text",
+    "value": "Website Management."
+  },
+  {
+    "key": "about_text_0091",
+    "section": "about",
+    "label": "More About Me",
+    "type": "text",
+    "value": "More About Me "
+  },
+  {
+    "key": "about_text_0092",
+    "section": "about",
+    "label": "B2B Lead Generation & Prospect List Building",
+    "type": "text",
+    "value": "B2B Lead Generation & Prospect List Building"
+  },
+  {
+    "key": "about_text_0093",
+    "section": "about",
+    "label": "Data Entry & Web Research",
+    "type": "text",
+    "value": "Data Entry & Web Research"
+  },
+  {
+    "key": "about_text_0094",
+    "section": "about",
+    "label": "WordPress, Shopify, Wix & Kajabi Management",
+    "type": "text",
+    "value": "WordPress, Shopify, Wix & Kajabi Management"
+  },
+  {
+    "key": "about_text_0095",
+    "section": "about",
+    "label": "Fiverr Profile Setup & Gig Optimization",
+    "type": "text",
+    "value": "Fiverr Profile Setup & Gig Optimization"
+  },
+  {
+    "key": "about_text_0096",
+    "section": "about",
+    "label": "Buyer Communication & Project Handling",
+    "type": "text",
+    "value": "Buyer Communication & Project Handling"
+  },
+  {
+    "key": "about_text_0097",
+    "section": "about",
+    "label": "“ Let’s connect and discuss",
+    "type": "text",
+    "value": "“ Let’s connect and discuss"
+  },
+  {
+    "key": "about_text_0098",
+    "section": "about",
+    "label": "how I can help you grow your online business! ”",
+    "type": "text",
+    "value": "how I can help you grow your online business! ”"
+  },
+  {
+    "key": "trusted-brands_text_0099",
+    "section": "trusted-brands",
+    "label": "Trusted by clients",
+    "type": "text",
+    "value": "\n        Trusted by clients"
+  },
+  {
+    "key": "trusted-brands_text_0100",
+    "section": "trusted-brands",
+    "label": "worldwide",
+    "type": "text",
+    "value": "worldwide"
+  },
+  {
+    "key": "trusted-brands_text_0101",
+    "section": "trusted-brands",
+    "label": "WordPress",
+    "type": "text",
+    "value": " WordPress\n            "
+  },
+  {
+    "key": "trusted-brands_text_0102",
+    "section": "trusted-brands",
+    "label": "Shopify",
+    "type": "text",
+    "value": " Shopify\n            "
+  },
+  {
+    "key": "trusted-brands_text_0103",
+    "section": "trusted-brands",
+    "label": "Wix",
+    "type": "text",
+    "value": " Wix\n            "
+  },
+  {
+    "key": "trusted-brands_text_0104",
+    "section": "trusted-brands",
+    "label": "Fiverr",
+    "type": "text",
+    "value": " Fiverr\n            "
+  },
+  {
+    "key": "trusted-brands_text_0105",
+    "section": "trusted-brands",
+    "label": "Upwork",
+    "type": "text",
+    "value": " Upwork\n            "
+  },
+  {
+    "key": "trusted-brands_text_0106",
+    "section": "trusted-brands",
+    "label": "WordPress",
+    "type": "text",
+    "value": " WordPress\n            "
+  },
+  {
+    "key": "trusted-brands_text_0107",
+    "section": "trusted-brands",
+    "label": "Shopify",
+    "type": "text",
+    "value": " Shopify\n            "
+  },
+  {
+    "key": "trusted-brands_text_0108",
+    "section": "trusted-brands",
+    "label": "Wix",
+    "type": "text",
+    "value": " Wix\n            "
+  },
+  {
+    "key": "trusted-brands_text_0109",
+    "section": "trusted-brands",
+    "label": "Fiverr",
+    "type": "text",
+    "value": " Fiverr\n            "
+  },
+  {
+    "key": "trusted-brands_text_0110",
+    "section": "trusted-brands",
+    "label": "Upwork",
+    "type": "text",
+    "value": " Upwork\n            "
+  },
+  {
+    "key": "trusted-brands_text_0111",
+    "section": "trusted-brands",
+    "label": "Let's Work Together",
+    "type": "text",
+    "value": "\n        Let's Work Together\n        "
+  },
+  {
+    "key": "portfolio_text_0112",
+    "section": "portfolio",
+    "label": "SELECTED WORK",
+    "type": "text",
+    "value": "SELECTED WORK"
+  },
+  {
+    "key": "portfolio_text_0113",
+    "section": "portfolio",
+    "label": "Projects That",
+    "type": "text",
+    "value": "Projects That "
+  },
+  {
+    "key": "portfolio_text_0114",
+    "section": "portfolio",
+    "label": "Show What I Do",
+    "type": "text",
+    "value": "Show What I Do"
+  },
+  {
+    "key": "portfolio_text_0115",
+    "section": "portfolio",
+    "label": "Selected website, e-commerce and lead-generation work presented in a clean, clie",
+    "type": "text",
+    "value": "Selected website, e-commerce and lead-generation work presented in a clean, client-friendly format."
+  },
+  {
+    "key": "portfolio_text_0116",
+    "section": "portfolio",
+    "label": "W",
+    "type": "text",
+    "value": "W"
+  },
+  {
+    "key": "portfolio_text_0117",
+    "section": "portfolio",
+    "label": "WORDPRESS",
+    "type": "text",
+    "value": "WORDPRESS"
+  },
+  {
+    "key": "portfolio_text_0118",
+    "section": "portfolio",
+    "label": "WORDPRESS · WEB DESIGN",
+    "type": "text",
+    "value": "WORDPRESS · WEB DESIGN"
+  },
+  {
+    "key": "portfolio_text_0119",
+    "section": "portfolio",
+    "label": "Business Website Development",
+    "type": "text",
+    "value": "Business Website Development"
+  },
+  {
+    "key": "portfolio_text_0120",
+    "section": "portfolio",
+    "label": "Responsive, modern and SEO-friendly WordPress website with clear conversion-focu",
+    "type": "text",
+    "value": "Responsive, modern and SEO-friendly WordPress website with clear conversion-focused sections."
+  },
+  {
+    "key": "portfolio_text_0121",
+    "section": "portfolio",
+    "label": "WordPress",
+    "type": "text",
+    "value": "WordPress"
+  },
+  {
+    "key": "portfolio_text_0122",
+    "section": "portfolio",
+    "label": "Elementor",
+    "type": "text",
+    "value": "Elementor"
+  },
+  {
+    "key": "portfolio_text_0123",
+    "section": "portfolio",
+    "label": "Responsive",
+    "type": "text",
+    "value": "Responsive"
+  },
+  {
+    "key": "portfolio_text_0124",
+    "section": "portfolio",
+    "label": "View Project",
+    "type": "text",
+    "value": "View Project "
+  },
+  {
+    "key": "portfolio_text_0125",
+    "section": "portfolio",
+    "label": "🛍",
+    "type": "text",
+    "value": "🛍"
+  },
+  {
+    "key": "portfolio_text_0126",
+    "section": "portfolio",
+    "label": "SHOPIFY",
+    "type": "text",
+    "value": "SHOPIFY"
+  },
+  {
+    "key": "portfolio_text_0127",
+    "section": "portfolio",
+    "label": "E-COMMERCE · MANAGEMENT",
+    "type": "text",
+    "value": "E-COMMERCE · MANAGEMENT"
+  },
+  {
+    "key": "portfolio_text_0128",
+    "section": "portfolio",
+    "label": "Shopify Store Setup",
+    "type": "text",
+    "value": "Shopify Store Setup"
+  },
+  {
+    "key": "portfolio_text_0129",
+    "section": "portfolio",
+    "label": "Store structure, product management, responsive design and conversion-focused cu",
+    "type": "text",
+    "value": "Store structure, product management, responsive design and conversion-focused customer journey."
+  },
+  {
+    "key": "portfolio_text_0130",
+    "section": "portfolio",
+    "label": "Shopify",
+    "type": "text",
+    "value": "Shopify"
+  },
+  {
+    "key": "portfolio_text_0131",
+    "section": "portfolio",
+    "label": "Products",
+    "type": "text",
+    "value": "Products"
+  },
+  {
+    "key": "portfolio_text_0132",
+    "section": "portfolio",
+    "label": "SEO",
+    "type": "text",
+    "value": "SEO"
+  },
+  {
+    "key": "portfolio_text_0133",
+    "section": "portfolio",
+    "label": "View Project",
+    "type": "text",
+    "value": "View Project "
+  },
+  {
+    "key": "portfolio_text_0134",
+    "section": "portfolio",
+    "label": "◎",
+    "type": "text",
+    "value": "◎"
+  },
+  {
+    "key": "portfolio_text_0135",
+    "section": "portfolio",
+    "label": "LEAD GENERATION",
+    "type": "text",
+    "value": "LEAD GENERATION"
+  },
+  {
+    "key": "portfolio_text_0136",
+    "section": "portfolio",
+    "label": "B2B · RESEARCH",
+    "type": "text",
+    "value": "B2B · RESEARCH"
+  },
+  {
+    "key": "portfolio_text_0137",
+    "section": "portfolio",
+    "label": "Targeted Prospect Lists",
+    "type": "text",
+    "value": "Targeted Prospect Lists"
+  },
+  {
+    "key": "portfolio_text_0138",
+    "section": "portfolio",
+    "label": "Accurate business research and qualified prospect data organized for effective o",
+    "type": "text",
+    "value": "Accurate business research and qualified prospect data organized for effective outreach."
+  },
+  {
+    "key": "portfolio_text_0139",
+    "section": "portfolio",
+    "label": "B2B Leads",
+    "type": "text",
+    "value": "B2B Leads"
+  },
+  {
+    "key": "portfolio_text_0140",
+    "section": "portfolio",
+    "label": "Research",
+    "type": "text",
+    "value": "Research"
+  },
+  {
+    "key": "portfolio_text_0141",
+    "section": "portfolio",
+    "label": "Data Entry",
+    "type": "text",
+    "value": "Data Entry"
+  },
+  {
+    "key": "portfolio_text_0142",
+    "section": "portfolio",
+    "label": "View Project",
+    "type": "text",
+    "value": "View Project "
+  },
+  {
+    "key": "process_text_0143",
+    "section": "process",
+    "label": "MY WORK PROCESS",
+    "type": "text",
+    "value": "MY WORK PROCESS"
+  },
+  {
+    "key": "process_text_0144",
+    "section": "process",
+    "label": "Simple Process.",
+    "type": "text",
+    "value": "Simple Process."
+  },
+  {
+    "key": "process_text_0145",
+    "section": "process",
+    "label": "Better Results.",
+    "type": "text",
+    "value": "Better Results."
+  },
+  {
+    "key": "process_text_0146",
+    "section": "process",
+    "label": "I keep every project organized so you always know what is happening and what com",
+    "type": "text",
+    "value": "I keep every project organized so you always know what is happening and what comes next."
+  },
+  {
+    "key": "process_text_0147",
+    "section": "process",
+    "label": "01",
+    "type": "text",
+    "value": "01"
+  },
+  {
+    "key": "process_text_0148",
+    "section": "process",
+    "label": "Discuss",
+    "type": "text",
+    "value": "Discuss"
+  },
+  {
+    "key": "process_text_0149",
+    "section": "process",
+    "label": "Understand your goals, audience and requirements.",
+    "type": "text",
+    "value": "Understand your goals, audience and requirements."
+  },
+  {
+    "key": "process_text_0150",
+    "section": "process",
+    "label": "02",
+    "type": "text",
+    "value": "02"
+  },
+  {
+    "key": "process_text_0151",
+    "section": "process",
+    "label": "Plan",
+    "type": "text",
+    "value": "Plan"
+  },
+  {
+    "key": "process_text_0152",
+    "section": "process",
+    "label": "Create the structure, content flow and project roadmap.",
+    "type": "text",
+    "value": "Create the structure, content flow and project roadmap."
+  },
+  {
+    "key": "process_text_0153",
+    "section": "process",
+    "label": "03",
+    "type": "text",
+    "value": "03"
+  },
+  {
+    "key": "process_text_0154",
+    "section": "process",
+    "label": "Build",
+    "type": "text",
+    "value": "Build"
+  },
+  {
+    "key": "process_text_0155",
+    "section": "process",
+    "label": "Develop a responsive, clean and user-friendly solution.",
+    "type": "text",
+    "value": "Develop a responsive, clean and user-friendly solution."
+  },
+  {
+    "key": "process_text_0156",
+    "section": "process",
+    "label": "04",
+    "type": "text",
+    "value": "04"
+  },
+  {
+    "key": "process_text_0157",
+    "section": "process",
+    "label": "Launch",
+    "type": "text",
+    "value": "Launch"
+  },
+  {
+    "key": "process_text_0158",
+    "section": "process",
+    "label": "Test, refine and deliver everything ready to use.",
+    "type": "text",
+    "value": "Test, refine and deliver everything ready to use."
+  },
+  {
+    "key": "results_text_0159",
+    "section": "results",
+    "label": "WHY WORK WITH ME",
+    "type": "text",
+    "value": "WHY WORK WITH ME"
+  },
+  {
+    "key": "results_text_0160",
+    "section": "results",
+    "label": "Focused on",
+    "type": "text",
+    "value": "Focused on "
+  },
+  {
+    "key": "results_text_0161",
+    "section": "results",
+    "label": "Quality & Results",
+    "type": "text",
+    "value": "Quality & Results"
+  },
+  {
+    "key": "results_text_0162",
+    "section": "results",
+    "label": "100%",
+    "type": "text",
+    "value": "100%"
+  },
+  {
+    "key": "results_text_0163",
+    "section": "results",
+    "label": "Responsive Design",
+    "type": "text",
+    "value": "Responsive Design"
+  },
+  {
+    "key": "results_text_0164",
+    "section": "results",
+    "label": "Fast",
+    "type": "text",
+    "value": "Fast"
+  },
+  {
+    "key": "results_text_0165",
+    "section": "results",
+    "label": "Performance Focus",
+    "type": "text",
+    "value": "Performance Focus"
+  },
+  {
+    "key": "results_text_0166",
+    "section": "results",
+    "label": "SEO",
+    "type": "text",
+    "value": "SEO"
+  },
+  {
+    "key": "results_text_0167",
+    "section": "results",
+    "label": "Search-Friendly Structure",
+    "type": "text",
+    "value": "Search-Friendly Structure"
+  },
+  {
+    "key": "results_text_0168",
+    "section": "results",
+    "label": "Reliable",
+    "type": "text",
+    "value": "Reliable"
+  },
+  {
+    "key": "results_text_0169",
+    "section": "results",
+    "label": "Client Communication",
+    "type": "text",
+    "value": "Client Communication"
+  },
+  {
+    "key": "testimonials_text_0170",
+    "section": "testimonials",
+    "label": "CLIENT EXPERIENCE",
+    "type": "text",
+    "value": "CLIENT EXPERIENCE"
+  },
+  {
+    "key": "testimonials_text_0171",
+    "section": "testimonials",
+    "label": "What Clients",
+    "type": "text",
+    "value": "What Clients "
+  },
+  {
+    "key": "testimonials_text_0172",
+    "section": "testimonials",
+    "label": "Value",
+    "type": "text",
+    "value": "Value"
+  },
+  {
+    "key": "testimonials_text_0173",
+    "section": "testimonials",
+    "label": "★★★★★",
+    "type": "text",
+    "value": "★★★★★"
+  },
+  {
+    "key": "testimonials_text_0174",
+    "section": "testimonials",
+    "label": "“Clear communication, attention to detail and a professional approach from start",
+    "type": "text",
+    "value": "“Clear communication, attention to detail and a professional approach from start to finish.”"
+  },
+  {
+    "key": "testimonials_text_0175",
+    "section": "testimonials",
+    "label": "Website Client",
+    "type": "text",
+    "value": "Website Client"
+  },
+  {
+    "key": "testimonials_text_0176",
+    "section": "testimonials",
+    "label": "WordPress Project",
+    "type": "text",
+    "value": "WordPress Project"
+  },
+  {
+    "key": "testimonials_text_0177",
+    "section": "testimonials",
+    "label": "★★★★★",
+    "type": "text",
+    "value": "★★★★★"
+  },
+  {
+    "key": "testimonials_text_0178",
+    "section": "testimonials",
+    "label": "“The work was organized, responsive and delivered with a strong understanding of",
+    "type": "text",
+    "value": "“The work was organized, responsive and delivered with a strong understanding of what the business needed.”"
+  },
+  {
+    "key": "testimonials_text_0179",
+    "section": "testimonials",
+    "label": "Business Client",
+    "type": "text",
+    "value": "Business Client"
+  },
+  {
+    "key": "testimonials_text_0180",
+    "section": "testimonials",
+    "label": "Website Management",
+    "type": "text",
+    "value": "Website Management"
+  },
+  {
+    "key": "testimonials_text_0181",
+    "section": "testimonials",
+    "label": "★★★★★",
+    "type": "text",
+    "value": "★★★★★"
+  },
+  {
+    "key": "testimonials_text_0182",
+    "section": "testimonials",
+    "label": "“Reliable support and careful handling of research, data and online business tas",
+    "type": "text",
+    "value": "“Reliable support and careful handling of research, data and online business tasks.”"
+  },
+  {
+    "key": "testimonials_text_0183",
+    "section": "testimonials",
+    "label": "Digital Client",
+    "type": "text",
+    "value": "Digital Client"
+  },
+  {
+    "key": "testimonials_text_0184",
+    "section": "testimonials",
+    "label": "Lead Generation",
+    "type": "text",
+    "value": "Lead Generation"
+  },
+  {
+    "key": "faq_text_0185",
+    "section": "faq",
+    "label": "FAQ",
+    "type": "text",
+    "value": "FAQ"
+  },
+  {
+    "key": "faq_text_0186",
+    "section": "faq",
+    "label": "Questions Before",
+    "type": "text",
+    "value": "Questions Before"
+  },
+  {
+    "key": "faq_text_0187",
+    "section": "faq",
+    "label": "We Start?",
+    "type": "text",
+    "value": "We Start?"
+  },
+  {
+    "key": "faq_text_0188",
+    "section": "faq",
+    "label": "Here are a few quick answers for potential clients.",
+    "type": "text",
+    "value": "Here are a few quick answers for potential clients."
+  },
+  {
+    "key": "faq_text_0189",
+    "section": "faq",
+    "label": "What type of websites do you build?",
+    "type": "text",
+    "value": "What type of websites do you build?"
+  },
+  {
+    "key": "faq_text_0190",
+    "section": "faq",
+    "label": "I work with WordPress, Shopify, Wix and other website platforms depending on the",
+    "type": "text",
+    "value": "I work with WordPress, Shopify, Wix and other website platforms depending on the project requirements."
+  },
+  {
+    "key": "faq_text_0191",
+    "section": "faq",
+    "label": "Can you work from an existing design or Figma file?",
+    "type": "text",
+    "value": "Can you work from an existing design or Figma file?"
+  },
+  {
+    "key": "faq_text_0192",
+    "section": "faq",
+    "label": "Yes. I can convert approved designs into responsive, functional website layouts ",
+    "type": "text",
+    "value": "Yes. I can convert approved designs into responsive, functional website layouts while keeping the visual structure consistent."
+  },
+  {
+    "key": "faq_text_0193",
+    "section": "faq",
+    "label": "Do you provide website management after delivery?",
+    "type": "text",
+    "value": "Do you provide website management after delivery?"
+  },
+  {
+    "key": "faq_text_0194",
+    "section": "faq",
+    "label": "Yes. Website updates, product/content management and ongoing support can be hand",
+    "type": "text",
+    "value": "Yes. Website updates, product/content management and ongoing support can be handled based on your needs."
+  },
+  {
+    "key": "faq_text_0195",
+    "section": "faq",
+    "label": "Can you help with lead generation too?",
+    "type": "text",
+    "value": "Can you help with lead generation too?"
+  },
+  {
+    "key": "faq_text_0196",
+    "section": "faq",
+    "label": "Yes. Targeted B2B prospect research, list building, data entry and online resear",
+    "type": "text",
+    "value": "Yes. Targeted B2B prospect research, list building, data entry and online research are part of my services."
+  },
+  {
+    "key": "footer-cta_text_0197",
+    "section": "footer-cta",
+    "label": "HAVE A PROJECT IN MIND?",
+    "type": "text",
+    "value": "HAVE A PROJECT IN MIND?"
+  },
+  {
+    "key": "footer-cta_text_0198",
+    "section": "footer-cta",
+    "label": "Let’s Turn Your Idea Into",
+    "type": "text",
+    "value": "Let’s Turn Your Idea Into "
+  },
+  {
+    "key": "footer-cta_text_0199",
+    "section": "footer-cta",
+    "label": "Reality.",
+    "type": "text",
+    "value": "Reality."
+  },
+  {
+    "key": "footer-cta_text_0200",
+    "section": "footer-cta",
+    "label": "Tell me what you need and I’ll help you choose the right approach.",
+    "type": "text",
+    "value": "Tell me what you need and I’ll help you choose the right approach."
+  },
+  {
+    "key": "footer-cta_text_0201",
+    "section": "footer-cta",
+    "label": "Start a Project",
+    "type": "text",
+    "value": "Start a Project "
+  },
+  {
+    "key": "experience_text_0202",
+    "section": "experience",
+    "label": "PROFESSIONAL JOURNEY",
+    "type": "text",
+    "value": "PROFESSIONAL JOURNEY"
+  },
+  {
+    "key": "experience_text_0203",
+    "section": "experience",
+    "label": "Experience &",
+    "type": "text",
+    "value": "Experience & "
+  },
+  {
+    "key": "experience_text_0204",
+    "section": "experience",
+    "label": "Growth",
+    "type": "text",
+    "value": "Growth"
+  },
+  {
+    "key": "experience_text_0205",
+    "section": "experience",
+    "label": "A journey of continuous learning, professional growth\n        and delivering val",
+    "type": "text",
+    "value": "\n        A journey of continuous learning, professional growth\n        and delivering value through real-world experience.\n      "
+  },
+  {
+    "key": "experience_text_0206",
+    "section": "experience",
+    "label": "JUN 2025 — PRESENT",
+    "type": "text",
+    "value": "\n              JUN 2025 — PRESENT\n            "
+  },
+  {
+    "key": "experience_text_0207",
+    "section": "experience",
+    "label": "Sales Executive",
+    "type": "text",
+    "value": "Sales Executive"
+  },
+  {
+    "key": "experience_text_0208",
+    "section": "experience",
+    "label": "Bdcalling IT Ltd.",
+    "type": "text",
+    "value": "Bdcalling IT Ltd."
+  },
+  {
+    "key": "experience_text_0209",
+    "section": "experience",
+    "label": "Handling sales, client communication and business\n              development. Als",
+    "type": "text",
+    "value": "\n              Handling sales, client communication and business\n              development. Also working with WordPress and\n              responsive web design projects.\n            "
+  },
+  {
+    "key": "experience_text_0210",
+    "section": "experience",
+    "label": "Sales",
+    "type": "text",
+    "value": "Sales"
+  },
+  {
+    "key": "experience_text_0211",
+    "section": "experience",
+    "label": "WordPress",
+    "type": "text",
+    "value": "WordPress"
+  },
+  {
+    "key": "experience_text_0212",
+    "section": "experience",
+    "label": "Responsive Web Design",
+    "type": "text",
+    "value": "Responsive Web Design"
+  },
+  {
+    "key": "experience_src_0213",
+    "section": "experience",
+    "label": "img src: assets/images/logo-black.svg",
+    "type": "image",
+    "value": "assets/images/logo-black.svg"
+  },
+  {
+    "key": "experience_alt_0214",
+    "section": "experience",
+    "label": "img alt: Bdcalling IT Ltd.",
+    "type": "text",
+    "value": "Bdcalling IT Ltd."
+  },
+  {
+    "key": "experience_text_0215",
+    "section": "experience",
+    "label": "● Current",
+    "type": "text",
+    "value": "● Current"
+  },
+  {
+    "key": "experience_text_0216",
+    "section": "experience",
+    "label": "01",
+    "type": "text",
+    "value": "01"
+  },
+  {
+    "key": "experience_text_0217",
+    "section": "experience",
+    "label": "JUN 2024 — OCT 2025",
+    "type": "text",
+    "value": "\n              JUN 2024 — OCT 2025\n            "
+  },
+  {
+    "key": "experience_text_0218",
+    "section": "experience",
+    "label": "Head of Sales & Business Development",
+    "type": "text",
+    "value": "Head of Sales & Business Development"
+  },
+  {
+    "key": "experience_text_0219",
+    "section": "experience",
+    "label": "Victoria Sourcing IT",
+    "type": "text",
+    "value": "Victoria Sourcing IT"
+  },
+  {
+    "key": "experience_text_0220",
+    "section": "experience",
+    "label": "Led the sales and business development team,\n              built client relation",
+    "type": "text",
+    "value": "\n              Led the sales and business development team,\n              built client relationships and contributed to\n              company growth through strategic planning\n              and execution.\n            "
+  },
+  {
+    "key": "experience_text_0221",
+    "section": "experience",
+    "label": "Team Management",
+    "type": "text",
+    "value": "Team Management"
+  },
+  {
+    "key": "experience_text_0222",
+    "section": "experience",
+    "label": "Business Development",
+    "type": "text",
+    "value": "Business Development"
+  },
+  {
+    "key": "experience_text_0223",
+    "section": "experience",
+    "label": "Client Relations",
+    "type": "text",
+    "value": "Client Relations"
+  },
+  {
+    "key": "experience_src_0224",
+    "section": "experience",
+    "label": "img src: assets/images/440902975_122105858264296207_452293088794617364_n.j",
+    "type": "image",
+    "value": "assets/images/440902975_122105858264296207_452293088794617364_n.jpg"
+  },
+  {
+    "key": "experience_alt_0225",
+    "section": "experience",
+    "label": "img alt: Victoria Sourcing IT",
+    "type": "text",
+    "value": "Victoria Sourcing IT"
+  },
+  {
+    "key": "experience_text_0226",
+    "section": "experience",
+    "label": "02",
+    "type": "text",
+    "value": "02"
+  },
+  {
+    "key": "experience_text_0227",
+    "section": "experience",
+    "label": "OCT 2019 — OCT 2025",
+    "type": "text",
+    "value": "\n              OCT 2019 — OCT 2025\n            "
+  },
+  {
+    "key": "experience_text_0228",
+    "section": "experience",
+    "label": "Responsive Web Designer & Front-End Developer",
+    "type": "text",
+    "value": "Responsive Web Designer & Front-End Developer"
+  },
+  {
+    "key": "experience_text_0229",
+    "section": "experience",
+    "label": "Fiverr",
+    "type": "text",
+    "value": "Fiverr"
+  },
+  {
+    "key": "experience_text_0230",
+    "section": "experience",
+    "label": "Designed and developed responsive websites\n              for clients worldwide. ",
+    "type": "text",
+    "value": "\n              Designed and developed responsive websites\n              for clients worldwide. Worked on WordPress,\n              Shopify, Wix and custom front-end development.\n            "
+  },
+  {
+    "key": "experience_text_0231",
+    "section": "experience",
+    "label": "Web Design",
+    "type": "text",
+    "value": "Web Design"
+  },
+  {
+    "key": "experience_text_0232",
+    "section": "experience",
+    "label": "Front-End Development",
+    "type": "text",
+    "value": "Front-End Development"
+  },
+  {
+    "key": "experience_text_0233",
+    "section": "experience",
+    "label": "Client Projects",
+    "type": "text",
+    "value": "Client Projects"
+  },
+  {
+    "key": "experience_src_0234",
+    "section": "experience",
+    "label": "img src: assets/images/Fiverr-Logo.png",
+    "type": "image",
+    "value": "assets/images/Fiverr-Logo.png"
+  },
+  {
+    "key": "experience_alt_0235",
+    "section": "experience",
+    "label": "img alt: Fiverr",
+    "type": "text",
+    "value": "Fiverr"
+  },
+  {
+    "key": "experience_text_0236",
+    "section": "experience",
+    "label": "03",
+    "type": "text",
+    "value": "03"
+  },
+  {
+    "key": "skills_text_0237",
+    "section": "skills",
+    "label": "SKILLS & CAPABILITIES",
+    "type": "text",
+    "value": "\n        SKILLS & CAPABILITIES\n        "
+  },
+  {
+    "key": "skills_text_0238",
+    "section": "skills",
+    "label": "Tools I Work",
+    "type": "text",
+    "value": "Tools I Work "
+  },
+  {
+    "key": "skills_text_0239",
+    "section": "skills",
+    "label": "With",
+    "type": "text",
+    "value": "With"
+  },
+  {
+    "key": "skills_text_0240",
+    "section": "skills",
+    "label": "I use modern tools and technologies to build high-quality websites,\n        mana",
+    "type": "text",
+    "value": "\n        I use modern tools and technologies to build high-quality websites,\n        manage projects efficiently and deliver the best results for my clients.\n      "
+  },
+  {
+    "key": "skills_text_0241",
+    "section": "skills",
+    "label": "WordPress Development",
+    "type": "text",
+    "value": "WordPress Development"
+  },
+  {
+    "key": "skills_text_0242",
+    "section": "skills",
+    "label": "Custom themes, plugins and full website development.",
+    "type": "text",
+    "value": "Custom themes, plugins and full website development."
+  },
+  {
+    "key": "skills_text_0243",
+    "section": "skills",
+    "label": "PSD to WordPress",
+    "type": "text",
+    "value": "PSD to WordPress"
+  },
+  {
+    "key": "skills_text_0244",
+    "section": "skills",
+    "label": "Pixel-perfect conversion with clean, responsive code.",
+    "type": "text",
+    "value": "Pixel-perfect conversion with clean, responsive code."
+  },
+  {
+    "key": "skills_text_0245",
+    "section": "skills",
+    "label": "WordPress Design",
+    "type": "text",
+    "value": "WordPress Design"
+  },
+  {
+    "key": "skills_text_0246",
+    "section": "skills",
+    "label": "Modern, responsive and user-friendly designs.",
+    "type": "text",
+    "value": "Modern, responsive and user-friendly designs."
+  },
+  {
+    "key": "skills_text_0247",
+    "section": "skills",
+    "label": "Shopify",
+    "type": "text",
+    "value": "Shopify"
+  },
+  {
+    "key": "skills_text_0248",
+    "section": "skills",
+    "label": "Store setup, customization and optimization.",
+    "type": "text",
+    "value": "Store setup, customization and optimization."
+  },
+  {
+    "key": "skills_text_0249",
+    "section": "skills",
+    "label": "Wix",
+    "type": "text",
+    "value": "Wix"
+  },
+  {
+    "key": "skills_text_0250",
+    "section": "skills",
+    "label": "Beautiful websites with flexibility and ease of use.",
+    "type": "text",
+    "value": "Beautiful websites with flexibility and ease of use."
+  },
+  {
+    "key": "skills_text_0251",
+    "section": "skills",
+    "label": "Kajabi",
+    "type": "text",
+    "value": "Kajabi"
+  },
+  {
+    "key": "skills_text_0252",
+    "section": "skills",
+    "label": "Course websites, memberships and landing pages.",
+    "type": "text",
+    "value": "Course websites, memberships and landing pages."
+  },
+  {
+    "key": "skills_text_0253",
+    "section": "skills",
+    "label": "Bootstrap",
+    "type": "text",
+    "value": "Bootstrap"
+  },
+  {
+    "key": "skills_text_0254",
+    "section": "skills",
+    "label": "Responsive layouts and modern UI development.",
+    "type": "text",
+    "value": "Responsive layouts and modern UI development."
+  },
+  {
+    "key": "skills_text_0255",
+    "section": "skills",
+    "label": "B2B Lead Generation",
+    "type": "text",
+    "value": "B2B Lead Generation"
+  },
+  {
+    "key": "skills_text_0256",
+    "section": "skills",
+    "label": "Quality leads to support business growth.",
+    "type": "text",
+    "value": "Quality leads to support business growth."
+  },
+  {
+    "key": "skills_text_0257",
+    "section": "skills",
+    "label": "Data Entry",
+    "type": "text",
+    "value": "Data Entry"
+  },
+  {
+    "key": "skills_text_0258",
+    "section": "skills",
+    "label": "Accurate data processing and reliable support.",
+    "type": "text",
+    "value": "Accurate data processing and reliable support."
+  },
+  {
+    "key": "skills_text_0259",
+    "section": "skills",
+    "label": "Online Research",
+    "type": "text",
+    "value": "Online Research"
+  },
+  {
+    "key": "skills_text_0260",
+    "section": "skills",
+    "label": "In-depth research for better decisions.",
+    "type": "text",
+    "value": "In-depth research for better decisions."
+  },
+  {
+    "key": "contact_text_0261",
+    "section": "contact",
+    "label": "LET’S CONNECT",
+    "type": "text",
+    "value": "LET’S CONNECT"
+  },
+  {
+    "key": "contact_text_0262",
+    "section": "contact",
+    "label": "Let’s Build Something",
+    "type": "text",
+    "value": "Let’s Build Something"
+  },
+  {
+    "key": "contact_text_0263",
+    "section": "contact",
+    "label": "Amazing",
+    "type": "text",
+    "value": "Amazing"
+  },
+  {
+    "key": "contact_text_0264",
+    "section": "contact",
+    "label": "Have a website, lead generation or digital support requirement? Send a quick mes",
+    "type": "text",
+    "value": "Have a website, lead generation or digital support requirement? Send a quick message and start the conversation."
+  },
+  {
+    "key": "contact_text_0265",
+    "section": "contact",
+    "label": "Tell me about your project ✦",
+    "type": "text",
+    "value": "Tell me about your project ✦"
+  },
+  {
+    "key": "contact_placeholder_0266",
+    "section": "contact",
+    "label": "input placeholder: Your name",
+    "type": "text",
+    "value": "Your name"
+  },
+  {
+    "key": "contact_placeholder_0267",
+    "section": "contact",
+    "label": "input placeholder: you@example.com",
+    "type": "text",
+    "value": "you@example.com"
+  },
+  {
+    "key": "contact_placeholder_0268",
+    "section": "contact",
+    "label": "textarea placeholder: A short description of your project...",
+    "type": "text",
+    "value": "A short description of your project..."
+  },
+  {
+    "key": "contact_text_0269",
+    "section": "contact",
+    "label": "Send Inquiry",
+    "type": "text",
+    "value": "\n    Send Inquiry "
+  },
+  {
+    "key": "footer_text_0270",
+    "section": "footer",
+    "label": "HAVE A PROJECT IN MIND?",
+    "type": "text",
+    "value": " HAVE A PROJECT IN MIND?\n        "
+  },
+  {
+    "key": "footer_text_0271",
+    "section": "footer",
+    "label": "Let's Build Something",
+    "type": "text",
+    "value": "Let's Build Something "
+  },
+  {
+    "key": "footer_text_0272",
+    "section": "footer",
+    "label": "Amazing!",
+    "type": "text",
+    "value": "Amazing!"
+  },
+  {
+    "key": "footer_text_0273",
+    "section": "footer",
+    "label": "Have an idea? Let's turn it into a beautiful,\n          high-performing digital ",
+    "type": "text",
+    "value": "\n          Have an idea? Let's turn it into a beautiful,\n          high-performing digital experience.\n        "
+  },
+  {
+    "key": "footer_href_0274",
+    "section": "footer",
+    "label": "a href: contact.html",
+    "type": "url",
+    "value": "contact.html"
+  },
+  {
+    "key": "footer_text_0275",
+    "section": "footer",
+    "label": "Let's Talk",
+    "type": "text",
+    "value": "\n        Let's Talk\n        "
+  },
+  {
+    "key": "footer_href_0276",
+    "section": "footer",
+    "label": "a href: index.html",
+    "type": "url",
+    "value": "index.html"
+  },
+  {
+    "key": "footer_text_0277",
+    "section": "footer",
+    "label": "M",
+    "type": "text",
+    "value": "M"
+  },
+  {
+    "key": "footer_text_0278",
+    "section": "footer",
+    "label": "Md. Salman",
+    "type": "text",
+    "value": "Md. Salman"
+  },
+  {
+    "key": "footer_text_0279",
+    "section": "footer",
+    "label": "WordPress Developer",
+    "type": "text",
+    "value": "WordPress Developer"
+  },
+  {
+    "key": "footer_text_0280",
+    "section": "footer",
+    "label": "I'm Md. Salman Dewan, a WordPress Developer\n          and Web Designer with 7+ y",
+    "type": "text",
+    "value": "\n          I'm Md. Salman Dewan, a WordPress Developer\n          and Web Designer with 7+ years of experience.\n          I create modern, responsive and user-friendly\n          websites that help businesses grow.\n        "
+  },
+  {
+    "key": "footer_href_0281",
+    "section": "footer",
+    "label": "a href: https://www.linkedin.com/in/md-salman-253a80174/",
+    "type": "url",
+    "value": "https://www.linkedin.com/in/md-salman-253a80174/"
+  },
+  {
+    "key": "footer_href_0282",
+    "section": "footer",
+    "label": "a href: https://www.fiverr.com/",
+    "type": "url",
+    "value": "https://www.fiverr.com/"
+  },
+  {
+    "key": "footer_text_0283",
+    "section": "footer",
+    "label": "fi",
+    "type": "text",
+    "value": "fi"
+  },
+  {
+    "key": "footer_href_0284",
+    "section": "footer",
+    "label": "a href: https://www.upwork.com/",
+    "type": "url",
+    "value": "https://www.upwork.com/"
+  },
+  {
+    "key": "footer_text_0285",
+    "section": "footer",
+    "label": "up",
+    "type": "text",
+    "value": "up"
+  },
+  {
+    "key": "footer_href_0286",
+    "section": "footer",
+    "label": "a href: mailto:salman.smt24@gmail.com",
+    "type": "url",
+    "value": "mailto:salman.smt24@gmail.com"
+  },
+  {
+    "key": "footer_text_0287",
+    "section": "footer",
+    "label": "Quick Links",
+    "type": "text",
+    "value": "Quick Links"
+  },
+  {
+    "key": "footer_href_0288",
+    "section": "footer",
+    "label": "a href: index.html",
+    "type": "url",
+    "value": "index.html"
+  },
+  {
+    "key": "footer_text_0289",
+    "section": "footer",
+    "label": "Home",
+    "type": "text",
+    "value": "Home"
+  },
+  {
+    "key": "footer_href_0290",
+    "section": "footer",
+    "label": "a href: about.html",
+    "type": "url",
+    "value": "about.html"
+  },
+  {
+    "key": "footer_text_0291",
+    "section": "footer",
+    "label": "About Me",
+    "type": "text",
+    "value": "About Me"
+  },
+  {
+    "key": "footer_href_0292",
+    "section": "footer",
+    "label": "a href: services.html",
+    "type": "url",
+    "value": "services.html"
+  },
+  {
+    "key": "footer_text_0293",
+    "section": "footer",
+    "label": "Services",
+    "type": "text",
+    "value": "Services"
+  },
+  {
+    "key": "footer_href_0294",
+    "section": "footer",
+    "label": "a href: portfolio.html",
+    "type": "url",
+    "value": "portfolio.html"
+  },
+  {
+    "key": "footer_text_0295",
+    "section": "footer",
+    "label": "Portfolio",
+    "type": "text",
+    "value": "Portfolio"
+  },
+  {
+    "key": "footer_href_0296",
+    "section": "footer",
+    "label": "a href: experience.html",
+    "type": "url",
+    "value": "experience.html"
+  },
+  {
+    "key": "footer_text_0297",
+    "section": "footer",
+    "label": "Experience",
+    "type": "text",
+    "value": "Experience"
+  },
+  {
+    "key": "footer_href_0298",
+    "section": "footer",
+    "label": "a href: contact.html",
+    "type": "url",
+    "value": "contact.html"
+  },
+  {
+    "key": "footer_text_0299",
+    "section": "footer",
+    "label": "Contact",
+    "type": "text",
+    "value": "Contact"
+  },
+  {
+    "key": "footer_text_0300",
+    "section": "footer",
+    "label": "My Services",
+    "type": "text",
+    "value": "My Services"
+  },
+  {
+    "key": "footer_href_0301",
+    "section": "footer",
+    "label": "a href: services.html",
+    "type": "url",
+    "value": "services.html"
+  },
+  {
+    "key": "footer_text_0302",
+    "section": "footer",
+    "label": "WordPress Development",
+    "type": "text",
+    "value": "WordPress Development"
+  },
+  {
+    "key": "footer_href_0303",
+    "section": "footer",
+    "label": "a href: services.html",
+    "type": "url",
+    "value": "services.html"
+  },
+  {
+    "key": "footer_text_0304",
+    "section": "footer",
+    "label": "Website Design",
+    "type": "text",
+    "value": "Website Design"
+  },
+  {
+    "key": "footer_href_0305",
+    "section": "footer",
+    "label": "a href: services.html",
+    "type": "url",
+    "value": "services.html"
+  },
+  {
+    "key": "footer_text_0306",
+    "section": "footer",
+    "label": "Shopify Development",
+    "type": "text",
+    "value": "Shopify Development"
+  },
+  {
+    "key": "footer_href_0307",
+    "section": "footer",
+    "label": "a href: services.html",
+    "type": "url",
+    "value": "services.html"
+  },
+  {
+    "key": "footer_text_0308",
+    "section": "footer",
+    "label": "Wix Website Design",
+    "type": "text",
+    "value": "Wix Website Design"
+  },
+  {
+    "key": "footer_href_0309",
+    "section": "footer",
+    "label": "a href: services.html",
+    "type": "url",
+    "value": "services.html"
+  },
+  {
+    "key": "footer_text_0310",
+    "section": "footer",
+    "label": "B2B Lead Generation",
+    "type": "text",
+    "value": "B2B Lead Generation"
+  },
+  {
+    "key": "footer_href_0311",
+    "section": "footer",
+    "label": "a href: services.html",
+    "type": "url",
+    "value": "services.html"
+  },
+  {
+    "key": "footer_text_0312",
+    "section": "footer",
+    "label": "Website Management",
+    "type": "text",
+    "value": "Website Management"
+  },
+  {
+    "key": "footer_text_0313",
+    "section": "footer",
+    "label": "Get In Touch",
+    "type": "text",
+    "value": "Get In Touch"
+  },
+  {
+    "key": "footer_text_0314",
+    "section": "footer",
+    "label": "Location",
+    "type": "text",
+    "value": "Location"
+  },
+  {
+    "key": "footer_text_0315",
+    "section": "footer",
+    "label": "Dhaka, Bangladesh",
+    "type": "text",
+    "value": "Dhaka, Bangladesh"
+  },
+  {
+    "key": "footer_text_0316",
+    "section": "footer",
+    "label": "Email Address",
+    "type": "text",
+    "value": "Email Address"
+  },
+  {
+    "key": "footer_href_0317",
+    "section": "footer",
+    "label": "a href: mailto:salman.smt24@gmail.com",
+    "type": "url",
+    "value": "mailto:salman.smt24@gmail.com"
+  },
+  {
+    "key": "footer_text_0318",
+    "section": "footer",
+    "label": "salman.smt24@gmail.com",
+    "type": "text",
+    "value": "\n              salman.smt24@gmail.com\n            "
+  },
+  {
+    "key": "footer_text_0319",
+    "section": "footer",
+    "label": "Available for new projects",
+    "type": "text",
+    "value": "\n          Available for new projects\n        "
+  },
+  {
+    "key": "footer_text_0320",
+    "section": "footer",
+    "label": "©",
+    "type": "text",
+    "value": "\n        © "
+  },
+  {
+    "key": "footer_text_0321",
+    "section": "footer",
+    "label": "All Rights Reserved.",
+    "type": "text",
+    "value": "\n        All Rights Reserved.\n      "
+  },
+  {
+    "key": "footer_text_0322",
+    "section": "footer",
+    "label": "2026",
+    "type": "text",
+    "value": "2026"
+  },
+  {
+    "key": "footer_text_0323",
+    "section": "footer",
+    "label": "Md. Salman Dewan.",
+    "type": "text",
+    "value": "Md. Salman Dewan."
+  },
+  {
+    "key": "footer_text_0324",
+    "section": "footer",
+    "label": "Designed & Developed with",
+    "type": "text",
+    "value": "Designed & Developed with"
+  },
+  {
+    "key": "footer_text_0325",
+    "section": "footer",
+    "label": "by Md. Salman",
+    "type": "text",
+    "value": "by Md. Salman"
+  },
+  {
+    "key": "general_text_0326",
+    "section": "general",
+    "label": "Md. Salman — WordPress Developer",
+    "type": "text",
+    "value": "Md. Salman — WordPress Developer"
+  },
+  {
+    "key": "general_text_0327",
+    "section": "general",
+    "label": "Select a service",
+    "type": "text",
+    "value": "Select a service"
+  },
+  {
+    "key": "general_text_0328",
+    "section": "general",
+    "label": "WordPress Development",
+    "type": "text",
+    "value": "WordPress Development"
+  },
+  {
+    "key": "general_text_0329",
+    "section": "general",
+    "label": "Web Design",
+    "type": "text",
+    "value": "Web Design"
+  },
+  {
+    "key": "general_text_0330",
+    "section": "general",
+    "label": "Lead Generation",
+    "type": "text",
+    "value": "Lead Generation"
+  },
+  {
+    "key": "general_text_0331",
+    "section": "general",
+    "label": "Website Management",
+    "type": "text",
+    "value": "Website Management"
+  }
+]

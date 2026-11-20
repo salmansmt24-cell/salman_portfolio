@@ -1,0 +1,7 @@
+Original supplied files inspected:
+- index.php / template.html / defaults.json / app/collections.php
+- admin: account, analytics, insights, intelligence_v4, items, login, logout, media, messages, monthly_plus, orders, overview, setup, templates, sheet sync modules
+- assets/css/style.css and assets/images/*
+- uploads/*
+
+Secret-bearing PHP config files intentionally excluded. PHP source remains in the original uploaded archive and should be retained as a private reference during feature-by-feature conversion.
