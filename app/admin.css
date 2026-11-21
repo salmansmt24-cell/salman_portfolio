@@ -1,0 +1,33 @@
+/* Shared admin workspace polish */
+:root{--cms-ink:#19243a;--cms-muted:#748198;--cms-line:#e7ebf3;--cms-blue:#5368d8;--cms-bg:#f5f7fc}
+body:has(main:not(.shell)){background:var(--cms-bg);color:var(--cms-ink)}
+main:not(.shell){min-height:100vh;background:var(--cms-bg)!important;color:var(--cms-ink)!important;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif!important}
+main:not(.shell)>header{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.92)!important;backdrop-filter:blur(14px);border-bottom:1px solid var(--cms-line)!important;padding:14px clamp(16px,4vw,48px)!important;min-height:66px;align-items:center;gap:14px;box-shadow:0 3px 16px #192b4a08}
+main:not(.shell)>header strong{font-size:13px;letter-spacing:.15px;color:#202d48}
+main:not(.shell)>header a{color:var(--cms-blue)!important;text-decoration:none!important;font-size:12px;font-weight:750}
+main:not(.shell)>header a:hover{text-decoration:underline!important}
+main:not(.shell)>section{max-width:1240px!important;margin:0 auto!important;padding:clamp(20px,3vw,38px) clamp(14px,3vw,28px) 64px!important}
+main:not(.shell)>section h1{font-size:clamp(25px,3vw,34px)!important;line-height:1.15;letter-spacing:-.8px;font-weight:800;color:#1b2942;margin:8px 0 10px!important}
+main:not(.shell)>section h2{font-weight:750;color:#263550}
+main:not(.shell)>section p{line-height:1.65}
+main:not(.shell) a{transition:color .18s ease,background .18s ease,border-color .18s ease}
+main:not(.shell) input,main:not(.shell) textarea,main:not(.shell) select{font:inherit;max-width:100%;border:1px solid #dce3ef;border-radius:10px;padding:10px 12px;background:#fff;color:#24334d;outline:none;transition:border-color .18s,box-shadow .18s}
+main:not(.shell) input:focus,main:not(.shell) textarea:focus,main:not(.shell) select:focus{border-color:#7180e4;box-shadow:0 0 0 3px #7180e41c}
+main:not(.shell) button{transition:transform .16s,box-shadow .16s,filter .16s}
+main:not(.shell) button:hover:not(:disabled){filter:brightness(1.04);box-shadow:0 5px 14px #334a8418}
+main:not(.shell) button:active:not(:disabled){transform:translateY(1px)}
+main:not(.shell) table{width:100%;border-collapse:separate;border-spacing:0;background:#fff;border:1px solid var(--cms-line);border-radius:12px;overflow:hidden}
+main:not(.shell) th{background:#f7f8fc;color:#7c879b;font-size:10px;letter-spacing:.55px;text-transform:uppercase}
+main:not(.shell) td,main:not(.shell) th{padding:12px 14px;border-bottom:1px solid #edf0f5;text-align:left}
+main:not(.shell) tr:last-child td{border-bottom:0}
+main:not(.shell) tbody tr:hover{background:#fafbff}
+main:not(.shell) article,main:not(.shell) [class*=card],main:not(.shell) [class*=panel]{border-radius:14px}
+main:not(.shell) [style*=border-radius][style*=background]{box-shadow:0 5px 18px #1c31500a}
+main:not(.shell) label{display:block;color:#3b4962;font-size:12px;font-weight:700;margin:0 0 7px}
+main:not(.shell) :focus-visible{outline:3px solid #7584e65c;outline-offset:2px}
+main:not(.shell) form{max-width:100%}
+main:not(.shell) .table-wrap,main:not(.shell) [style*=overflow]{max-width:100%}
+main:not(.shell) .admin-page-title{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap}
+main:not(.shell) .admin-toolbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+@media(max-width:700px){main:not(.shell)>header{padding:12px 14px!important;flex-wrap:wrap}main:not(.shell)>section{padding:22px 13px 42px!important}main:not(.shell)>section h1{font-size:25px!important}main:not(.shell) table{display:block;overflow-x:auto;white-space:nowrap}main:not(.shell) input,main:not(.shell) textarea,main:not(.shell) select{width:100%;box-sizing:border-box}}
+@media(prefers-reduced-motion:reduce){main:not(.shell) *,main:not(.shell) *:before,main:not(.shell) *:after{transition:none!important;scroll-behavior:auto!important}}
