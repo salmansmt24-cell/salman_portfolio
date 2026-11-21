@@ -47,9 +47,9 @@ export async function verifyAdminPassword(username: string, password: string) {
   const { neon } = await import("@neondatabase/serverless");
   if (!process.env.DATABASE_URL) throw new Error("DATABASE_URL is not configured.");
   const sql = neon(process.env.DATABASE_URL);
-  const rows = await sql`SELECT username, password_hash FROM cms_admins WHERE username = ${username} LIMIT 1`;
+  const rows = await sql`SELECT username, password_hash FROM cms_admins WHERE TRIM(username) = ${username} LIMIT 1`;
   if (!rows.length) return false;
-  const hash = String(rows[0].password_hash ?? "");
+  const hash = String(rows[0].password_hash ?? "").trim();
   // PHP password_hash() bcrypt hashes may use the $2y$ prefix; bcryptjs expects $2a$/$2b$.
   const compatibleHash = hash.startsWith("$2y$") ? "$2b$" + hash.slice(4) : hash;
   if (!/^\$2[aby]\$/.test(compatibleHash)) return false;
