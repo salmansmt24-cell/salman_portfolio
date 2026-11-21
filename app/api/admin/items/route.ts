@@ -5,7 +5,7 @@ import { getAdminSession } from "@/lib/admin-auth";
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-const MODULES = new Set(["services", "portfolio", "skills", "experience", "education"]);
+const MODULES = new Set(["services", "portfolio", "testimonials", "faq", "skills", "experience", "education"]);
 type ItemInput = {
   module?: unknown; title?: unknown; description?: unknown; subtitle?: unknown;
   image_path?: unknown; link_url?: unknown; sort_order?: unknown; is_published?: unknown;
