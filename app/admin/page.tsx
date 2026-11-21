@@ -16,7 +16,7 @@ const nav = [
   { label:"Fiverr orders", href:"/admin/manage/orders", icon:"↗" },
   { label:"Fiverr profiles", href:"/admin/manage/profiles", icon:"◎" },
   { label:"Messages", href:"/admin/manage/messages", icon:"✉" },
-  { label:"Media library", href:"#media", icon:"▧", soon:true },
+  { label:"Media library", href:"/admin/media", icon:"▧" },
   { label:"Account & security", href:"/admin/account", icon:"⚙" },
   { label:"Private templates", href:"/admin/manage/templates", icon:"▤" },
   { label:"Analytics dashboard", href:"/admin/analytics", icon:"▥" },
