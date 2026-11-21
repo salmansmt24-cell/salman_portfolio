@@ -1,0 +1,3 @@
+import Link from "next/link";import {redirect} from "next/navigation";import {getAdminSession} from "@/lib/admin-auth";import AccountSecurity from "./security-form";
+export const dynamic="force-dynamic";
+export default async function AccountPage(){const s=await getAdminSession();if(!s)redirect("/admin/login");return <main style={{minHeight:"100vh",background:"#f5f7fb",padding:30,fontFamily:"Arial,sans-serif",color:"#1b2940"}}><div style={{maxWidth:700,margin:"auto"}}><Link href="/admin">← Dashboard</Link><h1>Account & Security</h1><p style={{color:"#8190a5"}}>Signed in as {s.username}. Change your administrator password.</p><AccountSecurity/></div></main>}
