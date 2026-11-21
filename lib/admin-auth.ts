@@ -52,7 +52,7 @@ export async function verifyAdminPassword(username: string, password: string) {
   const rows = await sql`SELECT 1 AS matched
     FROM cms_admins
     WHERE TRIM(username) = ${username}
-      AND password_hash = crypt(${password}, password_hash)
+      AND password_hash::text = public.crypt(${password}::text, password_hash::text)
     LIMIT 1`;
   return rows.length > 0;
 }
