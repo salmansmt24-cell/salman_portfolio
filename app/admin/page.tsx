@@ -13,12 +13,13 @@ const nav = [
   { label:"Overview", href:"/admin", icon:"◫", active:true },
   { label:"Content editor", href:"/admin/content", icon:"✎" },
   { label:"Collections", href:"/admin/collections", icon:"▦" },
-  { label:"Fiverr orders", href:"#orders", icon:"↗", soon:true },
-  { label:"Fiverr profiles", href:"#profiles", icon:"◎", soon:true },
-  { label:"Messages", href:"#messages", icon:"✉", soon:true },
+  { label:"Fiverr orders", href:"/admin/manage/orders", icon:"↗" },
+  { label:"Fiverr profiles", href:"/admin/manage/profiles", icon:"◎" },
+  { label:"Messages", href:"/admin/manage/messages", icon:"✉" },
   { label:"Media library", href:"#media", icon:"▧", soon:true },
-  { label:"Private templates", href:"#templates", icon:"▤", soon:true },
-  { label:"Analytics & insights", href:"#analytics", icon:"▥", soon:true },
+  { label:"Account & security", href:"/admin/account", icon:"⚙" },
+  { label:"Private templates", href:"/admin/manage/templates", icon:"▤" },
+  { label:"Analytics & insights", href:"/admin/analytics", icon:"▥" },
 ];
 
 function money(value:number|string|undefined) {
@@ -107,10 +108,10 @@ export default async function AdminDashboard() {
           <section className="panel" id="messages"><div className="panel-head"><h2>Latest contact messages</h2><span>{stats.unread} unread</span></div><div className="message-list">{messages.map(message=><article className="message-row" key={message.id}><div className="message-avatar">{message.name.slice(0,1).toUpperCase()}</div><div className="message-info"><strong>{short(message.name,28)}</strong><small>{message.email} · {message.service} · {dateLabel(message.created_at)}</small><p>{short(message.message,92)}</p></div>{!message.is_read&&<span className="unread"/>}</article>)}{messages.length===0&&<div className="empty">No contact messages found.</div>}</div></section>
         </div>
         <div className="lower-grid">
-          <section className="panel"><div className="panel-head"><h2>Management workspace</h2><span>{stats.templates} saved templates</span></div><div className="module-list">{nav.slice(1).map(item=><div className="module-item" key={item.label}><span>{item.icon}</span><div><strong>{item.label}</strong><small>Module migration in progress</small></div><span className="state">Planned</span></div>)}</div></section>
+          <section className="panel"><div className="panel-head"><h2>Management workspace</h2><span>{stats.templates} saved templates</span></div><div className="module-list">{nav.slice(1).map(item=><div className="module-item" key={item.label}><span>{item.icon}</span><div><strong>{item.label}</strong><small>Open management module</small></div><span className="state">{item.soon?"NEXT":"OPEN"}</span></div>)}</div></section>
           <section className="panel"><div className="panel-head"><h2>Database snapshot</h2><span>Live counts</span></div><div className="message-list">{[["Content fields",stats.content],["Collection items",stats.items],["Fiverr profiles",stats.profiles],["Private templates",stats.templates],["Contact messages",stats.messages],["Fiverr orders",stats.orders]].map(([label,value])=><div className="message-row" key={label}><div className="message-info"><strong>{label}</strong></div><strong style={{fontSize:13,color:"#34435a"}}>{value}</strong></div>)}</div></section>
         </div>
-        <div className="notice"><strong>Migration status:</strong> This is the upgraded live-data overview. Content editing, collection management, order management and the remaining legacy PHP modules are being migrated in separate tested steps. No sample records are shown, and the production site has not been changed.</div>
+        <div className="notice"><strong>Migration status:</strong> This preview workspace connects to your migrated Neon database. Available modules are linked in the sidebar. Media storage and external Google Sheets credentials require separate integration setup. No sample records are shown, and production remains unchanged.</div>
       </section>
     </div>
   </main>;
