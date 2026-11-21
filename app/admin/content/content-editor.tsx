@@ -26,7 +26,7 @@ export default function ContentEditor({fields}:{fields:Field[]}) {
     <div className="toolbar"><input value={query} onChange={e=>setQuery(e.target.value)} placeholder="Search by field name, key or value…"/><select value={section} onChange={e=>setSection(e.target.value)}>{sections.map(s=><option key={s}>{s}</option>)}</select></div>
     <div className="count">Showing {filtered.length} of {fields.length} content fields · {dirty} unsaved changes</div>
     <div className="field-list" style={{marginTop:14}}>{filtered.map(field=>{
-      const value=values[field.key]??"";const isSaved=saved[field.key]===value||(!saved[field.key]&&field.value===value);
+      const value=values[field.key]??"";const isSaved=Object.prototype.hasOwnProperty.call(saved,field.key)?saved[field.key]===value:field.value===value;
       return <article className="field" key={field.key}><div className="field-top"><label htmlFor={field.key}>{field.label||field.key}</label><code>{field.key}</code></div>
         {field.type==="textarea"||value.length>130?<textarea id={field.key} value={value} onChange={e=>setValues(old=>({...old,[field.key]:e.target.value}))}/>:<input id={field.key} type="text" value={value} onChange={e=>setValues(old=>({...old,[field.key]:e.target.value}))}/>}
         <div className="field-actions">{errors[field.key]&&<small>{errors[field.key]}</small>}{isSaved?<span className="saved">Saved</span>:<span className="count">Unsaved</span>}<button className="save" disabled={busy===field.key||isSaved} onClick={()=>save(field)}>{busy===field.key?"Saving…":"Save field"}</button></div>
