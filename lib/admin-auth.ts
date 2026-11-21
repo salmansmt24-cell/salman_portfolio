@@ -47,8 +47,15 @@ export async function verifyAdminPassword(username: string, password: string) {
   const { neon } = await import("@neondatabase/serverless");
   if (!process.env.DATABASE_URL) throw new Error("DATABASE_URL is not configured.");
   const sql = neon(process.env.DATABASE_URL);
-  // Verify the password with PostgreSQL pgcrypto itself. This avoids
-  // bcrypt implementation/prefix differences between PHP and Node runtimes.
+  // Confirm which database the Preview runtime is actually reaching.
+  const [dbInfo] = await sql`SELECT current_database() AS database_name,
+    current_schema() AS schema_name,
+    current_user AS database_user,
+    to_regprocedure('public.crypt(text,text)')::text AS crypt_function`;
+  if (!dbInfo?.crypt_function) {
+    throw new Error("Admin DB diagnostic: " + JSON.stringify(dbInfo ?? { diagnostic: "no database response" }));
+  }
+  // Verify the password with PostgreSQL pgcrypto itself.
   const rows = await sql`SELECT 1 AS matched
     FROM cms_admins
     WHERE TRIM(username) = ${username}
