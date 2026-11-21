@@ -25,7 +25,7 @@ export async function POST(request: NextRequest) {
     try { const u = new URL(value); if (!["http:","https:","mailto:"].includes(u.protocol)) throw new Error(); }
     catch { return NextResponse.json({ error: "Enter a valid http, https or mailto URL" }, { status: 400 }); }
   }
-  if (field.type === "image" && value && (!/^(assets\/images\/|uploads\/)[a-zA-Z0-9_./-]+$/.test(value) || value.includes(".."))) {
+  if (field.type === "image" && value && (!/^(assets\/images\/|uploads\/|api\/media\/)[a-zA-Z0-9_./-]+$/.test(value) || value.includes(".."))) {
     return NextResponse.json({ error: "Use a valid path inside assets/images or uploads" }, { status: 400 });
   }
   if (!process.env.DATABASE_URL) return NextResponse.json({ error: "Database is not configured" }, { status: 503 });
