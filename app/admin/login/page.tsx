@@ -28,7 +28,7 @@ export default function AdminLoginPage() {
       <label style={{display:"block",fontSize:14,fontWeight:600,color:"#34445d"}}>Password</label>
       <input type="password" autoComplete="current-password" required value={password} onChange={e=>setPassword(e.target.value)} style={{boxSizing:"border-box",width:"100%",padding:14,margin:"8px 0 18px",border:"1px solid #d7e1ee",borderRadius:10,fontSize:16}}/>
       {error && <p role="alert" style={{color:"#b42318",fontSize:14,margin:"0 0 14px"}}>{error}</p>}
-      <button disabled={busy} style={{width:"100%",padding:15,border:0,borderRadius:10,background:"#2459a6",color:"#fff",fontSize:16,fontWeight:700,cursor:"pointer",opacity:busy?.7:1}}>{busy?"Signing in…":"Sign in securely"}</button>
+      <button disabled={busy} style={{width:"100%",padding:15,border:0,borderRadius:10,background:"#2459a6",color:"#fff",fontSize:16,fontWeight:700,cursor:"pointer",opacity:busy ? 0.7 : 1}}>{busy?"Signing in…":"Sign in securely"}</button>
       <p style={{fontSize:12,color:"#8290a4",marginTop:22}}>Protected administrator access</p>
     </form>
   </main>;
