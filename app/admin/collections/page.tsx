@@ -15,7 +15,7 @@ export default async function AdminCollectionsPage() {
   const rows = await sql`SELECT id,module,title,description,subtitle,image_path,link_url,sort_order,is_published,created_at
     FROM cms_items ORDER BY module ASC,sort_order ASC,id DESC`;
   const items = rows as unknown as CollectionItem[];
-  const counts = ["services","portfolio","skills","experience","education"].map(module => ({module,count:items.filter(item=>item.module===module).length}));
+  const counts = ["services","portfolio","testimonials","faq","skills","experience","education"].map(module => ({module,count:items.filter(item=>item.module===module).length}));
   return <main style={{minHeight:"100vh",background:"#f5f7fb",color:"#1b2940",fontFamily:"Arial,sans-serif"}}>
     <header style={{background:"#fff",borderBottom:"1px solid #e5ebf3",padding:"17px 4%",display:"flex",justifyContent:"space-between",alignItems:"center"}}>
       <div><strong>JS Salman CMS</strong><div style={{fontSize:12,color:"#8794a8",marginTop:4}}>Collections · Signed in as {session.username}</div></div>
