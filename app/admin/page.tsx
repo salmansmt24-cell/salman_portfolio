@@ -19,7 +19,11 @@ const nav = [
   { label:"Media library", href:"#media", icon:"▧", soon:true },
   { label:"Account & security", href:"/admin/account", icon:"⚙" },
   { label:"Private templates", href:"/admin/manage/templates", icon:"▤" },
-  { label:"Analytics & insights", href:"/admin/analytics", icon:"▥" },
+  { label:"Analytics dashboard", href:"/admin/analytics", icon:"▥" },
+  { label:"Sales insights", href:"/admin/reports/insights", icon:"◉" },
+  { label:"Intelligence V4", href:"/admin/reports/intelligence", icon:"✧" },
+  { label:"Monthly Plus", href:"/admin/reports/monthly", icon:"▦" },
+  { label:"Google Sheets Sync", href:"/admin/sync", icon:"↻" },
 ];
 
 function money(value:number|string|undefined) {
