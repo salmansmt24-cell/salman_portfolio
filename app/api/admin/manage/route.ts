@@ -50,7 +50,7 @@ export async function PUT(req:NextRequest){
 export async function DELETE(req:NextRequest){
  if(!(await guard(req)))return NextResponse.json({error:"Unauthorized"},{status:403});
  let b:any;try{b=await req.json()}catch{return NextResponse.json({error:"Invalid JSON"},{status:400})}
- const entity=String(b.entity||""),id=Number(b.id);if(!entities.has(entity)||!Number.isInteger(id)||id<1)return NextResponse.json({error:"Invalid request"},{status:400});
+ const entity=String(b.entity||""),id=Number(b.id);if(!entities.has(entity)||!Number.isInteger(id)||id<1)return NextResponse.json({error:"Invalid request"},{status:400});if(entity==="templates"&&!(await isPrivateVaultUnlocked()))return NextResponse.json({error:"Unlock the private template vault first."},{status:423});
  try{const sql=db();let rows:any[]=[];if(entity==="orders")rows=await sql`DELETE FROM cms_fiverr_orders WHERE id=${id} RETURNING id`;if(entity==="profiles")rows=await sql`DELETE FROM cms_fiverr_profiles WHERE id=${id} RETURNING id`;if(entity==="messages")rows=await sql`DELETE FROM cms_messages WHERE id=${id} RETURNING id`;if(entity==="templates")rows=await sql`DELETE FROM cms_private_templates WHERE id=${id} RETURNING id`;if(!rows.length)return NextResponse.json({error:"Record not found."},{status:404});return NextResponse.json({ok:true,id});}
  catch(e){console.error("Admin delete failed",e);return NextResponse.json({error:"Could not delete record."},{status:500})}
 }
