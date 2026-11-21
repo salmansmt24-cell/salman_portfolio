@@ -22,7 +22,7 @@ const nav: { label:string; href:string; icon:string; active?:boolean; soon?:bool
   { label:"Analytics dashboard", href:"/admin/analytics", icon:"▥" },
   { label:"Sales insights", href:"/admin/reports/insights", icon:"◉" },
   { label:"Intelligence V4", href:"/admin/reports/intelligence", icon:"✧" },
-  { label:"Monthly Plus", href:"/admin/reports/monthly", icon:"▦" },
+  { label:"Monthly Plus", href:"/admin/monthly-plus", icon:"▦" },
   { label:"Google Sheets Sync", href:"/admin/sync", icon:"↻" },
 ];
 
