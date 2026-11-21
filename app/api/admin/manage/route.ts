@@ -23,7 +23,7 @@ export async function GET(req:NextRequest){
 export async function POST(req:NextRequest){
  if(!(await guard(req)))return NextResponse.json({error:"Unauthorized"},{status:403});
  let b:any;try{b=await req.json()}catch{return NextResponse.json({error:"Invalid JSON"},{status:400})}
- const entity=String(b.entity||"");if(!entities.has(entity))return NextResponse.json({error:"Invalid entity"},{status:400});
+ const entity=String(b.entity||"");if(!entities.has(entity))return NextResponse.json({error:"Invalid entity"},{status:400});if(entity==="templates"&&!(await isPrivateVaultUnlocked()))return NextResponse.json({error:"Unlock the private template vault first."},{status:423});
  try{const sql=db();let rows:any[]=[];
  if(entity==="orders"){
  const order_id=text(b.order_id,100,true),client=text(b.client_username,150,true),title=text(b.project_title,255,true),category=text(b.category||"General",100,true),status=text(b.status||"Pending",30,true),url=text(b.order_url||"",500),notes=text(b.notes||"",20000),amount=Number(b.amount||0),fee=Number(b.fiverr_fee||0),progress=Number(b.progress||0);
@@ -38,7 +38,7 @@ export async function POST(req:NextRequest){
 export async function PUT(req:NextRequest){
  if(!(await guard(req)))return NextResponse.json({error:"Unauthorized"},{status:403});
  let b:any;try{b=await req.json()}catch{return NextResponse.json({error:"Invalid JSON"},{status:400})}
- const entity=String(b.entity||""),id=Number(b.id);if(!entities.has(entity)||!Number.isInteger(id)||id<1)return NextResponse.json({error:"Invalid request"},{status:400});
+ const entity=String(b.entity||""),id=Number(b.id);if(!entities.has(entity)||!Number.isInteger(id)||id<1)return NextResponse.json({error:"Invalid request"},{status:400});if(entity==="templates"&&!(await isPrivateVaultUnlocked()))return NextResponse.json({error:"Unlock the private template vault first."},{status:423});
  try{const sql=db();let rows:any[]=[];
  if(entity==="orders"){const client=text(b.client_username,150,true),title=text(b.project_title,255,true),category=text(b.category||"General",100,true),status=text(b.status,30,true),url=text(b.order_url||"",500),notes=text(b.notes||"",20000),amount=Number(b.amount),fee=Number(b.fiverr_fee),progress=Number(b.progress);if(!client||!title||!category||!status||url===null||notes===null||![amount,fee,progress].every(Number.isFinite)||amount<0||fee<0||progress<0||progress>100)return NextResponse.json({error:"Invalid order fields."},{status:400});rows=await sql`UPDATE cms_fiverr_orders SET client_username=${client},project_title=${title},category=${category},status=${status},amount=${amount},fiverr_fee=${fee},net_amount=${amount-fee},progress=${progress},order_url=${url},notes=${notes},updated_at=NOW() WHERE id=${id} RETURNING id,order_id,client_username,project_title,category,amount,fiverr_fee,status,progress,order_url,notes,net_amount,created_at`;}
  if(entity==="profiles"){const username=text(b.username,150,true);if(!username)return NextResponse.json({error:"Username is required."},{status:400});rows=await sql`UPDATE cms_fiverr_profiles SET username=${username} WHERE id=${id} RETURNING id,username,created_at`;}
