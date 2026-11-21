@@ -11,7 +11,7 @@ type Message = { id:number; name:string; email:string; service:string; message:s
 
 const nav = [
   { label:"Overview", href:"/admin", icon:"◫", active:true },
-  { label:"Content editor", href:"#content", icon:"✎", soon:true },
+  { label:"Content editor", href:"/admin/content", icon:"✎" },
   { label:"Collections", href:"#collections", icon:"▦", soon:true },
   { label:"Fiverr orders", href:"#orders", icon:"↗", soon:true },
   { label:"Fiverr profiles", href:"#profiles", icon:"◎", soon:true },
