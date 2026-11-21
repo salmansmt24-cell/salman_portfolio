@@ -47,20 +47,14 @@ export async function verifyAdminPassword(username: string, password: string) {
   const { neon } = await import("@neondatabase/serverless");
   if (!process.env.DATABASE_URL) throw new Error("DATABASE_URL is not configured.");
   const sql = neon(process.env.DATABASE_URL);
-  // Confirm which database the Preview runtime is actually reaching.
-  const [dbInfo] = await sql`SELECT current_database() AS database_name,
-    current_schema() AS schema_name,
-    current_user AS database_user,
-    to_regprocedure('public.crypt(text,text)')::text AS crypt_function`;
-  if (!dbInfo?.crypt_function) {
-    throw new Error("Admin DB diagnostic: " + JSON.stringify(dbInfo ?? { diagnostic: "no database response" }));
-  }
-  // Verify the password with PostgreSQL pgcrypto itself.
-  const rows = await sql`SELECT 1 AS matched
+  const rows = await sql`SELECT password_hash
     FROM cms_admins
     WHERE TRIM(username) = ${username}
-      AND password_hash::text = public.crypt(${password}::text, password_hash::text)
     LIMIT 1`;
-  return rows.length > 0;
+  const storedHash = String(rows[0]?.password_hash ?? "").trim();
+  if (!storedHash) return false;
+  // PHP bcrypt hashes may use the $2y$ prefix; bcryptjs accepts $2a$/$2b$.
+  const compatibleHash = storedHash.replace(/^\\$2y\\$/, "$2b$");
+  return bcrypt.compare(password, compatibleHash);
 }
 export const ADMIN_COOKIE_NAME = COOKIE;
