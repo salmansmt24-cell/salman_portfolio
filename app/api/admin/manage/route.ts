@@ -1,6 +1,7 @@
 import { NextRequest,NextResponse } from "next/server";
 import { neon } from "@neondatabase/serverless";
 import { getAdminSession } from "@/lib/admin-auth";
+import { isPrivateVaultUnlocked } from "@/lib/private-vault";
 export const runtime="nodejs";
 export const dynamic="force-dynamic";
 const entities=new Set(["orders","profiles","messages","templates"]);
@@ -10,6 +11,7 @@ function db(){if(!process.env.DATABASE_URL)throw new Error("Database not configu
 export async function GET(req:NextRequest){
  if(!(await guard(req)))return NextResponse.json({error:"Unauthorized"},{status:403});
  const entity=req.nextUrl.searchParams.get("entity")||"";if(!entities.has(entity))return NextResponse.json({error:"Invalid entity"},{status:400});
+ if(entity==="templates" && !(await isPrivateVaultUnlocked()))return NextResponse.json({error:"Unlock the private template vault first."},{status:423});
  try{const sql=db();let rows:any[]=[];
  if(entity==="orders")rows=await sql`SELECT id,order_id,client_username,project_title,category,amount,fiverr_fee,status,progress,order_url,notes,client_company,profile_name,net_amount,deadline,created_at FROM cms_fiverr_orders ORDER BY created_at DESC,id DESC LIMIT 500`;
  if(entity==="profiles")rows=await sql`SELECT id,username,created_at FROM cms_fiverr_profiles ORDER BY username ASC`;
