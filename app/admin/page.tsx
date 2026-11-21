@@ -9,7 +9,7 @@ export const runtime = "nodejs";
 type Order = { id:number; order_id:string; client_username:string; project_title:string; amount:string|number; status:string; created_at:string };
 type Message = { id:number; name:string; email:string; service:string; message:string; is_read:boolean; created_at:string };
 
-const nav = [
+const nav: { label:string; href:string; icon:string; active?:boolean; soon?:boolean }[] = [
   { label:"Overview", href:"/admin", icon:"◫", active:true },
   { label:"Content editor", href:"/admin/content", icon:"✎" },
   { label:"Collections", href:"/admin/collections", icon:"▦" },
