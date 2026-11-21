@@ -53,7 +53,7 @@ function parseItem(body: ItemInput) {
   if (description === null || description.length > 20000) return { error: "Description is required and must be under 20,000 characters." } as const;
   if (subtitle === null || image_path === null || link_url === null) return { error: "One of the fields is too long." } as const;
   if (!validUrl(link_url)) return { error: "Link must be a valid http, https or mailto URL." } as const;
-  if (image_path && (!/^(assets\/images\/|uploads\/)[a-zA-Z0-9_./-]+$/.test(image_path) || image_path.includes(".."))) return { error: "Image path must be inside assets/images or uploads." } as const;
+  if (image_path && (!/^(assets\/images\/|uploads\/|api\/media\/)[a-zA-Z0-9_./-]+$/.test(image_path) || image_path.includes(".."))) return { error: "Image path must be inside assets/images or uploads." } as const;
   if (!Number.isInteger(sort_order) || sort_order < 0 || sort_order > 100000) return { error: "Sort order must be a number from 0 to 100000." } as const;
   if (typeof is_published !== "boolean") return { error: "Publish status is invalid." } as const;
   return { value: { module, title, description, subtitle, image_path, link_url, sort_order, is_published } } as const;
