@@ -54,7 +54,7 @@ export async function verifyAdminPassword(username: string, password: string) {
   const storedHash = String(rows[0]?.password_hash ?? "").trim();
   if (!storedHash) return false;
   // PHP bcrypt hashes may use the $2y$ prefix; bcryptjs accepts $2a$/$2b$.
-  const compatibleHash = storedHash.replace(/^\\$2y\\$/, "$2b$");
+  const compatibleHash = storedHash.replace(/^\$2y\$/, "$2b$");
   return bcrypt.compare(password, compatibleHash);
 }
 export const ADMIN_COOKIE_NAME = COOKIE;
