@@ -54,7 +54,7 @@ export async function GET() {
         return '<div class="exp-item ' + (index % 2 ? "exp-right" : "exp-left") + '" ><div class="exp-card ' + tones[index % tones.length] + '"><div class="exp-details">' + date + '<h3>' + esc(r.title) + '</h3><h4>' + esc(r.subtitle || "Professional Experience") + '</h4><p>' + esc(r.description).replace(/\\n/g,"<br>") + '</p><div class="exp-tags"><span>Experience</span><span>Professional</span></div></div><div class="exp-logo">' + logo + '</div></div><div class="exp-number">' + String(index + 1).padStart(2,"0") + '</div></div>';
       }).join("");
       const sectionStart = html.indexOf('<div class="exp-timeline">');
-      const sectionEnd = html.indexOf("</div>\\n</div>\\n</section>", sectionStart);
+      const sectionEnd = html.indexOf("</div>\n</div>\n</section>", sectionStart);
       if (sectionStart >= 0 && sectionEnd >= 0) html = html.slice(0, sectionStart) + '<div class="exp-timeline">' + cards + html.slice(sectionEnd);
       continue;
     }
