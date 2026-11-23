@@ -45,6 +45,19 @@ export async function GET() {
   for (const row of collections) grouped.set(row.module, [...(grouped.get(row.module) ?? []), row]);
   for (const module of ["services","portfolio","testimonials","faq","skills","experience","education"]) {
     const rows = grouped.get(module); if (!rows?.length) continue;
+    if (module === "experience") {
+      const tones = ["exp-blue", "exp-pink", "exp-green"];
+      const cards = rows.map((r, index) => {
+        const imagePath = r.image_path && (/^(assets\\/images\\/|uploads\\/)[a-zA-Z0-9_./-]+$/.test(r.image_path) || /^api\\/media\\/[0-9]+$/.test(r.image_path)) && !r.image_path.includes("..") ? r.image_path : "";
+        const logo = imagePath ? '<img loading="lazy" src="/' + esc(imagePath) + '" alt="' + esc(r.subtitle || r.title) + '">' : '<span aria-hidden="true"><i class="bi bi-briefcase"></i></span>';
+        const date = r.link_url ? '<div class="exp-date"><i class="bi bi-calendar3"></i>' + esc(r.link_url) + '</div>' : "";
+        return '<div class="exp-item ' + (index % 2 ? "exp-right" : "exp-left") + '" ><div class="exp-card ' + tones[index % tones.length] + '"><div class="exp-details">' + date + '<h3>' + esc(r.title) + '</h3><h4>' + esc(r.subtitle || "Professional Experience") + '</h4><p>' + esc(r.description).replace(/\\n/g,"<br>") + '</p><div class="exp-tags"><span>Experience</span><span>Professional</span></div></div><div class="exp-logo">' + logo + '</div></div><div class="exp-number">' + String(index + 1).padStart(2,"0") + '</div></div>';
+      }).join("");
+      const sectionStart = html.indexOf('<div class="exp-timeline">');
+      const sectionEnd = html.indexOf("</div>\\n</div>\\n</section>", sectionStart);
+      if (sectionStart >= 0 && sectionEnd >= 0) html = html.slice(0, sectionStart) + '<div class="exp-timeline">' + cards + html.slice(sectionEnd);
+      continue;
+    }
     const cards = rows.map((r) => {
       const image = r.image_path && (/^(assets\/images\/|uploads\/)[a-zA-Z0-9_./-]+$/.test(r.image_path) || /^api\/media\/[0-9]+$/.test(r.image_path)) && !r.image_path.includes("..") ? `<img loading="lazy" style="max-width:100%;height:160px;object-fit:cover;border-radius:12px;margin-bottom:12px" src="/${esc(r.image_path)}" alt="${esc(r.title)}">` : "";
       const link = r.link_url ? (() => { try { const u = new URL(r.link_url); return ["http:","https:"].includes(u.protocol) ? `<p><a style="color:#4179ff" target="_blank" rel="noopener noreferrer" href="${esc(r.link_url)}">View details ↗</a></p>` : ""; } catch { return ""; } })() : "";
