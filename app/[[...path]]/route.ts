@@ -9,7 +9,7 @@ function esc(value: unknown) {
   return String(value ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]!);
 }
 function validValue(value: string, type: string, fallback: string) {
-  if (type === "image") return /^(assets\/images\/|uploads\/)[a-zA-Z0-9_./-]+$/.test(value) && !value.includes("..") ? value : fallback;
+  if (type === "image") return (/^(assets\\/images\\/|uploads\\/)[a-zA-Z0-9_./-]+$/.test(value) || /^api\\/media\\/[0-9]+$/.test(value)) && !value.includes("..") ? value : fallback;
   if (type === "url") {
     if (value.startsWith("mailto:")) return value;
     try { const u = new URL(value); return ["http:", "https:"].includes(u.protocol) ? value : fallback; } catch { return fallback; }
@@ -46,7 +46,7 @@ export async function GET() {
   for (const module of ["services","portfolio","testimonials","faq","skills","experience","education"]) {
     const rows = grouped.get(module); if (!rows?.length) continue;
     const cards = rows.map((r) => {
-      const image = r.image_path && /^(assets\/images\/|uploads\/)[a-zA-Z0-9_./-]+$/.test(r.image_path) && !r.image_path.includes("..") ? `<img loading="lazy" style="max-width:100%;height:160px;object-fit:cover;border-radius:12px;margin-bottom:12px" src="/${esc(r.image_path)}" alt="${esc(r.title)}">` : "";
+      const image = r.image_path && (/^(assets\\/images\\/|uploads\\/)[a-zA-Z0-9_./-]+$/.test(r.image_path) || /^api\\/media\\/[0-9]+$/.test(r.image_path)) && !r.image_path.includes("..") ? `<img loading="lazy" style="max-width:100%;height:160px;object-fit:cover;border-radius:12px;margin-bottom:12px" src="/${esc(r.image_path)}" alt="${esc(r.title)}">` : "";
       const link = r.link_url ? (() => { try { const u = new URL(r.link_url); return ["http:","https:"].includes(u.protocol) ? `<p><a style="color:#4179ff" target="_blank" rel="noopener noreferrer" href="${esc(r.link_url)}">View details ↗</a></p>` : ""; } catch { return ""; } })() : "";
       return `<article style="background:#fff;color:#152743;padding:24px;border:1px solid #dce7f4;border-radius:18px;box-shadow:0 8px 25px #102e5210;min-width:0">${image}<small style="color:#5874a3">${esc(r.subtitle)}</small><h3 style="font-size:20px;margin:10px 0">${esc(r.title)}</h3><p style="color:#536782;line-height:1.7">${esc(r.description).replace(/\n/g,"<br>")}</p>${link}</article>`;
     }).join("");
@@ -78,7 +78,7 @@ export async function POST(request: Request) {
     const message = String(form.get("message") ?? "").trim();
     const honeypot = String(form.get("website") ?? "").trim();
     if (honeypot) return redirectTo("success");
-    if (!name || name.length > 120 || !/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(email) || email.length > 254 ||
+    if (!name || name.length > 120 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || email.length > 254 ||
         !service || service.length > 120 || !message || message.length > 5000) return redirectTo("invalid");
     if (!process.env.LEGACY_DATABASE_URL) {
       console.error("Contact form failed: LEGACY_DATABASE_URL is not configured");
