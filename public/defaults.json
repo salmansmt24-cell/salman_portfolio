@@ -2315,5 +2315,26 @@
     "label": "Website Management",
     "type": "text",
     "value": "Website Management"
+  },
+  {
+    "key": "portfolio_image_0332",
+    "section": "portfolio",
+    "label": "Project image: Business Website Development",
+    "type": "image",
+    "value": ""
+  },
+  {
+    "key": "portfolio_image_0333",
+    "section": "portfolio",
+    "label": "Project image: Shopify Store Setup",
+    "type": "image",
+    "value": ""
+  },
+  {
+    "key": "portfolio_image_0334",
+    "section": "portfolio",
+    "label": "Project image: Targeted Prospect Lists",
+    "type": "image",
+    "value": ""
   }
 ]
