@@ -18,7 +18,7 @@ export default async function AdminCollectionsPage() {
   const counts = ["services","portfolio","testimonials","faq","skills","experience","education"].map(module => ({module,count:items.filter(item=>item.module===module).length}));
   return <main style={{minHeight:"100vh",background:"#f5f7fb",color:"#1b2940",fontFamily:"Arial,sans-serif"}}>
     <header style={{background:"#fff",borderBottom:"1px solid #e5ebf3",padding:"17px 4%",display:"flex",justifyContent:"space-between",alignItems:"center"}}>
-      <div><strong>JS Salman CMS</strong><div style={{fontSize:12,color:"#8794a8",marginTop:4}}>Collections · Signed in as {session.username}</div></div>
+      <div><strong>JS SALMAN</strong><div style={{fontSize:12,color:"#8794a8",marginTop:4}}>Collections · Signed in as {session.username}</div></div>
       <Link href="/admin" style={{color:"#285db4",fontSize:13,textDecoration:"none"}}>← Back to dashboard</Link>
     </header>
     <section style={{maxWidth:1200,margin:"auto",padding:"32px 22px 60px"}}>
