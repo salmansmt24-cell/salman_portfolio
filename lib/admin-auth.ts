@@ -45,8 +45,8 @@ export async function clearAdminCookie() {
 }
 export async function verifyAdminPassword(username: string, password: string) {
   const { neon } = await import("@neondatabase/serverless");
-  if (!process.env.DATABASE_URL) throw new Error("DATABASE_URL is not configured.");
-  const sql = neon(process.env.DATABASE_URL);
+  if (!process.env.LEGACY_DATABASE_URL) throw new Error("LEGACY_DATABASE_URL is not configured.");
+  const sql = neon(process.env.LEGACY_DATABASE_URL);
   const rows = await sql`SELECT password_hash
     FROM cms_admins
     WHERE TRIM(username) = ${username}
