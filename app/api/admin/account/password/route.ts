@@ -13,6 +13,7 @@ export async function POST(req:NextRequest){
  if(!process.env.LEGACY_DATABASE_URL)return NextResponse.json({error:"Database unavailable"},{status:503});
  const hash=await bcrypt.hash(b.next,12),sql=neon(process.env.LEGACY_DATABASE_URL);
  await sql`UPDATE cms_admins SET password_hash=${hash} WHERE TRIM(username)=${session.username}`;
- await recordSecurityEvent(session.username,"password_changed",req.headers);
+ await sql`UPDATE admin_security_sessions SET revoked_at=NOW() WHERE username=${session.username} AND id<>${session.sessionId} AND revoked_at IS NULL`;
+ await recordSecurityEvent(session.username,"password_changed",req.headers,{otherSessionsRevoked:true});
  return NextResponse.json({ok:true});
 }
