@@ -48,7 +48,7 @@ export async function GET() {
     if (module === "experience") {
       const tones = ["exp-blue", "exp-pink", "exp-green"];
       const cards = rows.map((r, index) => {
-        const imagePath = r.image_path && (/^(assets\\/images\\/|uploads\\/)[a-zA-Z0-9_./-]+$/.test(r.image_path) || /^api\\/media\\/[0-9]+$/.test(r.image_path)) && !r.image_path.includes("..") ? r.image_path : "";
+        const imagePath = validValue(String(r.image_path || ""), "image", "");
         const logo = imagePath ? '<img loading="lazy" src="/' + esc(imagePath) + '" alt="' + esc(r.subtitle || r.title) + '">' : '<span aria-hidden="true"><i class="bi bi-briefcase"></i></span>';
         const date = r.link_url ? '<div class="exp-date"><i class="bi bi-calendar3"></i>' + esc(r.link_url) + '</div>' : "";
         return '<div class="exp-item ' + (index % 2 ? "exp-right" : "exp-left") + '" ><div class="exp-card ' + tones[index % tones.length] + '"><div class="exp-details">' + date + '<h3>' + esc(r.title) + '</h3><h4>' + esc(r.subtitle || "Professional Experience") + '</h4><p>' + esc(r.description).replace(/\\n/g,"<br>") + '</p><div class="exp-tags"><span>Experience</span><span>Professional</span></div></div><div class="exp-logo">' + logo + '</div></div><div class="exp-number">' + String(index + 1).padStart(2,"0") + '</div></div>';
