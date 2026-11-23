@@ -26,7 +26,7 @@ export default function AdminChrome({ children }: { children: React.ReactNode })
     <aside className="admin-global-sidebar" aria-label="Admin navigation">
       <Link href="/admin" className="admin-global-brand">
         <span className="admin-global-mark">S</span>
-        <span><strong>JS SALMAN CMS</strong><small>Portfolio workspace</small></span>
+        <span><strong>JS SALMAN</strong><small>Portfolio workspace</small></span>
       </Link>
       <div className="admin-global-nav">
         {groups.map(group => <section className="admin-global-group" key={group.title}>
