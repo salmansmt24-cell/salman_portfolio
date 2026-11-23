@@ -61,7 +61,6 @@ export default async function AdminDashboard(){
  .shell .module:hover{box-shadow:0 8px 18px rgba(35,49,88,.07)!important}
  @media(max-width:720px){.shell .welcome{padding:22px 18px!important}.shell .welcome h1{font-size:22px!important}.shell .modules{grid-template-columns:1fr 1fr!important}}
 
- .taskbar{
  .taskbar{display:flex;align-items:center;justify-content:space-between;gap:18px;margin:16px 0 5px;padding:13px 16px;background:#fff;border:1px solid #e7ecf3;border-radius:13px;box-shadow:0 4px 16px rgba(26,43,77,.03)}
  .taskintro{display:flex;align-items:center;gap:10px;min-width:190px}.taskbadge{width:32px;height:32px;display:grid;place-items:center;border-radius:10px;background:#f0efff;color:#6c63ca;font-size:15px}.taskintro b{display:block;font-size:11px;color:#293750}.taskintro small{display:block;margin-top:3px;font-size:9px;color:#8c98aa}
  .tasklinks{display:flex;align-items:center;gap:7px;flex-wrap:wrap}.tasklinks a{display:inline-flex;align-items:center;justify-content:center;min-height:32px;padding:7px 10px;border:1px solid #e8ecf3;border-radius:8px;background:#fbfcff;color:#58678a;text-decoration:none;font-size:9px;font-weight:750;transition:.16s}.tasklinks a:hover{background:#f0efff;border-color:#d9d5ff;color:#5e55bd;transform:translateY(-1px)}
