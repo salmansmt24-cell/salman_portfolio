@@ -26,8 +26,8 @@ export async function GET() {
   const byKey = new Map(defaults.map((x) => [x.key, x]));
   let values: Record<string,string> = {};
   let collections: Array<{module:string; title:string; description:string; subtitle:string; image_path:string; link_url:string}> = [];
-  if (process.env.DATABASE_URL) {
-    const sql = neon(process.env.DATABASE_URL);
+  if (process.env.LEGACY_DATABASE_URL) {
+    const sql = neon(process.env.LEGACY_DATABASE_URL);
     try {
       const rows = await sql`SELECT content_key, content_value FROM cms_content`;
       values = Object.fromEntries(rows.map((r:any) => [r.content_key, r.content_value]));
