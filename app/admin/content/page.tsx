@@ -12,8 +12,8 @@ export default async function AdminContentPage() {
   const session = await getAdminSession();
   if (!session) redirect("/admin/login");
   let values:Record<string,string>={};
-  if (!process.env.DATABASE_URL) throw new Error("DATABASE_URL is not configured");
-  const sql=neon(process.env.DATABASE_URL);
+  if (!process.env.LEGACY_DATABASE_URL) throw new Error("DATABASE_URL is not configured");
+  const sql=neon(process.env.LEGACY_DATABASE_URL);
   const rows=await sql`SELECT content_key,content_value FROM cms_content`;
   values=Object.fromEntries(rows.map((r:any)=>[String(r.content_key),String(r.content_value)]));
   const fields=defaults.map(field=>({key:field.key,section:field.section,label:field.label,type:field.type,value:values[field.key]??field.value}));
