@@ -60,14 +60,15 @@ export default async function AdminDashboard(){
  .shell .module{background:#fff!important;border-color:#edf0f5!important}
  .shell .module:hover{box-shadow:0 8px 18px rgba(35,49,88,.07)!important}
  @media(max-width:720px){.shell .welcome{padding:22px 18px!important}.shell .welcome h1{font-size:22px!important}.shell .modules{grid-template-columns:1fr 1fr!important}}
- `}
- 
+
+ .taskbar{
  .taskbar{display:flex;align-items:center;justify-content:space-between;gap:18px;margin:16px 0 5px;padding:13px 16px;background:#fff;border:1px solid #e7ecf3;border-radius:13px;box-shadow:0 4px 16px rgba(26,43,77,.03)}
  .taskintro{display:flex;align-items:center;gap:10px;min-width:190px}.taskbadge{width:32px;height:32px;display:grid;place-items:center;border-radius:10px;background:#f0efff;color:#6c63ca;font-size:15px}.taskintro b{display:block;font-size:11px;color:#293750}.taskintro small{display:block;margin-top:3px;font-size:9px;color:#8c98aa}
  .tasklinks{display:flex;align-items:center;gap:7px;flex-wrap:wrap}.tasklinks a{display:inline-flex;align-items:center;justify-content:center;min-height:32px;padding:7px 10px;border:1px solid #e8ecf3;border-radius:8px;background:#fbfcff;color:#58678a;text-decoration:none;font-size:9px;font-weight:750;transition:.16s}.tasklinks a:hover{background:#f0efff;border-color:#d9d5ff;color:#5e55bd;transform:translateY(-1px)}
  .statlink{position:relative;display:block;color:inherit;text-decoration:none;transition:transform .16s,box-shadow .16s,border-color .16s}.statlink:hover{transform:translateY(-2px);border-color:#d4d9f4!important;box-shadow:0 10px 24px rgba(26,43,77,.075)!important}.statgo{display:block;margin-top:9px;color:#737bc0;font-size:9px;font-weight:750;opacity:0;transform:translateY(3px);transition:.16s}.statlink:hover .statgo,.statlink:focus-visible .statgo{opacity:1;transform:translateY(0)}
  @media(max-width:850px){.taskbar{align-items:flex-start;flex-direction:column}.tasklinks{width:100%}}
  @media(max-width:720px){.taskbar{padding:12px}.tasklinks a{flex:1 1 calc(50% - 7px)}}
+ `}
 </style>
 
  <div className="main"><header className="top"><div className="crumb">WORKSPACE&nbsp; / &nbsp;<b>Overview</b></div><div className="righttop"><div className="dbstate"><span className={"light "+(connected?"":"off")}/>{connected?"Database connected":"Database unavailable"}</div><div className="profile"><div className="avatar">{session.username.slice(0,1).toUpperCase()}</div><span>{session.username}</span></div><form action="/api/admin/logout" method="post"><button className="logout">Sign out</button></form></div></header>
