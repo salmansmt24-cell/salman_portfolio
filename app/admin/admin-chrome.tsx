@@ -21,7 +21,7 @@ const groups = [
 
 export default function AdminChrome({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  if (pathname === "/admin" || pathname === "/admin/" || pathname.startsWith("/admin/login")) return <>{children}</>;
+  if (pathname.startsWith("/admin/login")) return <>{children}</>;
   return <div className="admin-workspace">
     <aside className="admin-global-sidebar" aria-label="Admin navigation">
       <Link href="/admin" className="admin-global-brand">
