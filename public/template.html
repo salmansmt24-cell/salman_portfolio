@@ -167,15 +167,15 @@
 </div>
 <div class="row g-4 mt-2">
 <div class="col-lg-4"><article class="project-card">
-<div class="project-preview wp-preview"><span>{{CMS:portfolio_text_0116}}</span><small>{{CMS:portfolio_text_0117}}</small></div>
+<div class="project-preview wp-preview"><img class="project-preview-image" data-project-src="{{CMS:portfolio_image_0332}}" alt="Business Website Development" hidden/><span>{{CMS:portfolio_text_0116}}</span><small>{{CMS:portfolio_text_0117}}</small></div>
 <div class="project-body"><div class="project-type">{{CMS:portfolio_text_0118}}</div><h3>{{CMS:portfolio_text_0119}}</h3><p>{{CMS:portfolio_text_0120}}</p><div class="project-tags"><span>{{CMS:portfolio_text_0121}}</span><span>{{CMS:portfolio_text_0122}}</span><span>{{CMS:portfolio_text_0123}}</span></div><a href="#contact">{{CMS:portfolio_text_0124}}<i class="bi bi-arrow-up-right"></i></a></div>
 </article></div>
 <div class="col-lg-4"><article class="project-card">
-<div class="project-preview shop-preview"><span>{{CMS:portfolio_text_0125}}</span><small>{{CMS:portfolio_text_0126}}</small></div>
+<div class="project-preview shop-preview"><img class="project-preview-image" data-project-src="{{CMS:portfolio_image_0333}}" alt="Shopify Store Setup" hidden/><span>{{CMS:portfolio_text_0125}}</span><small>{{CMS:portfolio_text_0126}}</small></div>
 <div class="project-body"><div class="project-type">{{CMS:portfolio_text_0127}}</div><h3>{{CMS:portfolio_text_0128}}</h3><p>{{CMS:portfolio_text_0129}}</p><div class="project-tags"><span>{{CMS:portfolio_text_0130}}</span><span>{{CMS:portfolio_text_0131}}</span><span>{{CMS:portfolio_text_0132}}</span></div><a href="#contact">{{CMS:portfolio_text_0133}}<i class="bi bi-arrow-up-right"></i></a></div>
 </article></div>
 <div class="col-lg-4"><article class="project-card">
-<div class="project-preview lead-preview"><span>{{CMS:portfolio_text_0134}}</span><small>{{CMS:portfolio_text_0135}}</small></div>
+<div class="project-preview lead-preview"><img class="project-preview-image" data-project-src="{{CMS:portfolio_image_0334}}" alt="Targeted Prospect Lists" hidden/><span>{{CMS:portfolio_text_0134}}</span><small>{{CMS:portfolio_text_0135}}</small></div>
 <div class="project-body"><div class="project-type">{{CMS:portfolio_text_0136}}</div><h3>{{CMS:portfolio_text_0137}}</h3><p>{{CMS:portfolio_text_0138}}</p><div class="project-tags"><span>{{CMS:portfolio_text_0139}}</span><span>{{CMS:portfolio_text_0140}}</span><span>{{CMS:portfolio_text_0141}}</span></div><a href="#contact">{{CMS:portfolio_text_0142}}<i class="bi bi-arrow-up-right"></i></a></div>
 </article></div>
 </div>
@@ -574,6 +574,7 @@ EDUCATION SECTION END -->
 <section class="contact" id="contact"><div class="container"><div class="row align-items-center"><div class="col-lg-6"><div class="label">{{CMS:contact_text_0261}}</div><h2>{{CMS:contact_text_0262}}<br/><span>{{CMS:contact_text_0263}}</span></h2><p>{{CMS:contact_text_0264}}</p></div><div class="col-lg-5 ms-auto">
 <form action="/contact-submit.php" method="POST">
 <h3>{{CMS:contact_text_0265}}</h3>
+<p id="contactFormStatus" role="status" aria-live="polite" hidden style="font-size:13px;margin:0 0 14px;padding:10px 12px;border-radius:8px"></p>
 <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px" />
 <input class="form-control mb-3" name="name" placeholder="{{CMS:contact_placeholder_0266}}" required="" type="text"/>
 <input class="form-control mb-3" name="email" placeholder="{{CMS:contact_placeholder_0267}}" required="" type="email"/>
@@ -959,4 +960,19 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
     </script>
+
+<script>
+(function(){
+  document.querySelectorAll("[data-project-src]").forEach(function(img){
+    var src=img.getAttribute("data-project-src");
+    if(!src)return;
+    img.src=src.charAt(0)==="/"||/^https?:\\/\\//i.test(src)?src:"/"+src;
+    img.hidden=false;
+    img.style.cssText="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:inherit;z-index:0";
+    var preview=img.parentElement;if(preview){preview.style.position="relative";preview.style.overflow="hidden";preview.querySelectorAll("span,small").forEach(function(el){el.style.position="relative";el.style.zIndex="1";el.style.textShadow="0 1px 5px rgba(0,0,0,.45)";});}
+  });
+  var status=document.getElementById("contactFormStatus");
+  if(status){var code=new URLSearchParams(window.location.search).get("contact");var messages={success:["Thanks! Your message has been sent successfully.","#e8f7ef","#176b45"],invalid:["Please check your details and try submitting again.","#fff6e5","#946200"],error:["Sorry, your message could not be sent. Please try again later.","#fff0f0","#a12d2d"]};if(messages[code]){status.textContent=messages[code][0];status.style.background=messages[code][1];status.style.color=messages[code][2];status.hidden=false;}}
+})();
+</script>
 </body></html>
