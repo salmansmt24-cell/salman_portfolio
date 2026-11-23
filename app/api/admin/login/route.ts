@@ -12,7 +12,7 @@ export async function POST(request: NextRequest) {
   try{
     const sql=securitySql(), ip=requestIp(request.headers);
     const lock=await sql`SELECT COUNT(*)::int AS attempts FROM admin_security_login_events
-      WHERE username=${username} AND event_type='login_failed' AND created_at>NOW()-INTERVAL '15 minutes'
+      WHERE event_type='login_failed' AND created_at>NOW()-INTERVAL '15 minutes'
       AND ip_address IS NOT DISTINCT FROM ${ip}::inet`;
     if(Number(lock[0]?.attempts??0)>=5)return NextResponse.json({error:"Too many failed attempts. Try again in 15 minutes."},{status:429});
     const valid=await verifyAdminPassword(username,password);
