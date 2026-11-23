@@ -28,9 +28,9 @@ export async function POST(request: NextRequest) {
   if (field.type === "image" && value && (!/^(assets\/images\/|uploads\/|api\/media\/)[a-zA-Z0-9_./-]+$/.test(value) || value.includes(".."))) {
     return NextResponse.json({ error: "Use a valid path inside assets/images or uploads" }, { status: 400 });
   }
-  if (!process.env.DATABASE_URL) return NextResponse.json({ error: "Database is not configured" }, { status: 503 });
+  if (!process.env.LEGACY_DATABASE_URL) return NextResponse.json({ error: "Database is not configured" }, { status: 503 });
   try {
-    const sql = neon(process.env.DATABASE_URL);
+    const sql = neon(process.env.LEGACY_DATABASE_URL);
     await sql`INSERT INTO cms_content (content_key, content_value, updated_at)
       VALUES (${key}, ${value}, NOW())
       ON CONFLICT (content_key) DO UPDATE SET content_value = EXCLUDED.content_value, updated_at = NOW()`;
