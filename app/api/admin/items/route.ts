@@ -25,8 +25,8 @@ function validUrl(value: string): boolean {
   catch { return false; }
 }
 function db() {
-  if (!process.env.DATABASE_URL) throw new Error("Database is not configured");
-  return neon(process.env.DATABASE_URL);
+  if (!process.env.LEGACY_DATABASE_URL) throw new Error("Database is not configured");
+  return neon(process.env.LEGACY_DATABASE_URL);
 }
 async function authorized(request: NextRequest) {
   const session = await getAdminSession();
