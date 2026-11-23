@@ -56,3 +56,39 @@ export async function GET() {
   }
   return new Response(html, { headers: { "content-type":"text/html; charset=utf-8", "x-content-type-options":"nosniff", "content-security-policy":"frame-ancestors 'self'", "cache-control":"no-store" } });
 }
+
+
+export async function POST(request: Request) {
+  const requestUrl = new URL(request.url);
+  if (requestUrl.pathname !== "/contact-submit.php" && requestUrl.pathname !== "/contact-submit") {
+    return new Response("Not found", { status: 404 });
+  }
+  const origin = request.headers.get("origin");
+  const host = request.headers.get("host");
+  if (origin && host) {
+    try { if (new URL(origin).host !== host) return new Response("Request rejected", { status: 403 }); }
+    catch { return new Response("Request rejected", { status: 403 }); }
+  }
+  const redirectTo = (status: string) => Response.redirect(new URL("/?contact=" + status + "#contact", requestUrl.origin), 303);
+  try {
+    const form = await request.formData();
+    const name = String(form.get("name") ?? "").trim();
+    const email = String(form.get("email") ?? "").trim().toLowerCase();
+    const service = String(form.get("service") ?? "").trim();
+    const message = String(form.get("message") ?? "").trim();
+    const honeypot = String(form.get("website") ?? "").trim();
+    if (honeypot) return redirectTo("success");
+    if (!name || name.length > 120 || !/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(email) || email.length > 254 ||
+        !service || service.length > 120 || !message || message.length > 5000) return redirectTo("invalid");
+    if (!process.env.LEGACY_DATABASE_URL) {
+      console.error("Contact form failed: LEGACY_DATABASE_URL is not configured");
+      return redirectTo("error");
+    }
+    const sql = neon(process.env.LEGACY_DATABASE_URL);
+    await sql`INSERT INTO cms_messages (name,email,service,message) VALUES (${name},${email},${service},${message})`;
+    return redirectTo("success");
+  } catch (error) {
+    console.error("Contact form submission failed", error);
+    return redirectTo("error");
+  }
+}
