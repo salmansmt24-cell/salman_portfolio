@@ -18,7 +18,7 @@ export async function POST(request: NextRequest) {
 
   const token = String(body.token ?? "");
   const password = String(body.password ?? "");
-  if (token.length !== 96 || password.length < 12 || password.length > 72) {
+  if (token.length !== 64 || password.length < 12 || password.length > 72) {
     return NextResponse.json({ error: "The reset link or password is invalid. Use a password of 12–72 characters." }, { status: 400 });
   }
 
