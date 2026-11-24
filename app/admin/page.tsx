@@ -1,3 +1,5 @@
+"use server";
+
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getAdminSession } from "@/lib/admin-auth";
@@ -6,84 +8,154 @@ import { neon } from "@neondatabase/serverless";
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
 
-type Order={id:number;order_id:string;client_username:string;project_title:string;amount:string|number;status:string;created_at:string};
-type Message={id:number;name:string;email:string;service:string;message:string;is_read:boolean;created_at:string};
-const nav=[
- {group:"Workspace",items:[["Overview","/admin","⌂"],["Content editor","/admin/content","✎"],["Collections","/admin/collections","▦"]]},
- {group:"Business",items:[["Fiverr orders","/admin/manage/orders","↗"],["Fiverr profiles","/admin/manage/profiles","◎"],["Messages","/admin/manage/messages","✉"],["Analytics","/admin/analytics","▥"],["Sales insights","/admin/reports/insights","◉"],["Intelligence V4","/admin/reports/intelligence","✧"]]},
- {group:"Assets & tools",items:[["Media library","/admin/media","▧"],["Private templates","/admin/manage/templates","▤"],["Monthly Plus","/admin/monthly-plus","▦"],["Google Sheets Sync","/admin/sync","↻"],["Account & security","/admin/account","⚙"]]}
+type Order = { id:number; order_id:string; client_username:string; project_title:string; amount:string|number; net_amount?:string|number; status:string; created_at:string };
+type Message = { id:number; name:string; email:string; service:string; message:string; is_read:boolean; created_at:string };
+type Month = { month:string; net:number|string; orders:number };
+type Status = { status:string; total:number };
+type Activity = { key:string; title:string; detail:string; when:string; kind:"order"|"message"; time:number };
+
+const money = (v:number|string|undefined) => "$"+Number(v??0).toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2});
+const date = (v:string) => { const d=new Date(v); return Number.isNaN(d.getTime())?"—":d.toLocaleDateString("en-GB",{day:"2-digit",month:"short",year:"numeric"}); };
+const clip = (s:string,n=34) => s&&s.length>n?s.slice(0,n-1)+"…":s||"—";
+const nav = [
+  {label:"Content editor",href:"/admin/content",icon:"✎",hint:"Update portfolio content"},
+  {label:"Fiverr orders",href:"/admin/manage/orders",icon:"↗",hint:"Review client orders"},
+  {label:"Messages",href:"/admin/manage/messages",icon:"✉",hint:"Reply to enquiries"},
+  {label:"Media library",href:"/admin/media",icon:"▧",hint:"Manage uploaded assets"},
+  {label:"Fiverr profiles",href:"/admin/manage/profiles",icon:"◎",hint:"Manage profile records"},
+  {label:"Analytics",href:"/admin/analytics",icon:"▥",hint:"Explore business reports"}
 ];
-const money=(v:number|string|undefined)=>"$"+Number(v??0).toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2});
-const date=(v:string)=>{const d=new Date(v);return Number.isNaN(d.getTime())?"—":d.toLocaleDateString("en-GB",{day:"2-digit",month:"short",year:"numeric"})};
-const clip=(s:string,n=36)=>s&&s.length>n?s.slice(0,n-1)+"…":s||"—";
 
 export default async function AdminDashboard(){
- const session=await getAdminSession();if(!session)redirect("/admin/login");
- let connected=true;let stats={content:0,orders:0,profiles:0,messages:0,unread:0,templates:0,revenue:0,items:0};let orders:Order[]=[];let messages:Message[]=[];
- try{if(!process.env.LEGACY_DATABASE_URL)throw new Error("DATABASE_URL missing");const sql=neon(process.env.LEGACY_DATABASE_URL);const [s,o,m]=await Promise.all([
- sql`SELECT (SELECT COUNT(*)::int FROM cms_content) content,(SELECT COUNT(*)::int FROM cms_fiverr_orders) orders,(SELECT COUNT(*)::int FROM cms_fiverr_profiles) profiles,(SELECT COUNT(*)::int FROM cms_messages) messages,(SELECT COUNT(*)::int FROM cms_messages WHERE is_read=FALSE) unread,(SELECT COUNT(*)::int FROM cms_private_templates) templates,(SELECT COUNT(*)::int FROM cms_items) items,(SELECT COALESCE(SUM(net_amount),0)::float FROM cms_fiverr_orders) revenue`,
- sql`SELECT id,order_id,client_username,project_title,amount,status,created_at FROM cms_fiverr_orders ORDER BY created_at DESC,id DESC LIMIT 6`,
- sql`SELECT id,name,email,service,message,is_read,created_at FROM cms_messages ORDER BY created_at DESC,id DESC LIMIT 5`]);stats=s[0] as typeof stats;orders=o as unknown as Order[];messages=m as unknown as Message[];}catch(e){connected=false;console.error("Dashboard query failed",e)}
- const cards=[["Net earnings",money(stats.revenue),"Total imported net amount","$","mint"],["Fiverr orders",stats.orders,"Orders in your workspace","↗","blue"],["Portfolio content",stats.content,"Editable content records","✎","violet"],["Messages",stats.messages,stats.unread+" need your attention","✉","amber"],["Fiverr profiles",stats.profiles,"Tracked profiles","◎","rose"],["Portfolio items",stats.items,"Across all collections","▦","cyan"]];
- return <main className="shell"><style>{`
- *{box-sizing:border-box}.shell{min-height:100vh;background:#f5f6fa;color:#192238;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;display:block}
- .side{width:258px;flex:0 0 258px;background:#111a2e;color:#aab5c8;padding:22px 15px;display:flex;flex-direction:column;min-height:100vh}.brand{display:flex;align-items:center;gap:12px;padding:5px 10px 25px;border-bottom:1px solid #29334a}.brandmark{width:42px;height:42px;border-radius:14px;background:linear-gradient(145deg,#7c6cff,#3c8de8);display:grid;place-items:center;color:white;font-weight:900;font-size:20px;box-shadow:0 8px 22px #5968d84d}.brand b{display:block;color:#fff;font-size:13px;letter-spacing:.8px}.brand small{display:block;color:#77849c;font-size:10px;margin-top:3px}.navgroup{margin-top:23px}.navtitle{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;color:#64728b;padding:0 12px 9px}.navitems{display:grid;gap:4px}.navitem{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:9px;color:#aab5c8;text-decoration:none;font-size:12px;font-weight:600;transition:.18s}.navitem:hover{background:#1d2a43;color:#fff}.navitem.active{background:linear-gradient(100deg,#344a70,#263854);color:#fff;box-shadow:inset 3px 0 #8b82ff}.navico{width:21px;height:21px;border-radius:7px;display:grid;place-items:center;background:#202c43;color:#9caed0;font-size:13px}.navitem.active .navico{background:#526b9b;color:white}.sidefoot{margin-top:auto;border-top:1px solid #29334a;padding:15px 10px 0;font-size:10px;color:#74829a;line-height:1.7}.sidefoot strong{color:#cbd5e5}
- .main{min-width:0;width:100%}.top{height:70px;background:#fff;border-bottom:1px solid #e9ecf2;display:flex;align-items:center;justify-content:space-between;padding:0 34px}.crumb{font-size:11px;color:#a0a9b8}.crumb b{color:#39465c}.righttop{display:flex;align-items:center;gap:16px}.dbstate{display:flex;align-items:center;gap:7px;padding:7px 10px;border:1px solid #e8edf2;border-radius:20px;font-size:10px;color:#69778d;background:#fbfcfe}.light{width:7px;height:7px;border-radius:50%;background:#19ad79}.light.off{background:#d45b65}.profile{display:flex;align-items:center;gap:9px;font-size:11px;font-weight:700;color:#44516a}.avatar{width:33px;height:33px;border-radius:11px;background:#e9e8ff;color:#6158bc;display:grid;place-items:center;font-size:13px;font-weight:900}.logout{background:white;border:1px solid #e4e8ef;border-radius:8px;padding:8px 11px;font-size:10px;color:#65728a;font-weight:700;cursor:pointer}
- .body{max-width:1500px;margin:auto;padding:30px 34px 50px}.welcome{position:relative;overflow:hidden;background:linear-gradient(112deg,#202e4b 0%,#354b73 62%,#6559a9 100%);border-radius:18px;padding:27px 30px;color:white;display:flex;justify-content:space-between;align-items:center;min-height:158px;box-shadow:0 12px 28px #25365a20}.welcome:after{content:"";position:absolute;width:260px;height:260px;border:1px solid #ffffff20;border-radius:50%;right:8%;top:-125px;box-shadow:0 0 0 28px #ffffff08,0 0 0 58px #ffffff06}.welcome-copy{position:relative;z-index:1}.eyebrow{font-size:9px;letter-spacing:1.8px;text-transform:uppercase;color:#c2c9ff;font-weight:800}.welcome h1{font-size:25px;letter-spacing:-.8px;margin:9px 0 6px}.welcome p{margin:0;color:#d1d8e8;font-size:11px}.welcome-actions{position:relative;z-index:1;display:flex;gap:9px;flex-wrap:wrap}.action{display:inline-flex;align-items:center;gap:7px;text-decoration:none;border-radius:9px;padding:10px 13px;font-size:10px;font-weight:800;background:#fff;color:#354b73}.action.alt{background:#ffffff17;color:white;border:1px solid #ffffff35}
- .sectionhead{display:flex;justify-content:space-between;align-items:end;margin:25px 0 12px}.sectionhead h2{font-size:14px;margin:0;color:#26334a}.sectionhead p{font-size:10px;color:#9aa4b4;margin:4px 0 0}.mutedlink{font-size:10px;color:#6875b8;text-decoration:none;font-weight:750}.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}.stat{background:white;border:1px solid #e9edf3;border-radius:13px;padding:17px 18px;min-width:0;box-shadow:0 3px 10px #18284605}.stathead{display:flex;justify-content:space-between;align-items:center}.statlabel{font-size:10px;color:#8490a3;font-weight:700}.statico{width:32px;height:32px;border-radius:10px;display:grid;place-items:center;font-size:14px;font-weight:800}.mint{background:#e5f7ef;color:#159267}.blue{background:#eaf1ff;color:#4778d3}.violet{background:#f0edff;color:#7663ca}.amber{background:#fff2e2;color:#c7802e}.rose{background:#ffedf2;color:#c45e82}.cyan{background:#e5f6fa;color:#218ba0}.statvalue{font-size:24px;font-weight:850;letter-spacing:-.8px;margin:11px 0 3px;color:#202c42}.statsub{font-size:10px;color:#a0aaba}
- .grid{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(290px,.9fr);gap:14px;margin-top:15px}.panel{background:#fff;border:1px solid #e9edf3;border-radius:13px;overflow:hidden;min-width:0;box-shadow:0 3px 10px #18284605}.panelhead{padding:16px 18px;border-bottom:1px solid #eff1f5;display:flex;justify-content:space-between;align-items:center}.panelhead h3{font-size:12px;margin:0;color:#29364d}.panelhead span{font-size:9px;color:#9aa4b3}.tablewrap{overflow:auto}table{width:100%;border-collapse:collapse;text-align:left;white-space:nowrap}th{padding:11px 15px;background:#fafbfe;color:#9aa5b4;font-size:9px;text-transform:uppercase;letter-spacing:.7px}td{padding:12px 15px;border-top:1px solid #f0f2f6;color:#68758a;font-size:10px}td strong{color:#344158}.pill{display:inline-block;padding:4px 7px;border-radius:20px;background:#eef1f6;color:#718097;font-size:9px;font-weight:800}.pill.good{background:#e7f7ef;color:#19885c}.pill.wait{background:#fff3e2;color:#b77b2d}.empty{padding:26px;text-align:center;color:#a2adbb;font-size:11px}
- .msglist{padding:3px 17px}.msg{display:flex;gap:10px;padding:12px 0;border-bottom:1px solid #f0f2f6}.msg:last-child{border:0}.msgav{width:30px;height:30px;flex:0 0 30px;border-radius:10px;background:#edf0ff;color:#6873bf;display:grid;place-items:center;font-size:11px;font-weight:800}.msgbody{min-width:0;flex:1}.msgbody b{display:block;font-size:10px;color:#39465b}.msgbody small{display:block;font-size:9px;color:#a0a9b7;margin-top:3px}.msgbody p{font-size:10px;line-height:1.5;color:#7c889b;margin:5px 0 0}.unread{width:6px;height:6px;border-radius:50%;background:#5c7fe0;margin-top:5px}
- .modules{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px;padding:14px}.module{display:flex;align-items:center;gap:9px;padding:11px;border:1px solid #edf0f5;border-radius:10px;text-decoration:none;min-width:0;transition:.18s}.module:hover{border-color:#cfd5f6;background:#fafaff;transform:translateY(-1px)}.moduleico{width:27px;height:27px;flex:0 0 27px;border-radius:8px;background:#f0f1ff;color:#6968b6;display:grid;place-items:center;font-size:12px}.module b{display:block;font-size:9px;color:#4a566c;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.module small{display:block;color:#a2adbb;font-size:8px;margin-top:3px}.footnote{font-size:9px;color:#a0aaba;margin-top:14px;text-align:right}
- @media(max-width:1100px){.side{width:225px;flex-basis:225px}.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.modules{grid-template-columns:repeat(2,minmax(0,1fr))}.grid{grid-template-columns:1fr}}@media(max-width:720px){.shell{display:block}.side{width:100%;min-height:0;padding:13px}.brand{padding-bottom:12px}.navgroup{margin-top:13px}.navtitle{padding-bottom:6px}.navitems{display:flex;overflow:auto}.navitem{white-space:nowrap;padding:8px}.sidefoot{display:none}.top{height:58px;padding:0 14px}.body{padding:17px 13px 30px}.welcome{padding:22px 19px;display:block}.welcome h1{font-size:21px}.welcome-actions{margin-top:17px}.stats{gap:8px}.stat{padding:12px}.statvalue{font-size:20px}.statlabel{font-size:9px}.statsub{font-size:9px}.righttop{gap:7px}.dbstate{font-size:0;padding:8px}.profile span{display:none}.modules{grid-template-columns:1fr 1fr;padding:10px}.sectionhead{margin-top:20px}}@media(max-width:390px){.stats{grid-template-columns:1fr 1fr}.modules{grid-template-columns:1fr}.logout{padding:7px}}
+  const session=await getAdminSession();
+  if(!session) redirect("/admin/login");
+  let connected=true;
+  let stats={content:0,orders:0,profiles:0,messages:0,unread:0,templates:0,revenue:0,items:0};
+  let orders:Order[]=[];
+  let messages:Message[]=[];
+  let months:Month[]=[];
+  let statuses:Status[]=[];
+  try{
+    if(!process.env.LEGACY_DATABASE_URL) throw new Error("DATABASE_URL missing");
+    const sql=neon(process.env.LEGACY_DATABASE_URL);
+    const [s,o,m,monthly,statusRows]=await Promise.all([
+      sql`SELECT (SELECT COUNT(*)::int FROM cms_content) content,(SELECT COUNT(*)::int FROM cms_fiverr_orders) orders,(SELECT COUNT(*)::int FROM cms_fiverr_profiles) profiles,(SELECT COUNT(*)::int FROM cms_messages) messages,(SELECT COUNT(*)::int FROM cms_messages WHERE is_read=FALSE) unread,(SELECT COUNT(*)::int FROM cms_private_templates) templates,(SELECT COUNT(*)::int FROM cms_items) items,(SELECT COALESCE(SUM(net_amount),0)::float FROM cms_fiverr_orders) revenue`,
+      sql`SELECT id,order_id,client_username,project_title,amount,net_amount,status,created_at FROM cms_fiverr_orders ORDER BY created_at DESC,id DESC LIMIT 5`,
+      sql`SELECT id,name,email,service,message,is_read,created_at FROM cms_messages ORDER BY created_at DESC,id DESC LIMIT 5`,
+      sql`SELECT TO_CHAR(COALESCE(lead_date,created_at::date),'Mon YY') AS month,TO_CHAR(COALESCE(lead_date,created_at::date),'YYYY-MM') AS sort_month,COUNT(*)::int AS orders,COALESCE(SUM(net_amount),0)::float AS net FROM cms_fiverr_orders WHERE COALESCE(lead_date,created_at::date)>=CURRENT_DATE-INTERVAL '5 months' GROUP BY 1,2 ORDER BY 2 ASC`,
+      sql`SELECT status,COUNT(*)::int AS total FROM cms_fiverr_orders GROUP BY status ORDER BY total DESC`
+    ]);
+    stats=s[0] as typeof stats;
+    orders=o as unknown as Order[];
+    messages=m as unknown as Message[];
+    months=monthly as unknown as Month[];
+    statuses=statusRows as unknown as Status[];
+  }catch(e){connected=false;console.error("Dashboard query failed",e);}
 
- .shell{background:#f6f7fb!important;color:#1b2940!important}
- .shell .body{max-width:1540px!important;padding:29px clamp(18px,3vw,42px) 54px!important}
- .shell .top{height:68px!important;background:rgba(255,255,255,.94)!important}
- .shell .welcome{min-height:150px!important;padding:27px 30px!important;border:1px solid #e7ebf3!important;border-radius:17px!important;background:linear-gradient(105deg,#fff 0%,#fff 70%,#f1f1ff 100%)!important;box-shadow:0 8px 28px rgba(31,48,81,.055)!important;color:#1c2940!important}
- .shell .welcome:after{width:230px!important;height:230px!important;right:5%!important;top:-135px!important;border-color:rgba(100,94,210,.13)!important;box-shadow:0 0 0 25px rgba(100,94,210,.035),0 0 0 52px rgba(100,94,210,.025)!important}
- .shell .eyebrow{color:#716bd0!important;font-size:9px!important;letter-spacing:1.7px!important}
- .shell .welcome h1{color:#1c2940!important;font-size:27px!important;letter-spacing:-1.1px!important}
- .shell .welcome p{color:#78859a!important;font-size:11px!important}
- .shell .action{background:#273b62!important;color:white!important;border:1px solid #273b62!important;border-radius:9px!important;padding:11px 14px!important}
- .shell .action.alt{background:#fff!important;color:#4d5d79!important;border:1px solid #e3e8f0!important}
- .shell .sectionhead{margin:26px 0 12px!important}
- .shell .sectionhead h2{font-size:15px!important;color:#25334c!important}
- .shell .stats{gap:13px!important}
- .shell .stat{position:relative;overflow:hidden;border:1px solid #e8edf4!important;border-radius:14px!important;padding:17px 18px!important;box-shadow:0 4px 16px rgba(26,43,77,.035)!important;background:#fff!important}
- .shell .stat:nth-child(1){border-top:3px solid #24a77b!important}.shell .stat:nth-child(2){border-top:3px solid #5684df!important}.shell .stat:nth-child(3){border-top:3px solid #8873db!important}.shell .stat:nth-child(4){border-top:3px solid #e3a04e!important}.shell .stat:nth-child(5){border-top:3px solid #d86f94!important}.shell .stat:nth-child(6){border-top:3px solid #3b9eb4!important}
- .shell .stat:hover{transform:translateY(-2px)!important;box-shadow:0 11px 25px rgba(26,43,77,.075)!important}
- .shell .statvalue{font-size:25px!important;color:#1d2b44!important}
- .shell .panel{border:1px solid #e7ecf3!important;border-radius:14px!important;box-shadow:0 4px 17px rgba(26,43,77,.035)!important}
- .shell .panelhead{background:#fff!important;padding:16px 18px!important}
- .shell .panelhead h3{font-size:12px!important}
- .shell .modules{grid-template-columns:repeat(4,minmax(0,1fr))!important}
- .shell .module{background:#fff!important;border-color:#edf0f5!important}
- .shell .module:hover{box-shadow:0 8px 18px rgba(35,49,88,.07)!important}
- @media(max-width:720px){.shell .welcome{padding:22px 18px!important}.shell .welcome h1{font-size:22px!important}.shell .modules{grid-template-columns:1fr 1fr!important}}
+  const maxMonthly=Math.max(1,...months.map(x=>Number(x.net)||0));
+  const totalStatus=Math.max(1,statuses.reduce((n,x)=>n+Number(x.total||0),0));
+  const palette=["#635bdb","#4f83db","#22a77b","#e2a04c","#d86f94","#48a4b6"];
+  let offset=0;
+  const donut=statuses.map((x,i)=>{const pct=Number(x.total||0)/totalStatus*100;const start=offset;offset+=pct;return `${palette[i%palette.length]} ${start}% ${offset}%`;}).join(",");
+  const activity:Activity[]=[
+    ...orders.map(o=>({key:"o-"+o.id,title:"New Fiverr order "+(o.order_id?"#"+o.order_id:""),detail:clip(o.project_title||o.client_username||"Order received",42),when:date(o.created_at),kind:"order" as const,time:new Date(o.created_at).getTime()||0})),
+    ...messages.map(m=>({key:"m-"+m.id,title:"New message from "+(m.name||"website visitor"),detail:clip(m.message||m.service||"Contact enquiry",42),when:date(m.created_at),kind:"message" as const,time:new Date(m.created_at).getTime()||0}))
+  ].sort((a,b)=>b.time-a.time).slice(0,6);
+  const cards=[
+    {label:"Total orders",value:stats.orders,sub:"Imported Fiverr order records",icon:"↗",tone:"blue",href:"/admin/manage/orders"},
+    {label:"Net earnings",value:money(stats.revenue),sub:"Recorded net order amount",icon:"$",tone:"mint",href:"/admin/analytics"},
+    {label:"Portfolio content",value:stats.content,sub:"Editable content records",icon:"✎",tone:"violet",href:"/admin/content"},
+    {label:"Unread messages",value:stats.unread,sub:`${stats.messages} total enquiries`,icon:"✉",tone:"amber",href:"/admin/manage/messages"}
+  ];
 
- .taskbar{display:flex;align-items:center;justify-content:space-between;gap:18px;margin:16px 0 5px;padding:13px 16px;background:#fff;border:1px solid #e7ecf3;border-radius:13px;box-shadow:0 4px 16px rgba(26,43,77,.03)}
- .taskintro{display:flex;align-items:center;gap:10px;min-width:190px}.taskbadge{width:32px;height:32px;display:grid;place-items:center;border-radius:10px;background:#f0efff;color:#6c63ca;font-size:15px}.taskintro b{display:block;font-size:11px;color:#293750}.taskintro small{display:block;margin-top:3px;font-size:9px;color:#8c98aa}
- .tasklinks{display:flex;align-items:center;gap:7px;flex-wrap:wrap}.tasklinks a{display:inline-flex;align-items:center;justify-content:center;min-height:32px;padding:7px 10px;border:1px solid #e8ecf3;border-radius:8px;background:#fbfcff;color:#58678a;text-decoration:none;font-size:9px;font-weight:750;transition:.16s}.tasklinks a:hover{background:#f0efff;border-color:#d9d5ff;color:#5e55bd;transform:translateY(-1px)}
- .statlink{position:relative;display:block;color:inherit;text-decoration:none;transition:transform .16s,box-shadow .16s,border-color .16s}.statlink:hover{transform:translateY(-2px);border-color:#d4d9f4!important;box-shadow:0 10px 24px rgba(26,43,77,.075)!important}.statgo{display:block;margin-top:9px;color:#737bc0;font-size:9px;font-weight:750;opacity:0;transform:translateY(3px);transition:.16s}.statlink:hover .statgo,.statlink:focus-visible .statgo{opacity:1;transform:translateY(0)}
- @media(max-width:850px){.taskbar{align-items:flex-start;flex-direction:column}.tasklinks{width:100%}}
- @media(max-width:720px){.taskbar{padding:12px}.tasklinks a{flex:1 1 calc(50% - 7px)}}
- `}
-</style>
-
- <div className="main"><header className="top"><div className="crumb">WORKSPACE&nbsp; / &nbsp;<b>Overview</b></div><div className="righttop"><div className="dbstate"><span className={"light "+(connected?"":"off")}/>{connected?"Database connected":"Database unavailable"}</div><div className="profile"><div className="avatar">{session.username.slice(0,1).toUpperCase()}</div><span>{session.username}</span></div><form action="/api/admin/logout" method="post"><button className="logout">Sign out</button></form></div></header>
- <section className="body"><div className="welcome"><div className="welcome-copy"><div className="eyebrow">YOUR CONTROL CENTER</div><h1>Welcome back, {session.username} <span>✦</span></h1><p>Manage your portfolio, client activity and business operations from one place.</p></div><div className="welcome-actions"><Link className="action" href="/admin/content">✎ Edit portfolio</Link><Link className="action alt" href="/admin/collections">＋ Manage collections</Link></div></div>
- <section className="taskbar" aria-label="Common tasks">
- <div className="taskintro"><span className="taskbadge">✦</span><div><b>Pick up where you left off</b><small>Common actions, one click away</small></div></div>
- <div className="tasklinks">
-  <Link href="/admin/content">＋ Add content</Link>
-  <Link href="/admin/manage/orders">↗ View orders</Link>
-  <Link href="/admin/manage/messages">✉ Check messages{stats.unread>0? ` · ${stats.unread}`: ""}</Link>
-  <Link href="/admin/media">▧ Open media</Link>
- </div>
-</section>
-<div className="sectionhead"><div><h2>Business overview</h2><p>Live figures from your existing Neon database</p></div><Link className="mutedlink" href="/admin/analytics">View analytics →</Link></div>
- <div className="stats">{cards.map(([label,value,sub,icon,tone])=>{const href=label==="Net earnings"||label==="Fiverr orders"?"/admin/manage/orders":label==="Portfolio content"?"/admin/content":label==="Messages"?"/admin/manage/messages":label==="Fiverr profiles"?"/admin/manage/profiles":"/admin/collections";return <Link className="stat statlink" href={href} key={label} aria-label={`${label}: ${value}. Open related page`}><div className="stathead"><span className="statlabel">{label}</span><span className={"statico "+tone}>{icon}</span></div><div className="statvalue">{value}</div><div className="statsub">{sub}</div><span className="statgo">Open details ↗</span></Link>})}</div>
- <div className="grid"><section className="panel"><div className="panelhead"><h3>Recent Fiverr orders</h3><Link className="mutedlink" href="/admin/manage/orders">View all →</Link></div><div className="tablewrap"><table><thead><tr><th>Order ID</th><th>Client</th><th>Project</th><th>Amount</th><th>Status</th><th>Date</th></tr></thead><tbody>{orders.map(o=><tr key={o.id}><td><strong>#{clip(o.order_id,15)}</strong></td><td>{clip(o.client_username,16)}</td><td>{clip(o.project_title,24)}</td><td><strong>{money(o.amount)}</strong></td><td><span className={"pill "+(/complete|delivered|done/i.test(o.status)?"good":/pending|progress/i.test(o.status)?"wait":"")}>{o.status||"Unknown"}</span></td><td>{date(o.created_at)}</td></tr>)}</tbody></table>{!orders.length&&<div className="empty">No order records found.</div>}</div></section>
- <section className="panel"><div className="panelhead"><h3>Latest messages</h3><Link className="mutedlink" href="/admin/manage/messages">{stats.unread} unread →</Link></div><div className="msglist">{messages.map(m=><article className="msg" key={m.id}><div className="msgav">{m.name?.slice(0,1).toUpperCase()||"?"}</div><div className="msgbody"><b>{clip(m.name,25)}</b><small>{m.email} · {date(m.created_at)}</small><p>{clip(m.message,85)}</p></div>{!m.is_read&&<span className="unread"/>}</article>)}{!messages.length&&<div className="empty">No contact messages yet.</div>}</div></section></div>
- <div className="sectionhead"><div><h2>Quick access</h2><p>Jump directly to your management tools</p></div></div><section className="panel"><div className="modules">{nav.flatMap(g=>g.items).filter(x=>x[1]!=="/admin").map(([label,href,icon])=><Link className="module" href={href} key={href}><span className="moduleico">{icon}</span><span><b>{label}</b><small>Open module</small></span></Link>)}</div></section><div className="footnote">JS SALMAN · Secure preview workspace · Production remains unchanged</div></section></div></main>;
+  return <main className="dashv2">
+    <style>{`
+      .dashv2{min-height:100vh;background:var(--cms-bg,#f5f7fb);color:var(--cms-ink,#18243a);font-family:Inter,"DM Sans",ui-sans-serif,system-ui,sans-serif}
+      .dashv2 *{box-sizing:border-box}
+      .dash-top{height:68px;padding:0 clamp(18px,3vw,36px);display:flex;align-items:center;justify-content:space-between;background:#fff;border-bottom:1px solid var(--cms-line,#e7ebf2)}
+      .dash-crumb{font-size:11px;color:#9aa5b5}.dash-crumb b{color:#46536a}
+      .dash-topright{display:flex;align-items:center;gap:14px}
+      .dash-db{display:flex;align-items:center;gap:7px;border:1px solid #e8edf3;border-radius:30px;padding:7px 10px;font-size:10px;color:#728097}
+      .dash-dot{width:7px;height:7px;border-radius:50%;background:#22a77b}.dash-dot.off{background:#d65d70}
+      .dash-user{display:flex;align-items:center;gap:8px;color:#43516a;font-size:11px;font-weight:750}
+      .dash-avatar{width:32px;height:32px;display:grid;place-items:center;border-radius:11px;background:#eeedff;color:#635bdb;font-weight:850}
+      .dash-logout{border:1px solid #e4e9f0;background:#fff;border-radius:8px;padding:8px 11px;color:#6d7a90;font-size:10px;font-weight:750;cursor:pointer}
+      .dash-content{max-width:1500px;margin:auto;padding:26px clamp(16px,3vw,36px) 48px}
+      .dash-hero{position:relative;overflow:hidden;display:flex;align-items:center;justify-content:space-between;gap:20px;min-height:145px;padding:25px 28px;border:1px solid #e7ebf3;border-radius:16px;background:linear-gradient(105deg,#fff 0%,#fff 68%,#f0efff 100%);box-shadow:0 7px 24px rgba(31,48,81,.045)}
+      .dash-hero:after{content:"";position:absolute;width:220px;height:220px;right:6%;top:-130px;border:1px solid rgba(100,94,210,.14);border-radius:50%;box-shadow:0 0 0 25px rgba(100,94,210,.035),0 0 0 52px rgba(100,94,210,.025)}
+      .dash-hero-copy,.dash-hero-actions{position:relative;z-index:1}
+      .dash-eyebrow{font-size:9px;letter-spacing:1.7px;text-transform:uppercase;color:#716bd0;font-weight:850}
+      .dash-hero h1{margin:8px 0 5px;color:#1c2940;font-size:26px;letter-spacing:-.9px}
+      .dash-hero p{margin:0;color:#7c899d;font-size:11px;line-height:1.6}
+      .dash-hero-actions{display:flex;gap:8px;flex-wrap:wrap}
+      .dash-btn{display:inline-flex;align-items:center;gap:7px;text-decoration:none;border:1px solid #273b62;border-radius:9px;padding:10px 13px;background:#273b62;color:#fff;font-size:10px;font-weight:800}
+      .dash-btn.secondary{background:#fff;color:#53627d;border-color:#e3e8f0}
+      .dash-sectionhead{display:flex;justify-content:space-between;align-items:end;gap:12px;margin:24px 0 11px}
+      .dash-sectionhead h2{margin:0;color:#293750;font-size:14px}
+      .dash-sectionhead p{margin:4px 0 0;color:#97a2b2;font-size:10px}
+      .dash-link{color:#6968bd;text-decoration:none;font-size:10px;font-weight:800}
+      .dash-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+      .dash-stat{display:block;min-width:0;padding:15px 16px;border:1px solid #e8edf4;border-top:3px solid #5684df;border-radius:13px;background:#fff;text-decoration:none;color:inherit;box-shadow:0 4px 15px rgba(26,43,77,.03);transition:.16s}
+      .dash-stat:hover{transform:translateY(-2px);box-shadow:0 10px 23px rgba(26,43,77,.075)}
+      .dash-stat.mint{border-top-color:#24a77b}.dash-stat.violet{border-top-color:#8873db}.dash-stat.amber{border-top-color:#e3a04e}
+      .dash-stathead{display:flex;align-items:center;justify-content:space-between;color:#8390a4;font-size:10px;font-weight:750}
+      .dash-staticon{width:31px;height:31px;display:grid;place-items:center;border-radius:10px;background:#eaf1ff;color:#4778d3;font-size:13px;font-weight:850}
+      .dash-stat.mint .dash-staticon{background:#e5f7ef;color:#159267}.dash-stat.violet .dash-staticon{background:#f0edff;color:#7663ca}.dash-stat.amber .dash-staticon{background:#fff2e2;color:#c7802e}
+      .dash-statvalue{margin:10px 0 3px;color:#202c42;font-size:23px;font-weight:850;letter-spacing:-.7px}
+      .dash-statsub{color:#a0aaba;font-size:9px}
+      .dash-grid{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(270px,.85fr);gap:13px;margin-top:14px}
+      .dash-panel{min-width:0;overflow:hidden;border:1px solid #e8edf4;border-radius:13px;background:#fff;box-shadow:0 4px 15px rgba(26,43,77,.03)}
+      .dash-panelhead{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:15px 17px;border-bottom:1px solid #eff1f5}
+      .dash-panelhead h3{margin:0;color:#293750;font-size:12px}
+      .dash-panelhead small{color:#9aa5b4;font-size:9px}
+      .dash-chart{padding:14px 17px 12px}
+      .dash-chartrow{display:grid;grid-template-columns:52px 1fr;gap:9px;align-items:end;margin:9px 0}
+      .dash-chartlabel{padding-bottom:2px;color:#8995a8;font-size:9px}
+      .dash-bartrack{height:25px;overflow:hidden;border-radius:6px;background:#f1f3f9}
+      .dash-bar{height:100%;min-width:2px;border-radius:6px;background:linear-gradient(90deg,#6575d6,#8e84df)}
+      .dash-chartmeta{display:flex;justify-content:space-between;gap:10px;margin:12px 0 0 61px;color:#9aa5b4;font-size:9px}
+      .dash-sales{display:flex;align-items:center;gap:17px;padding:17px}
+      .dash-donut{width:126px;height:126px;flex:0 0 126px;display:grid;place-items:center;border-radius:50%;background:conic-gradient(${donut||"#e9edf4 0% 100%"})}
+      .dash-donutinner{width:82px;height:82px;display:grid;place-items:center;align-content:center;border-radius:50%;background:white;text-align:center}
+      .dash-donutinner b{color:#27344c;font-size:17px}.dash-donutinner small{margin-top:3px;color:#9aa5b4;font-size:8px}
+      .dash-legend{display:grid;gap:9px;min-width:0}.dash-legendrow{display:flex;align-items:center;gap:7px;color:#65728a;font-size:9px}.dash-legendrow b{margin-left:auto;color:#3d4b63}
+      .dash-legenddot{width:7px;height:7px;flex:0 0 7px;border-radius:50%}
+      .dash-bottom{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(240px,.9fr) minmax(220px,.8fr);gap:13px;margin-top:14px}
+      .dash-tablewrap{overflow:auto} .dash-table{width:100%;border-collapse:collapse;white-space:nowrap;text-align:left}
+      .dash-table th{padding:10px 12px;background:#fafbfe;color:#9aa5b4;font-size:8px;text-transform:uppercase;letter-spacing:.6px}
+      .dash-table td{padding:11px 12px;border-top:1px solid #f0f2f6;color:#68758a;font-size:9px}
+      .dash-table td strong{color:#39465b}.dash-pill{display:inline-block;padding:4px 7px;border-radius:20px;background:#eef1f6;color:#718097;font-size:8px;font-weight:800}
+      .dash-pill.good{background:#e7f7ef;color:#19885c}.dash-pill.wait{background:#fff3e2;color:#b77b2d}
+      .dash-quick{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;padding:12px}
+      .dash-quick a{display:flex;align-items:center;gap:9px;min-width:0;padding:10px;border:1px solid #edf0f5;border-radius:9px;text-decoration:none;color:#46536b;background:#fff;transition:.16s}
+      .dash-quick a:hover{background:#f8f8ff;border-color:#dcd9fb;transform:translateY(-1px)}
+      .dash-quickicon{width:28px;height:28px;flex:0 0 28px;display:grid;place-items:center;border-radius:8px;background:#f0efff;color:#6963c7;font-size:12px}
+      .dash-quick b{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:9px}.dash-quick small{display:block;margin-top:3px;color:#a0aaba;font-size:8px}
+      .dash-activity{padding:5px 15px 8px}.dash-event{display:flex;gap:9px;padding:10px 0;border-bottom:1px solid #f0f2f6}.dash-event:last-child{border:0}
+      .dash-eventicon{width:27px;height:27px;flex:0 0 27px;display:grid;place-items:center;border-radius:9px;background:#eaf1ff;color:#4778d3;font-size:11px}
+      .dash-eventicon.message{background:#f0edff;color:#7663ca}.dash-eventbody{min-width:0}.dash-eventbody b{display:block;color:#46536a;font-size:9px}.dash-eventbody small{display:block;margin-top:3px;color:#9aa5b4;font-size:8px}.dash-eventbody p{margin:4px 0 0;color:#8793a5;font-size:8px;line-height:1.4}
+      .dash-empty{padding:24px 15px;text-align:center;color:#9aa5b4;font-size:10px}
+      .dash-foot{text-align:right;margin-top:12px;color:#a0aaba;font-size:8px}
+      @media(max-width:1100px){.dash-stats{grid-template-columns:repeat(2,minmax(0,1fr))}.dash-bottom{grid-template-columns:1fr 1fr}.dash-bottom>.dash-panel:last-child{grid-column:1/-1}}
+      @media(max-width:760px){.dash-top{height:56px;padding:0 13px}.dash-content{padding:16px 13px 32px}.dash-hero{display:block;padding:20px 17px}.dash-hero h1{font-size:21px}.dash-hero-actions{margin-top:15px}.dash-grid,.dash-bottom{grid-template-columns:1fr}.dash-bottom>.dash-panel:last-child{grid-column:auto}.dash-db{font-size:0;padding:8px}.dash-user span{display:none}.dash-logout{padding:7px 8px}.dash-sales{justify-content:flex-start}}
+      @media(max-width:390px){.dash-stats{gap:8px}.dash-stat{padding:12px}.dash-statvalue{font-size:19px}.dash-stathead{font-size:9px}.dash-quick{grid-template-columns:1fr}}
+      @media(prefers-reduced-motion:reduce){.dashv2 *{transition:none!important}}
+    `}</style>
+    <header className="dash-top"><div className="dash-crumb">WORKSPACE&nbsp; / &nbsp;<b>Dashboard</b></div><div className="dash-topright"><div className="dash-db"><span className={"dash-dot "+(connected?"":"off")}/>{connected?"Database connected":"Database unavailable"}</div><div className="dash-user"><div className="dash-avatar">{session.username.slice(0,1).toUpperCase()}</div><span>{session.username}</span></div><form action="/api/admin/logout" method="post"><button className="dash-logout">Sign out</button></form></div></header>
+    <section className="dash-content">
+      <div className="dash-hero"><div className="dash-hero-copy"><div className="dash-eyebrow">YOUR CONTROL CENTER</div><h1>Welcome back, {session.username} ✦</h1><p>Here’s what’s happening across your portfolio and business workspace.</p></div><div className="dash-hero-actions"><Link className="dash-btn" href="/admin/analytics">▥ View analytics →</Link><Link className="dash-btn secondary" href="/admin/content">＋ Add content</Link></div></div>
+      <div className="dash-sectionhead"><div><h2>Business overview</h2><p>Live figures from your connected database</p></div><Link className="dash-link" href="/admin/analytics">Full reports →</Link></div>
+      <div className="dash-stats">{cards.map(c=><Link className={"dash-stat "+c.tone} href={c.href} key={c.label}><div className="dash-stathead"><span>{c.label}</span><span className="dash-staticon">{c.icon}</span></div><div className="dash-statvalue">{c.value}</div><div className="dash-statsub">{c.sub}</div></Link>)}</div>
+      <div className="dash-grid">
+        <section className="dash-panel"><div className="dash-panelhead"><h3>Monthly earnings overview</h3><small>Last 6 months · net amount</small></div><div className="dash-chart">{months.length?months.map(m=><div className="dash-chartrow" key={m.month}><span className="dash-chartlabel">{m.month}</span><div className="dash-bartrack"><div className="dash-bar" style={{width:Math.max(1,(Number(m.net)||0)/maxMonthly*100)+"%"}}/></div></div>):<div className="dash-empty">No monthly order history is available yet.</div>}<div className="dash-chartmeta"><span>{months.reduce((n,m)=>n+Number(m.orders||0),0)} orders in this period</span><strong>{money(months.reduce((n,m)=>n+Number(m.net||0),0))}</strong></div></div></section>
+        <section className="dash-panel"><div className="dash-panelhead"><h3>Order status breakdown</h3><small>Imported order records</small></div>{statuses.length?<div className="dash-sales"><div className="dash-donut"><div className="dash-donutinner"><b>{stats.orders}</b><small>Total orders</small></div></div><div className="dash-legend">{statuses.slice(0,6).map((x,i)=><div className="dash-legendrow" key={x.status}><span className="dash-legenddot" style={{background:palette[i%palette.length]}}/><span>{clip(x.status||"Unknown",17)}</span><b>{x.total}</b></div>)}</div></div>:<div className="dash-empty">No order status data available.</div>}</section>
+      </div>
+      <div className="dash-bottom">
+        <section className="dash-panel"><div className="dash-panelhead"><h3>Recent Fiverr orders</h3><Link className="dash-link" href="/admin/manage/orders">View all →</Link></div><div className="dash-tablewrap"><table className="dash-table"><thead><tr><th>Order</th><th>Client</th><th>Amount</th><th>Status</th></tr></thead><tbody>{orders.map(o=><tr key={o.id}><td><strong>#{clip(o.order_id,15)}</strong></td><td>{clip(o.client_username,18)}</td><td><strong>{money(o.amount)}</strong></td><td><span className={"dash-pill "+(/complete|delivered|done/i.test(o.status)?"good":/pending|progress/i.test(o.status)?"wait":"")}>{clip(o.status||"Unknown",15)}</span></td></tr>)}</tbody></table>{!orders.length&&<div className="dash-empty">No order records found.</div>}</div></section>
+        <section className="dash-panel"><div className="dash-panelhead"><h3>Quick actions</h3><small>Management shortcuts</small></div><div className="dash-quick">{nav.map(n=><Link href={n.href} key={n.href}><span className="dash-quickicon">{n.icon}</span><span><b>{n.label}</b><small>{n.hint}</small></span></Link>)}</div></section>
+        <section className="dash-panel"><div className="dash-panelhead"><h3>Recent activity</h3><small>Latest updates</small></div><div className="dash-activity">{activity.map(a=><article className="dash-event" key={a.key}><span className={"dash-eventicon "+(a.kind==="message"?"message":"")}>{a.kind==="message"?"✉":"↗"}</span><div className="dash-eventbody"><b>{a.title||"New activity"}</b><small>{a.when}</small><p>{a.detail}</p></div></article>)}{!activity.length&&<div className="dash-empty">New orders and messages will appear here.</div>}</div></section>
+      </div>
+      <div className="dash-foot">JS SALMAN · Secure admin workspace · Live database figures</div>
+    </section>
+  </main>;
 }
