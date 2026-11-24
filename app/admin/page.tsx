@@ -16,12 +16,10 @@ const money = (v:number|string|undefined) => "$"+Number(v??0).toLocaleString("en
 const date = (v:string) => { const d=new Date(v); return Number.isNaN(d.getTime())?"—":d.toLocaleDateString("en-GB",{day:"2-digit",month:"short",year:"numeric"}); };
 const clip = (s:string,n=34) => s&&s.length>n?s.slice(0,n-1)+"…":s||"—";
 const nav = [
-  {label:"Content editor",href:"/admin/content",icon:"✎",hint:"Update portfolio content"},
-  {label:"Fiverr orders",href:"/admin/manage/orders",icon:"↗",hint:"Review client orders"},
-  {label:"Messages",href:"/admin/manage/messages",icon:"✉",hint:"Reply to enquiries"},
-  {label:"Media library",href:"/admin/media",icon:"▧",hint:"Manage uploaded assets"},
-  {label:"Fiverr profiles",href:"/admin/manage/profiles",icon:"◎",hint:"Manage profile records"},
-  {label:"Analytics",href:"/admin/analytics",icon:"▥",hint:"Explore business reports"}
+  {label:"Add content",href:"/admin/content",icon:"＋",hint:"Create a portfolio update"},
+  {label:"Manage orders",href:"/admin/manage/orders",icon:"↗",hint:"Review Fiverr projects"},
+  {label:"View messages",href:"/admin/manage/messages",icon:"✉",hint:"Read client enquiries"},
+  {label:"Update portfolio",href:"/admin/content",icon:"✎",hint:"Edit website sections"}
 ];
 
 export default async function AdminDashboard(){
@@ -209,6 +207,92 @@ export default async function AdminDashboard(){
         .dash-donut{width:112px!important;height:112px!important;flex-basis:112px!important}
         .dash-donutinner{width:74px!important;height:74px!important}
       }
+
+      /* Full V2 dashboard composition */
+      .dashv2{background:radial-gradient(ellipse at 92% 0%,rgba(111,104,224,.10),transparent 34%),#f4f6fb!important}
+      .dash-content{max-width:1600px!important;padding:34px clamp(22px,3.2vw,48px) 58px!important}
+      .dash-top{height:76px!important;background:rgba(255,255,255,.94)!important;backdrop-filter:blur(14px)}
+      .dash-hero{min-height:190px!important;padding:36px 40px!important;border:1px solid #e4e8f3!important;border-radius:22px!important;background:linear-gradient(112deg,#fff 0%,#fff 56%,#f0efff 100%)!important;box-shadow:0 14px 38px rgba(33,48,86,.07)!important}
+      .dash-hero:after{width:280px!important;height:280px!important;right:8%!important;top:-160px!important;box-shadow:0 0 0 32px rgba(100,94,210,.045),0 0 0 66px rgba(100,94,210,.028)!important}
+      .dash-eyebrow{display:inline-flex!important;align-items:center!important;gap:8px!important;padding:7px 11px!important;border-radius:30px!important;background:#f0efff!important;color:#655dcc!important;font-size:10px!important;letter-spacing:1.5px!important}
+      .dash-hero h1{font-size:clamp(28px,2.5vw,38px)!important;letter-spacing:-1.3px!important;margin:13px 0 8px!important}
+      .dash-hero p{font-size:14px!important;color:#77849a!important}
+      .dash-btn{padding:13px 17px!important;font-size:12px!important;box-shadow:0 6px 14px rgba(39,59,98,.12)!important}
+      .dash-btn.secondary{box-shadow:none!important}
+      .dash-sectionhead{margin:34px 0 16px!important}
+      .dash-sectionhead h2{font-size:20px!important;letter-spacing:-.45px!important}
+      .dash-sectionhead p{font-size:12px!important}
+      .dash-stats{gap:17px!important}
+      .dash-stat{position:relative!important;min-height:142px!important;padding:21px 22px!important;border:1px solid #e7ebf3!important;border-top:0!important;border-radius:17px!important;box-shadow:0 8px 24px rgba(31,48,81,.045)!important}
+      .dash-stat:before{content:"";position:absolute;inset:0 auto 0 0;width:4px;border-radius:17px 0 0 17px;background:#5684df}
+      .dash-stat.mint:before{background:#24a77b}.dash-stat.violet:before{background:#8873db}.dash-stat.amber:before{background:#e3a04e}
+      .dash-stat:hover{transform:translateY(-4px)!important;box-shadow:0 15px 30px rgba(31,48,81,.09)!important}
+      .dash-stathead{font-size:12px!important;color:#77849a!important}
+      .dash-staticon{width:42px!important;height:42px!important;border-radius:13px!important;font-size:17px!important}
+      .dash-statvalue{font-size:32px!important;margin:13px 0 5px!important}
+      .dash-statsub{font-size:11px!important}
+      .dash-grid{grid-template-columns:minmax(0,1.55fr) minmax(330px,.9fr)!important;gap:18px!important;margin-top:19px!important}
+      .dash-panel{border:1px solid #e6eaf2!important;border-radius:17px!important;box-shadow:0 8px 24px rgba(31,48,81,.045)!important}
+      .dash-panelhead{min-height:68px!important;padding:18px 21px!important}
+      .dash-panelhead h3{font-size:15px!important;letter-spacing:-.2px!important}
+      .dash-panelhead small{display:block!important;margin-top:5px!important;font-size:10px!important;color:#9aa5b4!important}
+      .dash-chart{padding:19px 22px 18px!important}
+      .dash-chartrow{grid-template-columns:65px 1fr!important;gap:13px!important;margin:13px 0!important}
+      .dash-chartlabel{font-size:11px!important}
+      .dash-bartrack{height:31px!important;border-radius:9px!important;background:#f0f2f8!important}
+      .dash-bar{background:linear-gradient(90deg,#625fd0 0%,#8e83e7 100%)!important;box-shadow:0 4px 9px rgba(103,96,211,.16)!important}
+      .dash-chartmeta{margin:18px 0 0 78px!important;padding-top:13px!important;border-top:1px solid #eff1f6!important;font-size:11px!important}
+      .dash-sales{min-height:235px!important;justify-content:center!important;gap:24px!important;padding:24px!important}
+      .dash-donut{width:158px!important;height:158px!important;flex-basis:158px!important;box-shadow:0 8px 24px rgba(60,71,120,.08)!important}
+      .dash-donutinner{width:104px!important;height:104px!important;box-shadow:0 2px 9px rgba(31,48,81,.06)!important}
+      .dash-donutinner b{font-size:24px!important}
+      .dash-legend{gap:14px!important}
+      .dash-legendrow{font-size:11px!important}
+      .dash-bottom{grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;gap:18px!important;margin-top:19px!important}
+      .dash-orders-panel{margin-top:19px!important}
+      .dash-tablewrap{overflow-x:auto!important}
+      .dash-table{min-width:760px!important}
+      .dash-table th{padding:15px 17px!important;font-size:10px!important}
+      .dash-table td{padding:16px 17px!important;font-size:11px!important}
+      .dash-table tbody tr:hover{background:#fafaff!important}
+      .dash-pill{padding:6px 10px!important;font-size:9px!important;border-radius:30px!important}
+      .dash-quick{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:11px!important;padding:17px!important}
+      .dash-quick a{position:relative!important;min-height:76px!important;padding:13px!important;border:1px solid #edf0f6!important;border-radius:12px!important;background:linear-gradient(145deg,#fff,#fbfbff)!important}
+      .dash-quick a:hover{border-color:#dcd9fb!important;background:#f8f7ff!important}
+      .dash-quickicon{width:38px!important;height:38px!important;flex-basis:38px!important;border-radius:11px!important;font-size:16px!important}
+      .dash-quick b{font-size:11px!important;color:#35435c!important}
+      .dash-quick small{font-size:9px!important;line-height:1.4!important}
+      .dash-quickarrow{margin-left:auto;color:#9a94dc;font-size:14px}
+      .dash-panel-mark{width:32px;height:32px;display:grid;place-items:center;border-radius:10px;background:#f0efff;color:#7068cf;font-size:14px}
+      .dash-activity{padding:8px 21px 12px!important}
+      .dash-event{gap:12px!important;padding:14px 0!important}
+      .dash-eventicon{width:36px!important;height:36px!important;flex-basis:36px!important;border-radius:11px!important}
+      .dash-eventbody b{font-size:11px!important;color:#3e4b63!important}
+      .dash-eventbody small,.dash-eventbody p{font-size:10px!important}
+      .dash-foot{padding-top:4px!important;font-size:10px!important}
+      @media(max-width:1120px){
+        .dash-grid{grid-template-columns:minmax(0,1.2fr) minmax(280px,.9fr)!important}
+        .dash-bottom{grid-template-columns:1fr!important}
+      }
+      @media(max-width:760px){
+        .dash-content{padding:18px 14px 36px!important}
+        .dash-top{height:60px!important}
+        .dash-hero{min-height:0!important;padding:23px 20px!important;border-radius:17px!important}
+        .dash-hero h1{font-size:24px!important}
+        .dash-hero p{font-size:12px!important}
+        .dash-sectionhead{margin:25px 0 13px!important}
+        .dash-sectionhead h2{font-size:17px!important}
+        .dash-stats{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important}
+        .dash-stat{min-height:122px!important;padding:14px!important}
+        .dash-statvalue{font-size:23px!important}
+        .dash-statsub{font-size:9px!important}
+        .dash-grid,.dash-bottom{grid-template-columns:1fr!important;gap:12px!important}
+        .dash-sales{min-height:0!important;justify-content:flex-start!important;padding:18px!important}
+        .dash-donut{width:116px!important;height:116px!important;flex-basis:116px!important}
+        .dash-donutinner{width:76px!important;height:76px!important}
+        .dash-quick{grid-template-columns:1fr 1fr!important}
+      }
+      @media(max-width:390px){.dash-quick{grid-template-columns:1fr!important}}
     `}</style>
     <header className="dash-top"><div className="dash-crumb">WORKSPACE&nbsp; / &nbsp;<b>Dashboard</b></div><div className="dash-topright"><div className="dash-db"><span className={"dash-dot "+(connected?"":"off")}/>{connected?"Database connected":"Database unavailable"}</div><div className="dash-user"><div className="dash-avatar">{session.username.slice(0,1).toUpperCase()}</div><span>{session.username}</span></div><form action="/api/admin/logout" method="post"><button className="dash-logout">Sign out</button></form></div></header>
     <section className="dash-content">
@@ -216,13 +300,16 @@ export default async function AdminDashboard(){
       <div className="dash-sectionhead"><div><h2>Business overview</h2><p>Live figures from your connected database</p></div><Link className="dash-link" href="/admin/analytics">Full reports →</Link></div>
       <div className="dash-stats">{cards.map(c=><Link className={"dash-stat "+c.tone} href={c.href} key={c.label}><div className="dash-stathead"><span>{c.label}</span><span className="dash-staticon">{c.icon}</span></div><div className="dash-statvalue">{c.value}</div><div className="dash-statsub">{c.sub}</div></Link>)}</div>
       <div className="dash-grid">
-        <section className="dash-panel"><div className="dash-panelhead"><h3>Monthly earnings overview</h3><small>Last 6 months · net amount</small></div><div className="dash-chart">{months.length?months.map(m=><div className="dash-chartrow" key={m.month}><span className="dash-chartlabel">{m.month}</span><div className="dash-bartrack"><div className="dash-bar" style={{width:Math.max(1,(Number(m.net)||0)/maxMonthly*100)+"%"}}/></div></div>):<div className="dash-empty">No monthly order history is available yet.</div>}<div className="dash-chartmeta"><span>{months.reduce((n,m)=>n+Number(m.orders||0),0)} orders in this period</span><strong>{money(months.reduce((n,m)=>n+Number(m.net||0),0))}</strong></div></div></section>
-        <section className="dash-panel"><div className="dash-panelhead"><h3>Order status breakdown</h3><small>Imported order records</small></div>{statuses.length?<div className="dash-sales"><div className="dash-donut"><div className="dash-donutinner"><b>{stats.orders}</b><small>Total orders</small></div></div><div className="dash-legend">{statuses.slice(0,6).map((x,i)=><div className="dash-legendrow" key={x.status}><span className="dash-legenddot" style={{background:palette[i%palette.length]}}/><span>{clip(x.status||"Unknown",17)}</span><b>{x.total}</b></div>)}</div></div>:<div className="dash-empty">No order status data available.</div>}</section>
+        <section className="dash-panel"><div className="dash-panelhead"><h3>Analytics overview</h3><small>Monthly net earnings · last 6 months</small></div><div className="dash-chart">{months.length?months.map(m=><div className="dash-chartrow" key={m.month}><span className="dash-chartlabel">{m.month}</span><div className="dash-bartrack"><div className="dash-bar" style={{width:Math.max(1,(Number(m.net)||0)/maxMonthly*100)+"%"}}/></div></div>):<div className="dash-empty">No monthly order history is available yet.</div>}<div className="dash-chartmeta"><span>{months.reduce((n,m)=>n+Number(m.orders||0),0)} orders in this period</span><strong>{money(months.reduce((n,m)=>n+Number(m.net||0),0))}</strong></div></div></section>
+        <section className="dash-panel"><div className="dash-panelhead"><h3>Sales performance</h3><small>Imported order records</small></div>{statuses.length?<div className="dash-sales"><div className="dash-donut"><div className="dash-donutinner"><b>{stats.orders}</b><small>Total orders</small></div></div><div className="dash-legend">{statuses.slice(0,6).map((x,i)=><div className="dash-legendrow" key={x.status}><span className="dash-legenddot" style={{background:palette[i%palette.length]}}/><span>{clip(x.status||"Unknown",17)}</span><b>{x.total}</b></div>)}</div></div>:<div className="dash-empty">No order status data available.</div>}</section>
       </div>
+      <section className="dash-panel dash-orders-panel">
+        <div className="dash-panelhead"><div><h3>Recent orders</h3><small>Your latest Fiverr activity</small></div><Link className="dash-link" href="/admin/manage/orders">View all orders →</Link></div>
+        <div className="dash-tablewrap"><table className="dash-table"><thead><tr><th>Order ID</th><th>Client</th><th>Project</th><th>Amount</th><th>Status</th><th>Date</th></tr></thead><tbody>{orders.map(o=><tr key={o.id}><td><strong>#{clip(o.order_id,15)}</strong></td><td>{clip(o.client_username,18)}</td><td>{clip(o.project_title,32)}</td><td><strong>{money(o.amount)}</strong></td><td><span className={"dash-pill "+(/complete|delivered|done/i.test(o.status)?"good":/pending|progress/i.test(o.status)?"wait":"")}>{clip(o.status||"Unknown",15)}</span></td><td>{date(o.created_at)}</td></tr>)}</tbody></table>{!orders.length&&<div className="dash-empty">No order records found.</div>}</div>
+      </section>
       <div className="dash-bottom">
-        <section className="dash-panel"><div className="dash-panelhead"><h3>Recent Fiverr orders</h3><Link className="dash-link" href="/admin/manage/orders">View all →</Link></div><div className="dash-tablewrap"><table className="dash-table"><thead><tr><th>Order</th><th>Client</th><th>Amount</th><th>Status</th></tr></thead><tbody>{orders.map(o=><tr key={o.id}><td><strong>#{clip(o.order_id,15)}</strong></td><td>{clip(o.client_username,18)}</td><td><strong>{money(o.amount)}</strong></td><td><span className={"dash-pill "+(/complete|delivered|done/i.test(o.status)?"good":/pending|progress/i.test(o.status)?"wait":"")}>{clip(o.status||"Unknown",15)}</span></td></tr>)}</tbody></table>{!orders.length&&<div className="dash-empty">No order records found.</div>}</div></section>
-        <section className="dash-panel"><div className="dash-panelhead"><h3>Quick actions</h3><small>Management shortcuts</small></div><div className="dash-quick">{nav.map(n=><Link href={n.href} key={n.href}><span className="dash-quickicon">{n.icon}</span><span><b>{n.label}</b><small>{n.hint}</small></span></Link>)}</div></section>
-        <section className="dash-panel"><div className="dash-panelhead"><h3>Recent activity</h3><small>Latest updates</small></div><div className="dash-activity">{activity.map(a=><article className="dash-event" key={a.key}><span className={"dash-eventicon "+(a.kind==="message"?"message":"")}>{a.kind==="message"?"✉":"↗"}</span><div className="dash-eventbody"><b>{a.title||"New activity"}</b><small>{a.when}</small><p>{a.detail}</p></div></article>)}{!activity.length&&<div className="dash-empty">New orders and messages will appear here.</div>}</div></section>
+        <section className="dash-panel"><div className="dash-panelhead"><div><h3>Quick actions</h3><small>Frequently used workspace shortcuts</small></div><span className="dash-panel-mark">✦</span></div><div className="dash-quick">{nav.map((n,i)=><Link href={n.href} key={n.href+"-"+i}><span className="dash-quickicon">{n.icon}</span><span><b>{n.label}</b><small>{n.hint}</small></span><span className="dash-quickarrow">↗</span></Link>)}</div></section>
+        <section className="dash-panel"><div className="dash-panelhead"><div><h3>Recent activity</h3><small>Latest orders and website enquiries</small></div><span className="dash-panel-mark">◷</span></div><div className="dash-activity">{activity.map(a=><article className="dash-event" key={a.key}><span className={"dash-eventicon "+(a.kind==="message"?"message":"")}>{a.kind==="message"?"✉":"↗"}</span><div className="dash-eventbody"><b>{a.title||"New activity"}</b><small>{a.when}</small><p>{a.detail}</p></div></article>)}{!activity.length&&<div className="dash-empty">New orders and messages will appear here.</div>}</div></section>
       </div>
       <div className="dash-foot">JS SALMAN · Secure admin workspace · Live database figures</div>
     </section>
