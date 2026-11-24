@@ -27,10 +27,8 @@ function monthNow() {
 export async function GET() {
   if (!(await getAdminSession())) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   try {
-    const callback = "monthlySales_" + Date.now().toString(36);
-    const url = new URL(SHEETS_ENDPOINT);
-    url.searchParams.set("callback", callback);
-    const response = await fetch(url, { cache: "no-store", signal: AbortSignal.timeout(25000) });
+    // Apps Script endpoint rejects JSONP callback parameters; request its native JSON response.
+    const response = await fetch(SHEETS_ENDPOINT, { cache: "no-store", signal: AbortSignal.timeout(25000) });
     if (!response.ok) throw new Error("Google Sheets endpoint returned " + response.status);
     const body = (await response.text()).trim();
 
