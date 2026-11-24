@@ -32,12 +32,16 @@ export async function GET() {
     url.searchParams.set("callback", callback);
     const response = await fetch(url, { cache: "no-store", signal: AbortSignal.timeout(25000) });
     if (!response.ok) throw new Error("Google Sheets endpoint returned " + response.status);
-    const body = await response.text();
-    const escaped = callback.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-    const match = body.match(new RegExp("^\\s*" + escaped + "\\((.*)\\);?\\s*$", "s"));
-    if (!match) throw new Error("Google Sheets returned an unreadable response.");
-    const snapshot = JSON.parse(match[1]);
-    if (snapshot?.success !== true || !Array.isArray(snapshot.rows) || snapshot.rows.length >= 1000) {
+    const body = (await response.text()).trim();
+
+    // Apps Script may return plain JSON even when a callback is supplied.
+    // Accept both plain JSON and JSONP response formats.
+    let jsonText = body;
+    const jsonp = body.match(/^[\w.$]+\s*\(([\s\S]*)\)\s*;?$/);
+    if (jsonp) jsonText = jsonp[1].trim();
+    const snapshot = JSON.parse(jsonText);
+
+    if (!Array.isArray(snapshot?.rows) || snapshot.rows.length >= 1000 || snapshot.success === false) {
       throw new Error("Google Sheets data is unavailable or incomplete.");
     }
 
