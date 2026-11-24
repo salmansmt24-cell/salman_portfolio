@@ -1,3 +1,4 @@
 import type { Metadata } from "next";
+import "./admin.css";
 export const metadata: Metadata = { title: "JS Salman Portfolio", description: "Portfolio website" };
 export default function RootLayout({children}:{children:React.ReactNode}) { return <html lang="en"><head><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/><link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=Caveat:wght@500;600&display=swap" rel="stylesheet"/><link href="/assets/css/style.css" rel="stylesheet"/></head><body>{children}<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script></body></html>; }
