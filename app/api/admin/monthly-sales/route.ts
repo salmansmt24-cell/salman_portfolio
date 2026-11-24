@@ -27,20 +27,21 @@ function monthNow() {
 export async function GET() {
   if (!(await getAdminSession())) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   try {
-    // Apps Script endpoint rejects JSONP callback parameters; request its native JSON response.
-    const response = await fetch(SHEETS_ENDPOINT, { cache: "no-store", signal: AbortSignal.timeout(25000) });
+    // Apps Script V4.1 requires the exact fvSheetCallback_ + decimal timestamp format.
+    const callback = "fvSheetCallback_" + Date.now().toString();
+    const url = new URL(SHEETS_ENDPOINT);
+    url.searchParams.set("callback", callback);
+    const response = await fetch(url, { cache: "no-store", signal: AbortSignal.timeout(25000) });
     if (!response.ok) throw new Error("Google Sheets endpoint returned " + response.status);
     const body = (await response.text()).trim();
 
-    // Apps Script may return plain JSON even when a callback is supplied.
-    // Accept both plain JSON and JSONP response formats.
-    let jsonText = body;
-    const jsonp = body.match(/^[\w.$]+\s*\(([\s\S]*)\)\s*;?$/);
-    if (jsonp) jsonText = jsonp[1].trim();
-    const snapshot = JSON.parse(jsonText);
+    const escapedCallback = callback.replace(/[.*+?^${}()|[\\]\\]/g, "\\$&");
+    const match = body.match(new RegExp("^\\s*" + escapedCallback + "\\(([\\s\\S]*)\\);?\\s*$"));
+    if (!match) throw new Error("Google Sheets returned an unexpected callback response.");
+    const snapshot = JSON.parse(match[1]);
 
-    if (!Array.isArray(snapshot?.rows) || snapshot.rows.length >= 1000 || snapshot.success === false) {
-      throw new Error("Google Sheets data is unavailable or incomplete.");
+    if (snapshot?.success !== true || !Array.isArray(snapshot.rows) || snapshot.rows.length >= 1000) {
+      throw new Error(snapshot?.error || "Google Sheets data is unavailable or incomplete.");
     }
 
     const rows = snapshot.rows.map((row: any) => {
