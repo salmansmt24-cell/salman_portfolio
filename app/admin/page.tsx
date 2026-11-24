@@ -138,6 +138,77 @@ export default async function AdminDashboard(){
       @media(max-width:760px){.dash-top{height:56px;padding:0 13px}.dash-content{padding:16px 13px 32px}.dash-hero{display:block;padding:20px 17px}.dash-hero h1{font-size:21px}.dash-hero-actions{margin-top:15px}.dash-grid,.dash-bottom{grid-template-columns:1fr}.dash-bottom>.dash-panel:last-child{grid-column:auto}.dash-db{font-size:0;padding:8px}.dash-user span{display:none}.dash-logout{padding:7px 8px}.dash-sales{justify-content:flex-start}}
       @media(max-width:390px){.dash-stats{gap:8px}.dash-stat{padding:12px}.dash-statvalue{font-size:19px}.dash-stathead{font-size:9px}.dash-quick{grid-template-columns:1fr}}
       @media(prefers-reduced-motion:reduce){.dashv2 *{transition:none!important}}
+
+      /* Version 2 visual refinement: improve hierarchy and readability without changing the theme */
+      .dash-content{max-width:1500px!important;padding:30px clamp(20px,3vw,40px) 52px!important}
+      .dash-top{height:72px!important;padding:0 clamp(20px,3vw,40px)!important}
+      .dash-crumb{font-size:12px!important}
+      .dash-db{font-size:11px!important;padding:8px 12px!important}
+      .dash-user{font-size:12px!important}
+      .dash-avatar{width:36px!important;height:36px!important}
+      .dash-logout{font-size:11px!important;padding:9px 13px!important}
+      .dash-hero{min-height:168px!important;padding:30px 34px!important;border-radius:18px!important;box-shadow:0 10px 30px rgba(31,48,81,.055)!important}
+      .dash-eyebrow{font-size:10px!important;letter-spacing:1.9px!important}
+      .dash-hero h1{font-size:clamp(25px,2.2vw,32px)!important;margin:10px 0 7px!important}
+      .dash-hero p{font-size:13px!important}
+      .dash-btn{font-size:12px!important;padding:12px 16px!important;border-radius:10px!important}
+      .dash-sectionhead{margin:30px 0 14px!important}
+      .dash-sectionhead h2{font-size:18px!important}
+      .dash-sectionhead p{font-size:12px!important}
+      .dash-link{font-size:12px!important}
+      .dash-stats{gap:16px!important}
+      .dash-stat{padding:19px 20px!important;border-radius:15px!important;box-shadow:0 6px 20px rgba(26,43,77,.045)!important}
+      .dash-stathead{font-size:12px!important}
+      .dash-staticon{width:38px!important;height:38px!important;font-size:16px!important;border-radius:11px!important}
+      .dash-statvalue{font-size:30px!important;margin:13px 0 5px!important}
+      .dash-statsub{font-size:11px!important}
+      .dash-grid{gap:16px!important;margin-top:18px!important}
+      .dash-panel{border-radius:15px!important;box-shadow:0 6px 20px rgba(26,43,77,.04)!important}
+      .dash-panelhead{padding:18px 20px!important}
+      .dash-panelhead h3{font-size:14px!important}
+      .dash-panelhead small{font-size:11px!important}
+      .dash-chart{padding:18px 20px 16px!important}
+      .dash-chartrow{grid-template-columns:62px 1fr!important;gap:12px!important;margin:12px 0!important}
+      .dash-chartlabel{font-size:11px!important}
+      .dash-bartrack{height:30px!important;border-radius:8px!important}
+      .dash-chartmeta{margin:15px 0 0 74px!important;font-size:11px!important}
+      .dash-sales{gap:22px!important;padding:22px!important}
+      .dash-donut{width:148px!important;height:148px!important;flex-basis:148px!important}
+      .dash-donutinner{width:96px!important;height:96px!important}
+      .dash-donutinner b{font-size:21px!important}
+      .dash-donutinner small{font-size:10px!important}
+      .dash-legend{gap:12px!important}
+      .dash-legendrow{font-size:11px!important}
+      .dash-legenddot{width:9px!important;height:9px!important;flex-basis:9px!important}
+      .dash-bottom{gap:16px!important;margin-top:18px!important}
+      .dash-table th{font-size:10px!important;padding:13px 14px!important}
+      .dash-table td{font-size:11px!important;padding:14px!important}
+      .dash-pill{font-size:10px!important;padding:5px 9px!important}
+      .dash-quick{gap:10px!important;padding:15px!important}
+      .dash-quick a{padding:13px!important;gap:11px!important;border-radius:11px!important}
+      .dash-quickicon{width:34px!important;height:34px!important;flex-basis:34px!important;font-size:15px!important}
+      .dash-quick b{font-size:11px!important}
+      .dash-quick small{font-size:10px!important}
+      .dash-activity{padding:7px 19px 12px!important}
+      .dash-event{gap:11px!important;padding:13px 0!important}
+      .dash-eventicon{width:33px!important;height:33px!important;flex-basis:33px!important;font-size:13px!important}
+      .dash-eventbody b{font-size:11px!important}
+      .dash-eventbody small,.dash-eventbody p{font-size:10px!important}
+      .dash-empty{font-size:12px!important;padding:30px 18px!important}
+      .dash-foot{font-size:10px!important;margin-top:16px!important}
+      @media(max-width:760px){
+        .dash-content{padding:18px 14px 36px!important}
+        .dash-top{height:60px!important;padding:0 14px!important}
+        .dash-hero{padding:22px 19px!important;min-height:0!important}
+        .dash-hero h1{font-size:23px!important}
+        .dash-stats{gap:10px!important}
+        .dash-stat{padding:14px!important}
+        .dash-statvalue{font-size:23px!important}
+        .dash-grid,.dash-bottom{gap:12px!important}
+        .dash-sales{padding:17px!important;gap:15px!important}
+        .dash-donut{width:112px!important;height:112px!important;flex-basis:112px!important}
+        .dash-donutinner{width:74px!important;height:74px!important}
+      }
     `}</style>
     <header className="dash-top"><div className="dash-crumb">WORKSPACE&nbsp; / &nbsp;<b>Dashboard</b></div><div className="dash-topright"><div className="dash-db"><span className={"dash-dot "+(connected?"":"off")}/>{connected?"Database connected":"Database unavailable"}</div><div className="dash-user"><div className="dash-avatar">{session.username.slice(0,1).toUpperCase()}</div><span>{session.username}</span></div><form action="/api/admin/logout" method="post"><button className="dash-logout">Sign out</button></form></div></header>
     <section className="dash-content">
