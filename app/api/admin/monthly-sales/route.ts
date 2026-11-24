@@ -35,7 +35,7 @@ export async function GET() {
     if (!response.ok) throw new Error("Google Sheets endpoint returned " + response.status);
     const body = (await response.text()).trim();
 
-    const escapedCallback = callback.replace(/[.*+?^${}()|[\\]\\]/g, "\\$&");
+    const escapedCallback = callback; // callback contains only a fixed prefix and decimal digits
     const match = body.match(new RegExp("^\\s*" + escapedCallback + "\\(([\\s\\S]*)\\);?\\s*$"));
     if (!match) throw new Error("Google Sheets returned an unexpected callback response.");
     const snapshot = JSON.parse(match[1]);
