@@ -1,66 +1,83 @@
-/* V2 Admin design system — shared by every admin route */
-.admin-workspace,.admin-workspace-content{background:#f4f7ff!important}
-.admin-workspace-content>main:not(.dashv2){background:#f4f7ff!important;color:#14234a!important;font-family:Inter,"DM Sans",ui-sans-serif,system-ui,sans-serif!important}
+/* V2 Admin visual system: shared across every authenticated admin route */
+.admin-workspace,.admin-workspace-content{background:#f3f6ff!important;color:#17264a!important}
+.admin-workspace-content>main:not(.dashv2),
+.admin-workspace-content>main:not(.dashv2)>section{background:#f3f6ff!important;color:#17264a!important;font-family:Inter,"DM Sans",ui-sans-serif,system-ui,sans-serif!important}
+.admin-workspace-content>main:not(.dashv2){min-height:100vh!important}
 .admin-workspace-content>main:not(.dashv2)>header{
-  min-height:76px!important;height:auto!important;padding:14px 30px!important;display:flex!important;align-items:center!important;justify-content:space-between!important;gap:16px!important;
-  background:#fff!important;border:0!important;border-bottom:1px solid #e7ecf7!important;box-shadow:none!important;backdrop-filter:none!important;
+  position:sticky!important;top:0!important;z-index:25!important;min-height:74px!important;height:auto!important;
+  display:flex!important;align-items:center!important;justify-content:space-between!important;gap:16px!important;
+  padding:15px 32px!important;background:#fff!important;border:0!important;border-bottom:1px solid #e6ebf5!important;
+  box-shadow:0 4px 18px rgba(26,48,91,.035)!important;backdrop-filter:blur(12px)!important
 }
-.admin-workspace-content>main:not(.dashv2)>header strong{font-size:15px!important;font-weight:850!important;letter-spacing:-.25px!important;color:#14234a!important}
+.admin-workspace-content>main:not(.dashv2)>header strong{color:#14244a!important;font-size:14px!important;font-weight:850!important;letter-spacing:-.25px!important}
 .admin-workspace-content>main:not(.dashv2)>header div{color:#8290aa!important;font-size:11px!important}
-.admin-workspace-content>main:not(.dashv2)>header a{display:inline-flex!important;align-items:center!important;gap:7px!important;padding:9px 13px!important;border-radius:9px!important;background:#edf4ff!important;color:#1268e9!important;font-size:11px!important;font-weight:800!important;text-decoration:none!important}
+.admin-workspace-content>main:not(.dashv2)>header a{display:inline-flex!important;align-items:center!important;gap:7px!important;padding:9px 13px!important;border:1px solid #e1eafa!important;border-radius:9px!important;background:#f4f8ff!important;color:#1768e9!important;font-size:11px!important;font-weight:800!important;text-decoration:none!important}
 .admin-workspace-content>main:not(.dashv2)>section{
-  width:100%!important;max-width:1440px!important;margin:0 auto!important;padding:28px 30px 52px!important;
+  width:100%!important;max-width:1440px!important;margin:0 auto!important;padding:30px 32px 56px!important;
+  color:#17264a!important
 }
-.admin-workspace-content>main:not(.dashv2)>section>div:first-child{color:#1268e9!important}
-.admin-workspace-content>main:not(.dashv2)>section>h1{
-  margin:5px 0 8px!important;color:#11234b!important;font-family:Inter,"DM Sans",sans-serif!important;font-size:27px!important;font-weight:850!important;letter-spacing:-.7px!important;line-height:1.25!important
-}
-.admin-workspace-content>main:not(.dashv2)>section>p{margin:0 0 18px!important;color:#8190aa!important;font-size:12px!important;line-height:1.7!important}
-.admin-workspace-content>main:not(.dashv2) h2,.admin-workspace-content>main:not(.dashv2) h3{color:#14244c!important;font-family:Inter,"DM Sans",sans-serif!important;font-weight:800!important;letter-spacing:-.2px}
+.admin-workspace-content>main:not(.dashv2)>section>div:first-child{color:#1768e9!important}
+.admin-workspace-content>main:not(.dashv2)>section>h1,
+.admin-workspace-content>main:not(.dashv2)>h1{margin:7px 0 9px!important;color:#11234b!important;font-family:Inter,"DM Sans",sans-serif!important;font-size:28px!important;font-weight:850!important;letter-spacing:-.75px!important;line-height:1.25!important}
+.admin-workspace-content>main:not(.dashv2)>section>p{margin:0 0 20px!important;color:#8190aa!important;font-size:12px!important;line-height:1.75!important}
+.admin-workspace-content>main:not(.dashv2) h2,
+.admin-workspace-content>main:not(.dashv2) h3{color:#14244c!important;font-family:Inter,"DM Sans",sans-serif!important;font-weight:800!important;letter-spacing:-.25px!important}
 .admin-workspace-content>main:not(.dashv2) article,
 .admin-workspace-content>main:not(.dashv2)>section>section,
 .admin-workspace-content>main:not(.dashv2) form:not([action="/api/admin/logout"]){
-  border:1px solid #e1e9f8!important;border-radius:14px!important;background:#fff!important;box-shadow:0 4px 13px rgba(28,55,110,.045)!important
+  border:1px solid #e2e9f7!important;border-radius:15px!important;background:#fff!important;
+  box-shadow:0 5px 18px rgba(28,55,110,.045)!important
 }
-.admin-workspace-content>main:not(.dashv2)>section>div[style*="display: grid"]{gap:14px!important}
+.admin-workspace-content>main:not(.dashv2) article{padding:20px!important}
 .admin-workspace-content>main:not(.dashv2) article h2{font-size:23px!important;color:#11234b!important}
-.admin-workspace-content>main:not(.dashv2) table{border:1px solid #e5ebf7!important;border-radius:12px!important;overflow:hidden!important;background:#fff!important}
-.admin-workspace-content>main:not(.dashv2) th{background:#f5f8ff!important;color:#667797!important;font-size:10px!important;font-weight:800!important;letter-spacing:.35px!important;text-transform:none!important}
+.admin-workspace-content>main:not(.dashv2) article small{color:#8290aa!important;font-size:10px!important}
+.admin-workspace-content>main:not(.dashv2) [style*="border: 1px solid"],
+.admin-workspace-content>main:not(.dashv2) [style*="border:1px solid"],
+.admin-workspace-content>main:not(.dashv2) [style*="border: 1px solid"]{
+  border-color:#e2e9f7!important
+}
+.admin-workspace-content>main:not(.dashv2) [style*="background: rgb(255, 255, 255)"],
+.admin-workspace-content>main:not(.dashv2) [style*="background:#fff"],
+.admin-workspace-content>main:not(.dashv2) [style*="background: #fff"]{background:#fff!important}
+.admin-workspace-content>main:not(.dashv2) table{width:100%!important;border:1px solid #e5ebf7!important;border-radius:13px!important;overflow:hidden!important;background:#fff!important;border-collapse:separate!important;border-spacing:0!important}
+.admin-workspace-content>main:not(.dashv2) th{background:#f5f8ff!important;color:#667797!important;font-size:10px!important;font-weight:800!important;letter-spacing:.3px!important;text-transform:none!important}
 .admin-workspace-content>main:not(.dashv2) td{color:#344665!important;font-size:12px!important}
-.admin-workspace-content>main:not(.dashv2) tr:hover{background:#f7faff!important}
+.admin-workspace-content>main:not(.dashv2) th,
+.admin-workspace-content>main:not(.dashv2) td{padding:13px 14px!important;border-bottom:1px solid #edf1f8!important;text-align:left!important}
+.admin-workspace-content>main:not(.dashv2) tbody tr:hover{background:#f7faff!important}
 .admin-workspace-content>main:not(.dashv2) input,
 .admin-workspace-content>main:not(.dashv2) textarea,
 .admin-workspace-content>main:not(.dashv2) select{
-  border:1px solid #dfe7f5!important;border-radius:9px!important;background:#fbfcff!important;color:#263958!important;box-shadow:none!important
+  max-width:100%!important;border:1px solid #dfe7f5!important;border-radius:9px!important;
+  background:#fbfcff!important;color:#263958!important;box-shadow:none!important;font:inherit!important
 }
 .admin-workspace-content>main:not(.dashv2) input:focus,
 .admin-workspace-content>main:not(.dashv2) textarea:focus,
-.admin-workspace-content>main:not(.dashv2) select:focus{border-color:#4b91fa!important;box-shadow:0 0 0 3px rgba(30,116,244,.11)!important}
+.admin-workspace-content>main:not(.dashv2) select:focus{border-color:#4b91fa!important;box-shadow:0 0 0 3px rgba(30,116,244,.11)!important;outline:0!important}
+.admin-workspace-content>main:not(.dashv2) label{color:#344665!important;font-size:11px!important;font-weight:750!important}
 .admin-workspace-content>main:not(.dashv2) button{
   border-radius:9px!important;font-weight:750!important;transition:transform .16s,box-shadow .16s,filter .16s!important
 }
 .admin-workspace-content>main:not(.dashv2) button:hover:not(:disabled){filter:brightness(1.04)!important;box-shadow:0 6px 16px rgba(28,75,145,.13)!important;transform:translateY(-1px)!important}
 .admin-workspace-content>main:not(.dashv2) a{transition:color .16s,background .16s,border-color .16s,transform .16s}
-.admin-workspace-content>main:not(.dashv2) label{color:#344665!important;font-size:11px!important;font-weight:750!important}
 .admin-workspace-content>main:not(.dashv2) small{line-height:1.5}
-.admin-workspace-content>main:not(.dashv2) [style*="border-radius: 12px"],
-.admin-workspace-content>main:not(.dashv2) [style*="borderRadius: 12"]{border-color:#e1e9f8!important}
-.admin-workspace-content>main:not(.dashv2)>section>div[style*="display: flex"]>span{border:1px solid #e2eafa!important;border-radius:9px!important;background:#fff!important;color:#526583!important}
-.admin-workspace-content>main:not(.dashv2)>section>div>span strong{color:#1268e9!important}
-.admin-workspace-content>main:not(.dashv2) [role="alert"],.admin-workspace-content>main:not(.dashv2) [role="status"]{font-size:12px}
+.admin-workspace-content>main:not(.dashv2) [role="alert"],
+.admin-workspace-content>main:not(.dashv2) [role="status"]{font-size:12px}
 .admin-workspace-content>main:not(.dashv2)>form{
-  width:min(100% - 32px,460px)!important;padding:34px!important;border:1px solid #e1e9f8!important;border-radius:18px!important;background:#fff!important;box-shadow:0 16px 44px rgba(23,51,104,.09)!important
+  width:min(100% - 32px,460px)!important;margin:7vh auto!important;padding:34px!important;
+  border:1px solid #e1e9f8!important;border-radius:18px!important;background:#fff!important;
+  box-shadow:0 16px 44px rgba(23,51,104,.09)!important
 }
 .admin-workspace-content>main:not(.dashv2)>form h1{color:#11234b!important;font-size:25px!important;font-weight:850!important}
 .admin-workspace-content>main:not(.dashv2)>form p{color:#7b8aa6!important;font-size:12px!important;line-height:1.7!important}
 .admin-workspace-content>main:not(.dashv2)>form input{width:100%!important;box-sizing:border-box!important;padding:13px!important;background:#fbfcff!important}
 .admin-workspace-content>main:not(.dashv2)>form button{background:#126cf2!important;color:#fff!important;border:0!important}
 @media(max-width:1050px){
- .admin-workspace-content>main:not(.dashv2)>section{padding:24px 22px 42px!important}
+ .admin-workspace-content>main:not(.dashv2)>section{padding:25px 22px 44px!important}
  .admin-workspace-content>main:not(.dashv2)>header{padding:13px 22px!important}
 }
 @media(max-width:760px){
- .admin-workspace-content>main:not(.dashv2)>header{min-height:60px!important;padding:11px 14px!important;gap:9px!important}
+ .admin-workspace-content>main:not(.dashv2)>header{position:relative!important;min-height:60px!important;padding:11px 14px!important;gap:9px!important}
  .admin-workspace-content>main:not(.dashv2)>header strong{font-size:12px!important}
  .admin-workspace-content>main:not(.dashv2)>header a{padding:8px 9px!important;font-size:10px!important;white-space:nowrap}
  .admin-workspace-content>main:not(.dashv2)>section{padding:20px 14px 34px!important}
