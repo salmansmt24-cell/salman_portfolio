@@ -23,8 +23,9 @@ export async function POST(request: NextRequest) {
   }
 
   const expectedHash = process.env.ADMIN_PASSWORD_RESET_TOKEN_HASH;
+  const expiresAt = Date.parse(process.env.ADMIN_PASSWORD_RESET_EXPIRES_AT ?? "");
   const connection = process.env.LEGACY_DATABASE_URL;
-  if (!expectedHash || !connection) return NextResponse.json({ error: "Password reset is temporarily unavailable." }, { status: 503 });
+  if (!expectedHash || !Number.isFinite(expiresAt) || Date.now() > expiresAt || !connection) return NextResponse.json({ error: "Password reset is temporarily unavailable." }, { status: 503 });
 
   try {
     const tokenHash = createHash("sha256").update(token).digest("hex");
