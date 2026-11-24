@@ -11,6 +11,7 @@ const links = [
   ["Portfolio", "/admin/collections", "▤"],
   ["Fiverr Profiles", "/admin/manage/profiles", "♙"],
   ["Analytics", "/admin/analytics", "▥"],
+  ["Monthly Sales", "/admin/monthly-sales", "$"],
   ["Appearance", "/admin/media", "◈"],
   ["Tools", "/admin/sync", "⚒"],
   ["Settings", "/admin/account", "⚙"],
