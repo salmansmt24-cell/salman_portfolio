@@ -118,7 +118,7 @@ export default async function AdminDashboard(){
       .dash-staticon{width:52px;height:52px;display:grid;place-items:center;border-radius:50%;background:var(--stat)!important;color:#fff!important;font-size:21px!important;font-weight:900}
       .dash-statvalue{position:absolute;z-index:2;left:86px;top:26px;margin:0!important;color:#101d43!important;font-size:26px!important;font-weight:850!important;letter-spacing:-.5px!important}
       .dash-statsub{position:absolute;z-index:2;left:86px;top:61px;color:#31456f!important;font-size:12px!important}
-      .dash-stat:hover{transform:translateY(-3px);box-shadow:0 10px 20px rgba(28,55,110,.10)!important}
+      .dash-stat:hover{transform:translateY(-3px);box-shadow:0 10px 20px rgba(28,55,110,.10)!important}\n      .dash-spark{position:absolute;right:0;bottom:2px;z-index:1;width:48%;height:42px;opacity:.92;pointer-events:none}
       .dash-grid{display:grid;grid-template-columns:minmax(0,1.65fr) minmax(350px,.85fr);gap:16px!important;margin-top:17px!important}
       .dash-panel{min-width:0;overflow:hidden;border:1px solid #e1e8f7!important;border-radius:14px!important;background:#fff!important;box-shadow:0 4px 12px rgba(26,50,100,.04)!important}
       .dash-panelhead{display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:61px;padding:15px 20px!important;border-bottom:1px solid #edf1f8!important}
