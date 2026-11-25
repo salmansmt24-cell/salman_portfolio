@@ -8,5 +8,5 @@ export async function POST(req:NextRequest){
  const value=(await token()).get("bms_team_session")?.value;
  if(value){try{const sql=bmsDb();await sql\`UPDATE bms_user_sessions SET revoked_at=NOW() WHERE session_token_hash=\${hashBmsToken(value)} AND revoked_at IS NULL\`;}catch(e){console.error("BMS logout failed:",e);}}
  await clearBmsCookie();
- return NextResponse.json({ok:true,redirectTo:"/team/login"});
+ return NextResponse.redirect(new URL("/team/login",req.url),303);
 }
