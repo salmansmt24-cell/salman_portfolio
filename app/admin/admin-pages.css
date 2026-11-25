@@ -86,3 +86,17 @@
  .admin-workspace-content>main:not(.dashv2) table{display:block!important;overflow-x:auto!important;white-space:nowrap!important}
  .admin-workspace-content>main:not(.dashv2)>form{padding:24px!important}
 }
+
+
+/* Keep the Monthly Sales primary KPI visible against its V2 gradient. */
+.admin-workspace-content>main.monthly-sales-page article.monthly-kpi-primary{
+  background:linear-gradient(120deg,#102b65,#1a56ae)!important;
+  border-color:#1a56ae!important;
+}
+.admin-workspace-content>main.monthly-sales-page article.monthly-kpi-primary span,
+.admin-workspace-content>main.monthly-sales-page article.monthly-kpi-primary small{
+  color:#c5d8ff!important;
+}
+.admin-workspace-content>main.monthly-sales-page article.monthly-kpi-primary strong{
+  color:#fff!important;
+}
