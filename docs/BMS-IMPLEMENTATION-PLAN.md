@@ -30,3 +30,15 @@
 - Existing legacy authentication validates `cms_admins` and `admin_security_sessions` using the legacy database connection.
 - Existing order and Sheets-sync code operates on `cms_fiverr_orders`; it is intentionally untouched.
 - Migration `002_business_management.sql` is additive and has not been run against any database.
+
+## Team authentication stage (implemented on feature branch)
+
+- Team members are invited by an existing legacy admin; public self-registration is not exposed.
+- Invitation tokens are generated with Node crypto, stored only as SHA-256 hashes, expire after 7 days, and are single-use.
+- The invitation URL is shown once in Team Management for the admin to share privately. Email delivery is not configured yet.
+- Members set a password (minimum 12 characters); password hashes use the existing bcryptjs dependency.
+- Invitation acceptance changes the account to pending; a legacy admin must approve it before login.
+- Team login uses a separate bms_team_session HttpOnly cookie and rows in bms_user_sessions; the legacy admin cookie and login routes are unchanged.
+- Suspended/non-active members cannot establish or continue a BMS session.
+- Routes: /team/login, /team/accept?token=..., and /team.
+- This code is not live until migration 002 is applied to a Preview database and the feature branch is deployed to a Preview environment.
