@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 
 const links = [
   ["Dashboard", "/admin", "⌂"],
+  ["Team Management", "/admin/team", "♧"],
   ["Manage Content", "/admin/content", "▣"],
   ["Orders", "/admin/manage/orders", "▱"],
   ["Messages", "/admin/manage/messages", "◉"],
