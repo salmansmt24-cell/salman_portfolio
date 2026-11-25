@@ -48,7 +48,36 @@ export default function ContentEditor({fields}:{fields:Field[]}) {
   }
   const dirty=fields.filter(f=>values[f.key]!==f.value && values[f.key]!==saved[f.key]).length;
   return <div className="editor">
-    <style>{`.editor{color:#1b2940}.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:20px 0}.toolbar input,.toolbar select{border:1px solid #dce4ef;border-radius:9px;padding:11px 13px;background:white;color:#34435a;font-size:13px}.toolbar input{flex:1;min-width:220px}.field-list{display:grid;gap:10px}.field{background:#fff;border:1px solid #e7edf5;border-radius:12px;padding:15px}.field-top{display:flex;justify-content:space-between;gap:12px;margin-bottom:9px}.field label{font-size:12px;font-weight:700;color:#33445e}.field code{font-size:10px;color:#9aa6b6;overflow-wrap:anywhere}.field textarea,.field input{width:100%;border:1px solid #dfe6ef;border-radius:8px;padding:10px 11px;font:13px/1.5 inherit;color:#34435a;background:#fcfdff}.field textarea{min-height:76px;resize:vertical}.field-actions{display:flex;align-items:center;justify-content:flex-end;gap:10px;margin-top:9px}.field-actions small{margin-right:auto;color:#b45309;font-size:11px}.save{border:0;border-radius:8px;padding:8px 13px;background:#285db4;color:#fff;font-size:11px;font-weight:700;cursor:pointer}.save:disabled{opacity:.5;cursor:not-allowed}.saved{color:#16865b;font-size:11px}.count{font-size:12px;color:#8592a6}.image-action{border:0;border-radius:8px;padding:8px 12px;background:#edf3ff;color:#285db4;font-size:11px;font-weight:700;cursor:pointer}.image-preview{width:100%;max-width:220px;height:145px;object-fit:contain;background:#f4f6fa;border:1px solid #e7edf5;border-radius:9px;margin-top:10px}.media-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:9px;margin-top:10px}.media-choice{border:1px solid #dce4ef;background:#fff;border-radius:8px;padding:7px;text-align:left;cursor:pointer;min-width:0}.media-choice img{width:100%;height:76px;object-fit:contain;background:#f4f6fa}.media-choice span{display:block;font-size:10px;overflow-wrap:anywhere;margin-top:5px}.section-head{font-size:11px;color:#74839a;text-transform:uppercase;letter-spacing:1px;font-weight:800;margin:18px 0 9px}`}</style>
+    <style>{`.editor{--ce-ink:#17233b;--ce-muted:#73819a;--ce-line:#e3e9f2;--ce-accent:#2563eb;color:var(--ce-ink);font-family:Inter,"DM Sans",ui-sans-serif,system-ui,sans-serif}
+.editor .toolbar{display:grid;grid-template-columns:minmax(220px,1fr) 230px;gap:12px;margin:22px 0 14px;padding:14px;background:#fff;border:1px solid #e4eaf3;border-radius:16px;box-shadow:0 5px 20px rgba(23,42,80,.035)}
+.editor .toolbar input,.editor .toolbar select{width:100%;min-width:0;box-sizing:border-box;border:1px solid #dce4f0;border-radius:10px;padding:13px 14px;background:#f9fbff;color:#243654;font-size:13px;outline:none}
+.editor .toolbar input:focus,.editor .toolbar select:focus{border-color:#6da2ff;box-shadow:0 0 0 3px rgba(37,99,235,.1)}
+.editor .count{font-size:12px;color:#7d8aa1;line-height:1.5}
+.editor .field-list{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px!important;margin-top:14px!important;align-items:start}
+.editor .field{min-width:0;background:#fff!important;border:1px solid #e2e9f3!important;border-radius:14px!important;padding:17px!important;box-shadow:0 4px 16px rgba(28,48,85,.035)!important;transition:border-color .18s,box-shadow .18s}
+.editor .field:hover{border-color:#cbdaf0!important;box-shadow:0 8px 22px rgba(28,48,85,.06)!important}
+.editor .field-top{align-items:flex-start;gap:14px;margin-bottom:11px}
+.editor .field label{min-width:0;font-size:12px!important;font-weight:750!important;line-height:1.45;color:#263957!important;overflow-wrap:anywhere}
+.editor .field code{max-width:45%;font-size:10px;color:#91a0b5;line-height:1.45;text-align:right;overflow-wrap:anywhere}
+.editor .field textarea,.editor .field input[type=text]{width:100%;box-sizing:border-box;border:1px solid #dce5f1!important;border-radius:10px!important;padding:12px 13px!important;font:13px/1.6 Inter,"DM Sans",sans-serif!important;color:#273a59!important;background:#f9fbff!important;transition:border-color .15s,box-shadow .15s}
+.editor .field textarea{min-height:88px;resize:vertical}
+.editor .field textarea:focus,.editor .field input[type=text]:focus{border-color:#70a4ff!important;box-shadow:0 0 0 3px rgba(37,99,235,.09)!important;outline:none}
+.editor .field-actions{display:flex;align-items:center;justify-content:flex-end;gap:10px;margin-top:12px;padding-top:11px;border-top:1px solid #f0f3f8}
+.editor .field-actions small{margin-right:auto;color:#c24141;font-size:11px}
+.editor .save{border:1px solid #2563eb!important;border-radius:9px!important;padding:9px 14px!important;background:#2563eb!important;color:#fff!important;font-size:11px!important;font-weight:750!important;cursor:pointer}
+.editor .save:disabled{opacity:.42;cursor:not-allowed}
+.editor .saved{display:inline-flex;align-items:center;gap:5px;color:#16835d;font-size:11px;font-weight:700}
+.editor .saved:before{content:"";width:6px;height:6px;border-radius:50%;background:#20b486}
+.editor .image-action{display:inline-flex;align-items:center;border:1px solid #d9e5f8!important;border-radius:9px!important;padding:9px 12px!important;background:#f2f7ff!important;color:#2865c7!important;font-size:11px!important;font-weight:750!important;cursor:pointer}
+.editor .image-preview{width:100%;max-width:240px;height:145px;object-fit:contain;background:#f6f8fc;border:1px solid #e6ecf5;border-radius:10px;margin-top:11px}
+.editor .media-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(105px,1fr));gap:9px;margin-top:10px}
+.editor .media-choice{border:1px solid #dce5f1;background:#fff;border-radius:9px;padding:7px;text-align:left;cursor:pointer;min-width:0}
+.editor .media-choice img{width:100%;height:76px;object-fit:contain;background:#f4f6fa}
+.editor .media-choice span{display:block;font-size:10px;overflow-wrap:anywhere;margin-top:5px}
+.editor .section-head{font-size:11px;color:#71809a;text-transform:uppercase;letter-spacing:1px;font-weight:800;margin:18px 0 9px}
+@media(max-width:1100px){.editor .field-list{grid-template-columns:1fr!important}.editor .toolbar{grid-template-columns:1fr 210px}}
+@media(max-width:680px){.editor .toolbar{grid-template-columns:1fr;padding:10px}.editor .field{padding:13px!important}.editor .field-top{display:block}.editor .field code{display:block;max-width:100%;text-align:left;margin-top:4px}.editor .field-actions{flex-wrap:wrap}}
+`}</style>
     <div className="toolbar"><input value={query} onChange={e=>setQuery(e.target.value)} placeholder="Search by field name, key or value…"/><select value={section} onChange={e=>setSection(e.target.value)}>{sections.map(s=><option key={s}>{s}</option>)}</select></div>
     <div className="count">Showing {filtered.length} of {fields.length} content fields · {dirty} unsaved changes</div>
     <div className="field-list" style={{marginTop:14}}>{filtered.map(field=>{
