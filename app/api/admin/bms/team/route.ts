@@ -40,7 +40,7 @@ export async function PATCH(req:NextRequest){
  const id=Number(body.id),action=String(body.action??"");if(!Number.isSafeInteger(id)||id<1)return NextResponse.json({error:"Invalid member id."},{status:400});
  const sql=db();
  try{let rows:any[]=[];
- if(action==="approve")rows=await sql`UPDATE bms_team_members SET status='active',approved_at=NOW(),updated_at=NOW() WHERE id=${id} AND status IN ('pending','invited') RETURNING id,email,status,role`;
+ if(action==="approve")rows=await sql`UPDATE bms_team_members SET status='active',approved_at=NOW(),updated_at=NOW() WHERE id=${id} AND status='pending' RETURNING id,email,status,role`;
  else if(action==="reject")rows=await sql`UPDATE bms_team_members SET status='rejected',invited_token_hash=NULL,updated_at=NOW() WHERE id=${id} AND status IN ('pending','invited') RETURNING id,email,status,role`;
  else if(action==="suspend")rows=await sql`UPDATE bms_team_members SET status='suspended',updated_at=NOW() WHERE id=${id} AND status='active' RETURNING id,email,status,role`;
  else if(action==="reactivate")rows=await sql`UPDATE bms_team_members SET status='active',updated_at=NOW() WHERE id=${id} AND status='suspended' RETURNING id,email,status,role`;
