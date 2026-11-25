@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getAdminSession } from "@/lib/admin-auth";
 import { neon } from "@neondatabase/serverless";
+import { newBmsToken, hashBmsToken } from "@/lib/bms-auth";
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 const ROLES = ["Admin", "Team Leader", "Sales Executive", "Viewer"] as const;
@@ -22,10 +23,14 @@ export async function POST(req:NextRequest){
  let body:any;try{body=await req.json();}catch{return NextResponse.json({error:"Invalid JSON"},{status:400});}
  const fullName=String(body.fullName??"").trim().slice(0,160),email=String(body.email??"").trim().toLowerCase().slice(0,255),role=String(body.role??"Viewer") as Role;
  if(fullName.length<2||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)||!ROLES.includes(role))return NextResponse.json({error:"Enter a valid name, email and role."},{status:400});
- try{const sql=db();const rows=await sql`INSERT INTO bms_team_members(full_name,email,role,status,created_by_username) VALUES(${fullName},${email},${role},'pending',${session.username}) ON CONFLICT DO NOTHING RETURNING id,full_name,email,role,status,created_at`;
+ try{const sql=db(),token=newBmsToken(),tokenHash=hashBmsToken(token),expiresAt=new Date(Date.now()+7*24*60*60*1000);
+ const rows=await sql`INSERT INTO bms_team_members(full_name,email,role,status,invited_token_hash,invitation_expires_at,created_by_username)
+ VALUES(${fullName},${email},${role},'invited',${tokenHash},${expiresAt.toISOString()},${session.username})
+ ON CONFLICT DO NOTHING RETURNING id,full_name,email,role,status,created_at`;
  if(!rows.length)return NextResponse.json({error:"This email may already be registered."},{status:409});
- const member=rows[0];await sql`INSERT INTO bms_activity_log(actor_legacy_username,action,entity_type,entity_id,summary) VALUES(${session.username},'team_member_created','team_member',${String(member.id)},${"Created pending team account for "+email})`;
- return NextResponse.json({ok:true,member},{status:201});}
+ const member=rows[0];await sql`INSERT INTO bms_activity_log(actor_legacy_username,action,entity_type,entity_id,summary) VALUES(${session.username},'team_member_invited','team_member',${String(member.id)},${"Created invitation for "+email})`;
+ const invitationUrl=new URL("/team/accept",req.nextUrl.origin);invitationUrl.searchParams.set("token",token);
+ return NextResponse.json({ok:true,member,invitationUrl:invitationUrl.toString(),expiresAt:expiresAt.toISOString()},{status:201});}
  catch(error){console.error("BMS team create failed:",error);return NextResponse.json({error:"Could not create team member. Confirm migration 002 is applied."},{status:503});}
 }
 export async function PATCH(req:NextRequest){
