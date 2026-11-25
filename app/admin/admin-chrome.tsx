@@ -3,21 +3,19 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-const groups = [
-  { title: "Workspace", links: [
-    ["Overview", "/admin", "⌂"], ["Content editor", "/admin/content", "✎"], ["Collections", "/admin/collections", "▦"],
-  ]},
-  { title: "Business", links: [
-    ["Fiverr orders", "/admin/manage/orders", "↗"], ["Fiverr profiles", "/admin/manage/profiles", "◎"],
-    ["Messages", "/admin/manage/messages", "✉"], ["Analytics", "/admin/analytics", "▥"],
-    ["Sales insights", "/admin/reports/insights", "◉"], ["Intelligence V4", "/admin/reports/intelligence", "✧"],
-  ]},
-  { title: "Assets & tools", links: [
-    ["Media library", "/admin/media", "▧"], ["Private templates", "/admin/manage/templates", "▤"],
-    ["Monthly Plus", "/admin/monthly-plus", "▦"], ["Google Sheets Sync", "/admin/sync", "↻"],
-    ["Account & security", "/admin/account", "⚙"],
-  ]},
-];
+const links = [
+  ["Dashboard", "/admin", "⌂"],
+  ["Manage Content", "/admin/content", "▣"],
+  ["Orders", "/admin/manage/orders", "▱"],
+  ["Messages", "/admin/manage/messages", "◉"],
+  ["Portfolio", "/admin/collections", "▤"],
+  ["Fiverr Profiles", "/admin/manage/profiles", "♙"],
+  ["Analytics", "/admin/analytics", "▥"],
+  ["Monthly Sales", "/admin/monthly-sales", "$"],
+  ["Appearance", "/admin/media", "◈"],
+  ["Tools", "/admin/sync", "⚒"],
+  ["Settings", "/admin/account", "⚙"],
+] as const;
 
 export default function AdminChrome({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -25,21 +23,25 @@ export default function AdminChrome({ children }: { children: React.ReactNode })
   return <div className="admin-workspace">
     <aside className="admin-global-sidebar" aria-label="Admin navigation">
       <Link href="/admin" className="admin-global-brand">
-        <span className="admin-global-mark">S</span>
-        <span><strong>JS SALMAN</strong><small>Portfolio workspace</small></span>
+        <span className="admin-global-mark"><i /><b /></span>
+        <span><strong>Md. Salman</strong><small>Admin Panel</small></span>
       </Link>
-      <div className="admin-global-nav">
-        {groups.map(group => <section className="admin-global-group" key={group.title}>
-          <h2>{group.title}</h2>
-          {group.links.map(([label, href, icon]) => {
-            const active = href === "/admin" ? pathname === href : pathname === href || pathname.startsWith(href + "/");
-            return <Link key={href} href={href} className={active ? "admin-global-link active" : "admin-global-link"} aria-current={active ? "page" : undefined}>
-              <span className="admin-global-icon" aria-hidden="true">{icon}</span><span>{label}</span>{active && <span className="admin-global-current" />}
-            </Link>;
-          })}
-        </section>)}
+      <nav className="admin-global-nav">
+        {links.map(([label, href, icon]) => {
+          const active = href === "/admin" ? pathname === href : pathname === href || pathname.startsWith(href + "/");
+          return <Link key={href} href={href} className={active ? "admin-global-link active" : "admin-global-link"} aria-current={active ? "page" : undefined}>
+            <span className="admin-global-icon" aria-hidden="true">{icon}</span><span>{label}</span>{label === "Manage Content" || label === "Settings" || label === "Appearance" || label === "Tools" ? <span className="admin-global-chevron">›</span> : null}
+          </Link>;
+        })}
+      </nav>
+      <div className="admin-global-promo">
+        <div className="admin-promo-orbit" />
+        <span className="admin-promo-rocket">🚀</span>
+        <strong>Build Something<br/>Amazing!</strong>
+        <p>Keep going, you’re doing<br/>great!</p>
+        <Link href="/">View Site <span>→</span></Link>
       </div>
-      <div className="admin-global-footer"><span className="admin-global-status" /> Secure workspace <small>Preview environment</small></div>
+      <div className="admin-global-footer">© {new Date().getFullYear()} Md. Salman</div>
     </aside>
     <div className="admin-workspace-content">{children}</div>
   </div>;
