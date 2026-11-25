@@ -1,3 +1,4 @@
+import "./admin-pages.css";
 import type { ReactNode } from "react";
 import { getAdminSession } from "@/lib/admin-auth";
 import AdminChrome from "./admin-chrome";
