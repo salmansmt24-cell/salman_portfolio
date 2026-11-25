@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { isIP } from "node:net";
 import { bmsDb, hashBmsToken, newBmsToken, setBmsCookie, verifyBmsPassword, BMS_SESSION_TTL_SECONDS } from "@/lib/bms-auth";
 export const runtime="nodejs";
 function originRejected(req:NextRequest){const origin=req.headers.get("origin"),host=req.headers.get("host");if(!origin||!host)return false;try{return new URL(origin).host!==host;}catch{return true;}}
@@ -13,10 +14,10 @@ export async function POST(req:NextRequest){
   if(!member?.password_hash||!(await verifyBmsPassword(password,String(member.password_hash))))
    return NextResponse.json({error:"Email or password is incorrect."},{status:401});
   if(member.status!=="active")return NextResponse.json({error:member.status==="pending"?"Your account is waiting for administrator approval.":"This account cannot sign in. Contact your administrator."},{status:403});
-  const token=newBmsToken(),expiresAt=new Date(Date.now()+BMS_SESSION_TTL_SECONDS*1000);
+  const token=newBmsToken(),expiresAt=new Date(Date.now()+BMS_SESSION_TTL_SECONDS*1000),rawIp=req.headers.get("x-real-ip")||"",ip=isIP(rawIp)?rawIp:null;
   await sql\`INSERT INTO bms_user_sessions(member_id,session_token_hash,user_agent,ip_address,expires_at)
     VALUES(\${member.id},\${hashBmsToken(token)},\${(req.headers.get("user-agent")||"").slice(0,1000)},
-    \${req.headers.get("x-real-ip")||null},\${expiresAt.toISOString()})\`;
+    \${ip},\${expiresAt.toISOString()})\`;
   await sql\`UPDATE bms_team_members SET last_login_at=NOW(),updated_at=NOW() WHERE id=\${member.id}\`;
   await setBmsCookie(token);
   return NextResponse.json({ok:true,redirectTo:"/team"});
