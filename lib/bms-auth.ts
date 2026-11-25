@@ -34,13 +34,13 @@ export async function getBmsSession() {
   if (!token) return null;
   try {
     const sql = bmsDb();
-    const rows = await sql\`SELECT m.id AS member_id,m.full_name,m.email,m.role,m.status
+    const rows = await sql`SELECT m.id AS member_id,m.full_name,m.email,m.role,m.status
       FROM bms_user_sessions s JOIN bms_team_members m ON m.id=s.member_id
-      WHERE s.session_token_hash=\${hashBmsToken(token)} AND s.revoked_at IS NULL
-      AND s.expires_at>NOW() AND m.status='active' LIMIT 1\`;
+      WHERE s.session_token_hash=${hashBmsToken(token)} AND s.revoked_at IS NULL
+      AND s.expires_at>NOW() AND m.status='active' LIMIT 1`;
     if (!rows.length) return null;
-    await sql\`UPDATE bms_user_sessions SET last_seen_at=NOW()
-      WHERE session_token_hash=\${hashBmsToken(token)} AND last_seen_at<NOW()-INTERVAL '5 minutes'\`;
+    await sql`UPDATE bms_user_sessions SET last_seen_at=NOW()
+      WHERE session_token_hash=${hashBmsToken(token)} AND last_seen_at<NOW()-INTERVAL '5 minutes'`;
     const m = rows[0];
     return { memberId: Number(m.member_id), fullName: String(m.full_name), email: String(m.email), role: String(m.role) };
   } catch (error) {
