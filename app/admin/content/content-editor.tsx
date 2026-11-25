@@ -82,7 +82,7 @@ export default function ContentEditor({fields}:{fields:Field[]}) {
     <div className="count">Showing {filtered.length} of {fields.length} content fields · {dirty} unsaved changes</div>
     <div className="field-list" style={{marginTop:14}}>{filtered.map(field=>{
       const value=values[field.key]??"";const isSaved=Object.prototype.hasOwnProperty.call(saved,field.key)?saved[field.key]===value:field.value===value;
-      return <article className="field" key={field.key}><div className="field-top"><label htmlFor={field.key}>{field.label||field.key}</label><code>{field.key}</code></div>
+      return <article className="field" key={field.key}><div className="field-top"><div className="field-label-wrap"><label htmlFor={field.key}>{field.label||field.key}</label><span className="field-section-tag">{field.section}</span></div><code>{field.key}</code></div>
         {field.type==="image"?<>
           <input id={field.key} type="text" value={value} onChange={e=>setValues(old=>({...old,[field.key]:e.target.value}))} placeholder="Image path or URL"/>
           {value&&<img className="image-preview" src={value.startsWith("http")?value:value.startsWith("/")?value:"/"+value} alt={field.label||"Selected image"}/>}
