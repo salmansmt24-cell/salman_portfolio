@@ -1,12 +1,6 @@
-"use client";
-import { useState,type FormEvent } from "react";
-import { useSearchParams } from "next/navigation";
-export default function AcceptInvitationPage(){
- const params=useSearchParams(),token=params.get("token")||"";
- const [password,setPassword]=useState(""),[confirm,setConfirm]=useState(""),[message,setMessage]=useState(""),[error,setError]=useState(""),[busy,setBusy]=useState(false);
- async function submit(e:FormEvent){e.preventDefault();setError("");setMessage("");if(password!==confirm){setError("Passwords do not match.");return;}setBusy(true);try{const r=await fetch("/api/bms/auth/accept",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({token,password})});const d=await r.json();if(!r.ok)throw new Error(d.error||"Could not accept invitation.");setMessage(d.message);}catch(e){setError(e instanceof Error?e.message:"Could not accept invitation.");}finally{setBusy(false);}}
- return <main style={{minHeight:"100vh",display:"grid",placeItems:"center",background:"#f3f6fc",padding:20,fontFamily:"Arial,sans-serif"}}><form onSubmit={submit} style={{width:"100%",maxWidth:440,background:"#fff",padding:32,borderRadius:18,border:"1px solid #e3e9f3"}}><div style={{fontSize:12,fontWeight:800,letterSpacing:".12em",color:"#315ca8"}}>TEAM INVITATION</div><h1 style={{fontSize:27,margin:"10px 0"}}>Set your password</h1><p style={{color:"#68758c",fontSize:14}}>Create a password to finish setting up your team account. Administrator approval is still required before sign-in.</p><label style={label}>New password (12+ characters)<input required minLength={12} maxLength={128} type="password" autoComplete="new-password" value={password} onChange={e=>setPassword(e.target.value)} style={input}/></label><label style={label}>Confirm password<input required type="password" autoComplete="new-password" value={confirm} onChange={e=>setConfirm(e.target.value)} style={input}/></label>{!token&&<p role="alert" style={{color:"#b42318",fontSize:13}}>Invitation token is missing. Open the complete link sent by your administrator.</p>}{error&&<p role="alert" style={{color:"#b42318",fontSize:13}}>{error}</p>}{message&&<p role="status" style={{color:"#087443",fontSize:13}}>{message}<br/><a href="/team/login">Go to team login</a></p>}<button disabled={busy||!token||!!message} style={button}>{busy?"Saving…":"Set password"}</button></form></main>;
+import AcceptForm from "./accept-form";
+export const dynamic="force-dynamic";
+export default async function AcceptInvitationPage({searchParams}:{searchParams:Promise<{token?:string}>}){
+ const params=await searchParams;
+ return <AcceptForm token={params.token||""}/>;
 }
-const label={display:"grid",gap:7,marginTop:16,fontSize:13,fontWeight:700,color:"#47556d"} as const;
-const input={height:44,border:"1px solid #dce4f1",borderRadius:9,padding:"0 12px",fontSize:14} as const;
-const button={width:"100%",height:46,marginTop:22,border:0,borderRadius:10,background:"#245fe8",color:"#fff",fontWeight:800,cursor:"pointer"} as const;
