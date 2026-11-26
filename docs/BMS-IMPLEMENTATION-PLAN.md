@@ -25,6 +25,9 @@ BMS is a self-contained website application. All team accounts, tasks, CRM leads
 - Task assignment, priority, due date, status, comments and notifications.
 - CRM lead records, stages, estimated values, notes and follow-up dates.
 - Native order submission and administrator approval/rejection. Order records remain in the BMS database.
+- Proposal management with client, value, validity date and lifecycle status.
+- Expense submission, administrator approval/rejection and reimbursement tracking.
+- Admin expense review queue, activity log and notifications.
 - Team forgot-password request and one-time reset link flow via email.
 - Admin-issued one-time password reset links from Team Management.
 - Password reset revokes existing sessions; tokens expire after 30 minutes and are single-use.
@@ -39,7 +42,8 @@ The forgot-password endpoint returns a generic response for unknown emails. It r
 
 ## Database migrations
 - `002_business_management.sql`: core BMS tables and native order submissions.
-- `003_bms_native_orders_password_reset.sql`: password reset token table and removal of legacy Sheets-only columns from the new BMS order table.
+- `003_bms_native_orders_password_reset.sql`: password reset token table and removal of legacy spreadsheet-only columns from the new BMS order table.
+- `004_bms_proposals_expenses.sql`: native proposal and expense tables.
 - Apply migration 003 to the Preview `salman_portfolio` database only during this development phase. Production remains untouched.
 
 ## Reporting
@@ -48,6 +52,8 @@ The forgot-password endpoint returns a generic response for unknown emails. It r
 - Admin BMS Reports: team-wide business metrics and member workload from native BMS records.
 
 ## Remaining rollout work
+- Add secure receipt upload/storage and optional proposal PDF generation.
+- Add currency-aware financial summaries; current report totals are raw recorded amounts and should not be interpreted as a single-currency consolidated balance.
 - Configure Resend sender/API key in Vercel Preview and test email delivery.
 - Complete role-based smoke tests for every team module and password recovery.
 - Expand proposal workflow and validate team-scoped visibility.
