@@ -8,6 +8,7 @@ const elevated = (role:string) => role==="Admin" || role==="Team Leader" || role
 export async function PATCH(req:NextRequest,{params}:{params:Promise<{id:string}>}) {
  const member=await getBmsSession();
  if(!member)return NextResponse.json({error:"Unauthorized"},{status:401});
+ if(member.role==="Viewer")return NextResponse.json({error:"Your role is read-only."},{status:403});
  const {id:raw}=await params, id=Number(raw);
  if(!Number.isSafeInteger(id)||id<1)return NextResponse.json({error:"Invalid task id."},{status:400});
  let body:any;try{body=await req.json();}catch{return NextResponse.json({error:"Invalid JSON"},{status:400});}
