@@ -1,72 +1,49 @@
 # Business Management System — implementation plan
 
+## Core product rule
+BMS is a self-contained website application. All team accounts, tasks, CRM leads, order records, notifications, password-reset tokens, activity and reports are stored in the website's Neon PostgreSQL database. BMS does not use Google Sheets or an external spreadsheet for any workflow. Existing legacy website features and their separate integrations are preserved unless explicitly changed.
+
 ## Safety rules
 - Work only on `feature/business-management-system` until the owner explicitly approves a production release.
-- Keep every existing `cms_*` table, route, login flow, dashboard page, and Google Sheets sync behavior intact.
-- Add new BMS functionality through the `bms_*` namespace and additive migrations.
-- Do not apply migrations to the live Neon database during development.
-- Enforce authorization in server routes; hiding navigation items is not authorization.
-- Do not permit public self-registration. Accounts are invited/created and approved by authorized administrators.
-- Store only password hashes and hashed, expiring invitation/session tokens.
+- Keep legacy `cms_*` tables, routes, login flow and existing dashboard pages intact.
+- Add BMS functionality through the `bms_*` namespace and additive migrations.
+- Never apply development migrations to the production database.
+- Enforce authorization in server routes, not only in the UI.
+- No public account self-registration. Accounts are invited/created and approved by administrators.
+- Store only password hashes and hashed, expiring one-time tokens.
 
 ## Roles
-- **Super Admin:** all BMS modules, roles, account approval, settings.
+- **Super Admin:** full BMS access, role governance, approvals and settings.
 - **Admin:** operational management and team administration, excluding protected Super Admin controls.
-- **Team Leader:** assigned team visibility, task creation/assignment and progress review.
-- **Sales Executive:** assigned leads, follow-ups, and permitted order-entry workflows.
+- **Team Leader:** team visibility, task creation/assignment and progress review.
+- **Sales Executive:** assigned leads, follow-ups and permitted order-entry workflows.
 - **Viewer:** read-only access explicitly granted by policy.
 
-## Delivery sequence
-1. **Foundation (current):** additive tables for team accounts/sessions, tasks/comments, CRM leads, notifications and activity history.
-2. **Team access:** invite/approve/suspend members; separate BMS login/session; server-side role checks. Preserve existing legacy Admin login.
-3. **Task Manager (Preview feature):** task creation, assignment, priority, due date, status, comments and notifications.
-4. **CRM (Preview feature):** lead creation, assigned ownership, pipeline stage, estimated value, notes and follow-up date.
-5. **Order workflow (Preview feature):** team order submissions are held separately, then Admin reviews/approves/rejects. Approved entries can be appended through the BMS webhook endpoint. The endpoint sends only approved rows and tracks `not_sent/pending/synced/failed`; the Apps Script sample uses an idempotency key to prevent duplicate appends.
-6. **Reports and proposal tools:** still planned; not part of the current build batch.
-7. **Verification:** deployment build, migration review on Preview, role tests and regression checks for existing admin modules.
+## Implemented Preview modules
+- Team invitations, password setup, administrator approval, role assignment, suspension and reactivation.
+- Separate team login/session from the legacy admin login.
+- Task assignment, priority, due date, status, comments and notifications.
+- CRM lead records, stages, estimated values, notes and follow-up dates.
+- Native order submission and administrator approval/rejection. Order records remain in the BMS database.
+- Team forgot-password request and one-time reset link flow via email.
+- Admin-issued one-time password reset links from Team Management.
+- Password reset revokes existing sessions; tokens expire after 30 minutes and are single-use.
+- Activity log records important team and order events.
 
-## Current state
-- The feature branch is based on `fix/production-admin-routes`.
-- Existing legacy authentication validates `cms_admins` and `admin_security_sessions` using the legacy database connection.
-- Existing order and Sheets-sync code operates on `cms_fiverr_orders`; it remains untouched.
-- Migration `002_business_management.sql` is additive. The original BMS tables and the new `bms_order_submissions` table have been applied to the Preview branch database `salman_portfolio` only. Production was not modified.
+## Password recovery configuration
+Team email-based recovery requires Vercel Preview environment variables:
+- `RESEND_API_KEY`: Resend API key.
+- `BMS_FROM_EMAIL`: verified sender address permitted by the Resend account.
 
-## Team authentication stage (implemented on feature branch)
+The forgot-password endpoint returns a generic response for unknown emails. It rate-limits requests by source IP. If email configuration is missing, users are instructed to contact the administrator; Admin can generate a one-time reset link from Team Management and share it privately. Reset links expire after 30 minutes.
 
-- Team members are invited by an existing legacy admin; public self-registration is not exposed.
-- Invitation tokens are generated with Node crypto, stored only as SHA-256 hashes, expire after 7 days, and are single-use.
-- The invitation URL is shown once in Team Management for the admin to share privately. Email delivery is not configured yet.
-- Members set a password (minimum 12 characters); password hashes use the existing bcryptjs dependency.
-- Invitation acceptance changes the account to pending; a legacy admin must approve it before login.
-- Team login uses a separate bms_team_session HttpOnly cookie and rows in bms_user_sessions; the legacy admin cookie and login routes are unchanged.
-- Suspended/non-active members cannot establish or continue a BMS session.
-- Routes: /team/login, /team/accept?token=..., and /team.
-- This code is not live until migration 002 is applied to a Preview database and the feature branch is deployed to a Preview environment.
+## Database migrations
+- `002_business_management.sql`: core BMS tables and native order submissions.
+- `003_bms_native_orders_password_reset.sql`: password reset token table and removal of legacy Sheets-only columns from the new BMS order table.
+- Apply migration 003 to the Preview `salman_portfolio` database only during this development phase. Production remains untouched.
 
-
-## Current Preview modules
-
-- Team login / invitation acceptance / admin approval / suspension.
-- Team dashboard links: Tasks, CRM Leads, Notifications, Order Entry.
-- Admin navigation includes Team Management and BMS Order Review.
-- Tasks support assignment, status, comments and activity/notification records.
-- CRM supports lead creation, stage changes, notes and follow-up date.
-- Team order entry creates a separate pending-review submission. Admin approval changes it to approved and marks Sheets status pending. It does **not** write to Google Sheets yet; a secure outbound Sheets connector/webhook and test sheet are still required. Existing inbound Sheets sync behavior is preserved.
-- Public portfolio navigation has a Team Login link.
-
-## Remaining before a complete business rollout
-
-- Configure and test outbound Google Sheets append integration; approved orders must be appended once and never expose pending/rejected rows.
-- Complete rate limiting and further auth hardening for team login.
-- Add broader reports/proposal workflow and validate role-scoped team visibility.
-- Run build/typecheck and full role-based smoke tests on the final Preview deployment. Production release requires explicit owner approval.
-
-
-## Google Sheets append setup (Preview)
-
-1. Create a Google Sheet tab named `BMS Orders` (or set a custom tab name in Script Properties).
-2. Open Extensions → Apps Script and paste `docs/google-sheets-bms-webhook.gs`.
-3. In Apps Script Project Settings → Script Properties, set `BMS_WEBHOOK_SECRET` to a long random secret, `BMS_SHEET_ID` to the spreadsheet ID, and optional `BMS_TAB_NAME`.
-4. Deploy as Web App, execute as the sheet owner, and set access to anyone with the URL. The endpoint validates the shared secret in the HTTPS JSON body.
-5. Add the Web App URL to Vercel Preview as `BMS_SHEETS_WEBHOOK_URL` and the same secret as `BMS_SHEETS_WEBHOOK_SECRET`; scope both to the feature branch.
-6. Redeploy Preview, submit an order, approve it in Admin → BMS Order Review, then click **Sync approved to Google Sheets**. Verify the row and `synced` status. The idempotency key prevents repeat append on retry.
+## Remaining rollout work
+- Configure Resend sender/API key in Vercel Preview and test email delivery.
+- Complete role-based smoke tests for every team module and password recovery.
+- Add expanded reports/proposal workflow and validate team-scoped visibility.
+- Run the final Preview build and regression checks. Production release requires explicit owner approval.
