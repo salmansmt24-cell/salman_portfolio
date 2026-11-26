@@ -21,7 +21,7 @@
 2. **Team access:** invite/approve/suspend members; separate BMS login/session; server-side role checks. Preserve existing legacy Admin login.
 3. **Task Manager (Preview feature):** task creation, assignment, priority, due date, status, comments and notifications.
 4. **CRM (Preview feature):** lead creation, assigned ownership, pipeline stage, estimated value, notes and follow-up date.
-5. **Order workflow (Preview feature):** team order submissions are held separately, then Admin reviews/approves/rejects. Approved entries are marked pending Sheets integration; they are not automatically appended to Google Sheets until an outbound connector/webhook is configured and verified.
+5. **Order workflow (Preview feature):** team order submissions are held separately, then Admin reviews/approves/rejects. Approved entries can be appended through the BMS webhook endpoint. The endpoint sends only approved rows and tracks `not_sent/pending/synced/failed`; the Apps Script sample uses an idempotency key to prevent duplicate appends.
 6. **Reports and proposal tools:** still planned; not part of the current build batch.
 7. **Verification:** deployment build, migration review on Preview, role tests and regression checks for existing admin modules.
 
@@ -60,3 +60,13 @@
 - Complete rate limiting and further auth hardening for team login.
 - Add broader reports/proposal workflow and validate role-scoped team visibility.
 - Run build/typecheck and full role-based smoke tests on the final Preview deployment. Production release requires explicit owner approval.
+
+
+## Google Sheets append setup (Preview)
+
+1. Create a Google Sheet tab named `BMS Orders` (or set a custom tab name in Script Properties).
+2. Open Extensions → Apps Script and paste `docs/google-sheets-bms-webhook.gs`.
+3. In Apps Script Project Settings → Script Properties, set `BMS_WEBHOOK_SECRET` to a long random secret, `BMS_SHEET_ID` to the spreadsheet ID, and optional `BMS_TAB_NAME`.
+4. Deploy as Web App, execute as the sheet owner, and set access to anyone with the URL. The endpoint validates the shared secret in the HTTPS JSON body.
+5. Add the Web App URL to Vercel Preview as `BMS_SHEETS_WEBHOOK_URL` and the same secret as `BMS_SHEETS_WEBHOOK_SECRET`; scope both to the feature branch.
+6. Redeploy Preview, submit an order, approve it in Admin → BMS Order Review, then click **Sync approved to Google Sheets**. Verify the row and `synced` status. The idempotency key prevents repeat append on retry.
