@@ -155,7 +155,6 @@ CREATE TABLE IF NOT EXISTS bms_order_submissions (
   reviewed_by_username VARCHAR(100),
   reviewed_at TIMESTAMPTZ,
   review_note TEXT NOT NULL DEFAULT '',
-  sheets_row_key VARCHAR(200),
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
