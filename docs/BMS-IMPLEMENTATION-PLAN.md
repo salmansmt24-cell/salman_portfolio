@@ -42,8 +42,13 @@ The forgot-password endpoint returns a generic response for unknown emails. It r
 - `003_bms_native_orders_password_reset.sql`: password reset token table and removal of legacy Sheets-only columns from the new BMS order table.
 - Apply migration 003 to the Preview `salman_portfolio` database only during this development phase. Production remains untouched.
 
+## Reporting
+
+- Team Reports & Analytics: personal or team-scoped task, lead pipeline, approved-order, monthly activity and workload summaries.
+- Admin BMS Reports: team-wide business metrics and member workload from native BMS records.
+
 ## Remaining rollout work
 - Configure Resend sender/API key in Vercel Preview and test email delivery.
 - Complete role-based smoke tests for every team module and password recovery.
-- Add expanded reports/proposal workflow and validate team-scoped visibility.
+- Expand proposal workflow and validate team-scoped visibility.
 - Run the final Preview build and regression checks. Production release requires explicit owner approval.
