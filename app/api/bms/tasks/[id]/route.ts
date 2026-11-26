@@ -15,17 +15,17 @@ export async function PATCH(req:NextRequest,{params}:{params:Promise<{id:string}
  if(!statuses.includes(status))return NextResponse.json({error:"Invalid task status."},{status:400});
  try{
   const sql=bmsDb();
-  const access=await sql\`SELECT assigned_to,created_by_member_id FROM bms_tasks WHERE id=\${id} LIMIT 1\`;
+  const access=await sql`SELECT assigned_to,created_by_member_id FROM bms_tasks WHERE id=${id} LIMIT 1`;
   if(!access.length)return NextResponse.json({error:"Task not found."},{status:404});
   const own=Number(access[0].assigned_to)===member.memberId||Number(access[0].created_by_member_id)===member.memberId;
   if(!elevated(member.role)&&!own)return NextResponse.json({error:"You cannot update this task."},{status:403});
-  const rows=await sql\`UPDATE bms_tasks SET status=\${status},completed_at=CASE WHEN \${status}='completed' THEN NOW() ELSE NULL END,updated_at=NOW()
-   WHERE id=\${id} RETURNING id,title,status,priority,assigned_to,completed_at,updated_at\`;
-  await sql\`INSERT INTO bms_activity_log(actor_member_id,action,entity_type,entity_id,summary)
-   VALUES(\${member.memberId},'task_status_changed','task',\${String(id)},\${"Changed task status to "+status})\`;
+  const rows=await sql`UPDATE bms_tasks SET status=${status},completed_at=CASE WHEN ${status}='completed' THEN NOW() ELSE NULL END,updated_at=NOW()
+   WHERE id=${id} RETURNING id,title,status,priority,assigned_to,completed_at,updated_at`;
+  await sql`INSERT INTO bms_activity_log(actor_member_id,action,entity_type,entity_id,summary)
+   VALUES(${member.memberId},'task_status_changed','task',${String(id)},${"Changed task status to "+status})`;
   if(Number(access[0].assigned_to)!==member.memberId)
-   await sql\`INSERT INTO bms_notifications(member_id,notification_type,title,body,target_url)
-    VALUES(\${Number(access[0].assigned_to)},'task_updated','Task updated',\${rows[0].title+" status: "+status},'/team/tasks')\`;
+   await sql`INSERT INTO bms_notifications(member_id,notification_type,title,body,target_url)
+    VALUES(${Number(access[0].assigned_to)},'task_updated','Task updated',${rows[0].title+" status: "+status},'/team/tasks')`;
   return NextResponse.json({ok:true,task:rows[0]});
  }catch(error){console.error("BMS task update failed:",error);return NextResponse.json({error:"Could not update task."},{status:503});}
 }
