@@ -8,6 +8,7 @@ const links = [
   ["Team Management", "/admin/team", "♧"],
   ["BMS Order Review", "/admin/bms/orders", "✓"],
   ["BMS Reports", "/admin/bms/reports", "▥"],
+  ["BMS Expenses", "/admin/bms/expenses", "$"],
   ["Manage Content", "/admin/content", "▣"],
   ["Orders", "/admin/manage/orders", "▱"],
   ["Messages", "/admin/manage/messages", "◉"],
