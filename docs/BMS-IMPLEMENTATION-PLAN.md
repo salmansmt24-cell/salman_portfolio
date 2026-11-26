@@ -51,6 +51,12 @@ The forgot-password endpoint returns a generic response for unknown emails. It r
 - Team Reports & Analytics: personal or team-scoped task, lead pipeline, approved-order, monthly activity and workload summaries.
 - Admin BMS Reports: team-wide business metrics and member workload from native BMS records.
 
+## Preview verification
+
+- Next.js production build completed successfully on the Preview deployment after adding proposal and expense management.
+- Preview Neon database confirms the password-reset, native order, proposal and expense tables.
+- No Preview runtime error logs were reported for the verified deployment.
+
 ## Remaining rollout work
 - Add secure receipt upload/storage and optional proposal PDF generation.
 - Add currency-aware financial summaries; current report totals are raw recorded amounts and should not be interpreted as a single-currency consolidated balance.
