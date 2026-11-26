@@ -19,17 +19,17 @@
 ## Delivery sequence
 1. **Foundation (current):** additive tables for team accounts/sessions, tasks/comments, CRM leads, notifications and activity history.
 2. **Team access:** invite/approve/suspend members; separate BMS login/session; server-side role checks. Preserve existing legacy Admin login.
-3. **Task Manager:** create, assign, prioritize, comment, update status, due-date views and notifications.
-4. **CRM:** lead/contact pipeline, ownership, follow-up reminders and activity history.
-5. **Order workflow:** inspect existing order APIs and Google Sheets sync before adding staff order submission; only approved submissions may sync. Never change existing sync reconciliation semantics without approval.
-6. **Reports and proposal tools:** add business reporting and proposal generation after core data workflows are stable.
-7. **Verification:** typecheck/build, migration review on a disposable Neon branch, role tests and regression checks for all existing admin modules.
+3. **Task Manager (Preview feature):** task creation, assignment, priority, due date, status, comments and notifications.
+4. **CRM (Preview feature):** lead creation, assigned ownership, pipeline stage, estimated value, notes and follow-up date.
+5. **Order workflow (Preview feature):** team order submissions are held separately, then Admin reviews/approves/rejects. Approved entries are marked pending Sheets integration; they are not automatically appended to Google Sheets until an outbound connector/webhook is configured and verified.
+6. **Reports and proposal tools:** still planned; not part of the current build batch.
+7. **Verification:** deployment build, migration review on Preview, role tests and regression checks for existing admin modules.
 
 ## Current state
 - The feature branch is based on `fix/production-admin-routes`.
 - Existing legacy authentication validates `cms_admins` and `admin_security_sessions` using the legacy database connection.
-- Existing order and Sheets-sync code operates on `cms_fiverr_orders`; it is intentionally untouched.
-- Migration `002_business_management.sql` is additive and has not been run against any database.
+- Existing order and Sheets-sync code operates on `cms_fiverr_orders`; it remains untouched.
+- Migration `002_business_management.sql` is additive. The original BMS tables and the new `bms_order_submissions` table have been applied to the Preview branch database `salman_portfolio` only. Production was not modified.
 
 ## Team authentication stage (implemented on feature branch)
 
@@ -42,3 +42,21 @@
 - Suspended/non-active members cannot establish or continue a BMS session.
 - Routes: /team/login, /team/accept?token=..., and /team.
 - This code is not live until migration 002 is applied to a Preview database and the feature branch is deployed to a Preview environment.
+
+
+## Current Preview modules
+
+- Team login / invitation acceptance / admin approval / suspension.
+- Team dashboard links: Tasks, CRM Leads, Notifications, Order Entry.
+- Admin navigation includes Team Management and BMS Order Review.
+- Tasks support assignment, status, comments and activity/notification records.
+- CRM supports lead creation, stage changes, notes and follow-up date.
+- Team order entry creates a separate pending-review submission. Admin approval changes it to approved and marks Sheets status pending. It does **not** write to Google Sheets yet; a secure outbound Sheets connector/webhook and test sheet are still required. Existing inbound Sheets sync behavior is preserved.
+- Public portfolio navigation has a Team Login link.
+
+## Remaining before a complete business rollout
+
+- Configure and test outbound Google Sheets append integration; approved orders must be appended once and never expose pending/rejected rows.
+- Complete rate limiting and further auth hardening for team login.
+- Add broader reports/proposal workflow and validate role-scoped team visibility.
+- Run build/typecheck and full role-based smoke tests on the final Preview deployment. Production release requires explicit owner approval.
