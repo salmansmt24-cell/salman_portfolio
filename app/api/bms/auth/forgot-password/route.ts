@@ -8,7 +8,7 @@ export async function POST(req:NextRequest){
  let b:any;try{b=await req.json()}catch{return NextResponse.json({error:"Invalid request."},{status:400});}
  const email=String(b.email??"").trim().toLowerCase();
  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))return NextResponse.json({error:"Enter a valid email address."},{status:400});
- const apiKey=process.env.RESEND_API_KEY,from=process.env.BMS_FROM_EMAIL;
+ const apiKey=process.env.RESEND_API_KEY,from=process.env.BMS_FROM_EMAIL||process.env.CONTACT_FROM_EMAIL;
  if(!apiKey||!from)return NextResponse.json({error:"Password recovery email is not configured yet. Please contact your administrator."},{status:503});
  try{
   const sql=bmsDb(),ipRaw=req.headers.get("x-real-ip")||"",ip=isIP(ipRaw)?ipRaw:null;
