@@ -14,16 +14,16 @@ export async function GET() {
   try {
     const sql = bmsDb();
     const all = elevated(member.role);
-    const rows = await sql\`SELECT t.id,t.title,t.description,t.status,t.priority,t.assigned_to,
+    const rows = await sql`SELECT t.id,t.title,t.description,t.status,t.priority,t.assigned_to,
       t.created_by_member_id,t.due_at,t.completed_at,t.created_at,t.updated_at,
       a.full_name AS assignee_name,c.full_name AS creator_name
       FROM bms_tasks t
       LEFT JOIN bms_team_members a ON a.id=t.assigned_to
       LEFT JOIN bms_team_members c ON c.id=t.created_by_member_id
-      WHERE (\${all} OR t.assigned_to=\${member.memberId} OR t.created_by_member_id=\${member.memberId}
-      OR t.created_by_legacy_username=\${member.email})
+      WHERE (${all} OR t.assigned_to=${member.memberId} OR t.created_by_member_id=${member.memberId}
+      OR t.created_by_legacy_username=${member.email})
       ORDER BY CASE t.status WHEN 'todo' THEN 0 WHEN 'in_progress' THEN 1 WHEN 'review' THEN 2 WHEN 'blocked' THEN 3 ELSE 4 END,
-      t.due_at NULLS LAST,t.created_at DESC LIMIT 300\`;
+      t.due_at NULLS LAST,t.created_at DESC LIMIT 300`;
     return NextResponse.json({ tasks: rows });
   } catch (error) {
     console.error("BMS task list failed:", error);
@@ -49,17 +49,17 @@ export async function POST(req: NextRequest) {
   if (!canAssign && member.role === "Viewer") return NextResponse.json({ error: "Your role cannot create tasks." }, { status: 403 });
   try {
     const sql = bmsDb();
-    const active = await sql\`SELECT id FROM bms_team_members WHERE id=\${assignedTo} AND status='active' LIMIT 1\`;
+    const active = await sql`SELECT id FROM bms_team_members WHERE id=${assignedTo} AND status='active' LIMIT 1`;
     if (!active.length) return NextResponse.json({ error: "Assignee must be an active team member." }, { status: 400 });
-    const rows = await sql\`INSERT INTO bms_tasks(title,description,priority,assigned_to,created_by_member_id,due_at)
-      VALUES(\${title},\${description},\${priority},\${assignedTo},\${member.memberId},\${dueAt ? dueAt.toISOString() : null})
-      RETURNING id,title,description,status,priority,assigned_to,due_at,created_at\`;
+    const rows = await sql`INSERT INTO bms_tasks(title,description,priority,assigned_to,created_by_member_id,due_at)
+      VALUES(${title},${description},${priority},${assignedTo},${member.memberId},${dueAt ? dueAt.toISOString() : null})
+      RETURNING id,title,description,status,priority,assigned_to,due_at,created_at`;
     const task = rows[0];
-    await sql\`INSERT INTO bms_activity_log(actor_member_id,action,entity_type,entity_id,summary)
-      VALUES(\${member.memberId},'task_created','task',\${String(task.id)},\${"Created task: "+title})\`;
+    await sql`INSERT INTO bms_activity_log(actor_member_id,action,entity_type,entity_id,summary)
+      VALUES(${member.memberId},'task_created','task',${String(task.id)},${"Created task: "+title})`;
     if (assignedTo !== member.memberId) {
-      await sql\`INSERT INTO bms_notifications(member_id,notification_type,title,body,target_url)
-        VALUES(\${assignedTo},'task_assigned','New task assigned',\${title},'/team/tasks')\`;
+      await sql`INSERT INTO bms_notifications(member_id,notification_type,title,body,target_url)
+        VALUES(${assignedTo},'task_assigned','New task assigned',${title},'/team/tasks')`;
     }
     return NextResponse.json({ ok: true, task }, { status: 201 });
   } catch (error) {
