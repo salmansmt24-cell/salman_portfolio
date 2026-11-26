@@ -1,6 +1,7 @@
 "use client";
 import { useCallback,useEffect,useState } from "react";
 import type { FormEvent } from "react";
+import TaskComments from "./task-comments";
 type Task={id:number;title:string;description:string;status:string;priority:string;assigned_to:number|null;due_at:string|null;created_at:string;assignee_name?:string|null;creator_name?:string|null};
 type Member={id:number;full_name:string};
 const statusLabels:Record<string,string>={todo:"To do",in_progress:"In progress",review:"Review",blocked:"Blocked",completed:"Completed",cancelled:"Cancelled"};
@@ -32,7 +33,7 @@ export default function TeamTasks(){
     {tasks.map(t=><article key={t.id} style={card}><div style={{display:"flex",justifyContent:"space-between",gap:8,alignItems:"start"}}><h3 style={{fontSize:16,margin:"0 0 9px"}}>{t.title}</h3><span style={{fontSize:10,fontWeight:800,padding:"5px 8px",borderRadius:20,background:t.priority==="urgent"?"#fff0ef":"#f1f5fb",color:t.priority==="urgent"?"#b42318":"#53627e",whiteSpace:"nowrap"}}>{t.priority.toUpperCase()}</span></div>
      {t.description&&<p style={{fontSize:13,color:"#66758f",whiteSpace:"pre-wrap"}}>{t.description}</p>}
      <p style={{fontSize:12,color:"#71809b"}}>Assigned: {t.assignee_name||"Unassigned"}{t.due_at?" · Due "+new Date(t.due_at).toLocaleString():""}</p>
-     <label style={{...field,marginTop:10}}>Status<select value={t.status} onChange={e=>void update(t.id,e.target.value)} style={input}>{Object.entries(statusLabels).map(([k,v])=><option key={k} value={k}>{v}</option>)}</select></label>
+     <label style={{...field,marginTop:10}}>Status<select value={t.status} onChange={e=>void update(t.id,e.target.value)} style={input}>{Object.entries(statusLabels).map(([k,v])=><option key={k} value={k}>{v}</option>)}</select></label><TaskComments taskId={t.id}/>
     </article>)}
    </div>}
   </section>
