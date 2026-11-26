@@ -34,7 +34,7 @@ export default function TeamManager(){
       <td style={td}><span style={{fontWeight:800,color:statusTone(m.status),background:"#f3f6fb",padding:"6px 10px",borderRadius:20,fontSize:12}}>{m.status}</span></td><td style={td}>{new Date(m.created_at).toLocaleDateString()}</td>
       <td style={td}><div style={{display:"flex",gap:7,flexWrap:"wrap"}}>
        {m.status==="pending"?<><button onClick={()=>void act(m.id,"approve")} style={small("#e9f8ef","#087443")}>Approve</button><button onClick={()=>void act(m.id,"reject")} style={small("#fff1f0","#a12b22")}>Reject</button></>:m.status==="invited"?<button onClick={()=>void act(m.id,"reject")} style={small("#fff1f0","#a12b22")}>Revoke invite</button>:null}
-       {m.status==="active"||m.status==="pending"?<button onClick={()=>void act(m.id,"reset_password")} style={small("#edf3ff","#315ca8")}>Reset password</button>:null}
+       {m.status==="active"?<button onClick={()=>void act(m.id,"reset_password")} style={small("#edf3ff","#315ca8")}>Reset password</button>:null}
        {m.status==="active"?<button onClick={()=>void act(m.id,"suspend")} style={small("#fff1f0","#a12b22")}>Suspend</button>:null}
        {m.status==="suspended"?<button onClick={()=>void act(m.id,"reactivate")} style={small("#e9f8ef","#087443")}>Reactivate</button>:null}
        {m.status==="rejected"?<span style={{color:"#8994a8",fontSize:12}}>No actions</span>:null}
