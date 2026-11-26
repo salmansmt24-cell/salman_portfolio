@@ -5,6 +5,11 @@ import { usePathname } from "next/navigation";
 
 const links = [
   ["Dashboard", "/admin", "⌂"],
+  ["Team Management", "/admin/team", "♧"],
+  ["BMS Order Review", "/admin/bms/orders", "✓"],
+  ["BMS Reports", "/admin/bms/reports", "▥"],
+  ["BMS Expenses", "/admin/bms/expenses", "$"],
+  ["BMS Proposals", "/admin/bms/proposals", "▤"],
   ["Manage Content", "/admin/content", "▣"],
   ["Orders", "/admin/manage/orders", "▱"],
   ["Messages", "/admin/manage/messages", "◉"],
