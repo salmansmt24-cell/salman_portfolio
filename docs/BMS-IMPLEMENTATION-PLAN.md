@@ -44,6 +44,7 @@ The forgot-password endpoint returns a generic response for unknown emails. It r
 - `002_business_management.sql`: core BMS tables and native order submissions.
 - `003_bms_native_orders_password_reset.sql`: password reset token table and removal of legacy spreadsheet-only columns from the new BMS order table.
 - `004_bms_proposals_expenses.sql`: native proposal and expense tables.
+- `005_bms_login_rate_limits.sql`: hashed-key throttling for repeated failed team login attempts.
 - Apply migration 003 to the Preview `salman_portfolio` database only during this development phase. Production remains untouched.
 
 ## Reporting
@@ -61,6 +62,7 @@ The forgot-password endpoint returns a generic response for unknown emails. It r
 - Add secure receipt upload/storage and optional proposal PDF generation.
 - Add currency-aware financial summaries; current report totals are raw recorded amounts and should not be interpreted as a single-currency consolidated balance.
 - Configure Resend sender/API key in Vercel Preview and test email delivery.
+- Verify BMS login throttling on Preview using controlled test attempts; avoid locking out a real team account.
 - Complete role-based smoke tests for every team module and password recovery.
 - Expand proposal workflow and validate team-scoped visibility.
 - Run the final Preview build and regression checks. Production release requires explicit owner approval.
