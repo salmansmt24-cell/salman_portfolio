@@ -47,7 +47,17 @@ export async function POST(req:NextRequest){
       // Free model route intentionally uses no paid web-search tool.
     })});
     const result:any=await api.json().catch(()=>({}));
-    if(!api.ok){console.error("Chat model request failed",api.status,result?.error?.code||"provider_error");return NextResponse.json({error:"The assistant is temporarily unavailable. Please try again or contact Salman."},{status:502})}
+    if(!api.ok){
+      const err=result?.error||{};
+      console.error("Chat model request failed",api.status,JSON.stringify({
+        code:typeof err.code==="string"?err.code.slice(0,120):undefined,
+        type:typeof err.type==="string"?err.type.slice(0,120):undefined,
+        message:typeof err.message==="string"?err.message.slice(0,500):undefined,
+        provider:typeof result?.provider==="string"?result.provider.slice(0,100):undefined,
+        requestId:typeof result?.request_id==="string"?result.request_id.slice(0,120):api.headers.get("x-request-id")||undefined
+      }));
+      return NextResponse.json({error:"The assistant is temporarily unavailable. Please try again or contact Salman."},{status:502});
+    }
     const textItems=(result.output||[]).flatMap((x:any)=>x.type==="message"?(x.content||[]).filter((c:any)=>c.type==="output_text"):[]);
     const answer=textItems.map((c:any)=>c.text).join("\n").trim();
     if(!answer)return NextResponse.json({error:"I couldn't prepare an answer just now. Please try again."},{status:502});
