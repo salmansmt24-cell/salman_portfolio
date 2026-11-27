@@ -989,4 +989,73 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
     </script>
+<style id="salman-ai-chat-style">
+#salman-chat-launch{position:fixed;right:22px;bottom:22px;z-index:99990;width:62px;height:62px;border:0;border-radius:50%;background:#245fc5;color:#fff;box-shadow:0 10px 30px #173d8b44;font-size:25px;cursor:pointer}
+#salman-chat-panel{position:fixed;right:22px;bottom:96px;z-index:99990;width:360px;max-width:calc(100vw - 24px);height: min(540px, calc(100vh - 125px));background:#fff;border:1px solid #dce6f5;border-radius:20px;box-shadow:0 20px 70px #102d5b35;display:none;overflow:hidden;font-family:inherit;color:#18284a}
+#salman-chat-panel.open{display:flex;flex-direction:column}
+#salman-chat-head{display:flex;align-items:center;justify-content:space-between;padding:15px 16px;background:linear-gradient(120deg,#e9f1ff,#f5f3ff);border-bottom:1px solid #e6edf8}
+#salman-chat-head strong{font-size:14px;display:block}#salman-chat-head small{font-size:11px;color:#657798}
+#salman-chat-close{border:0;background:#fff;border-radius:9px;width:32px;height:32px;font-size:19px;cursor:pointer;color:#34517d}
+#salman-chat-log{flex:1;overflow:auto;padding:14px;display:flex;flex-direction:column;gap:10px;background:#fbfcff}
+.salman-chat-msg{max-width:88%;padding:10px 12px;border-radius:14px;font-size:13px;line-height:1.55;white-space:pre-wrap;overflow-wrap:anywhere}
+.salman-chat-msg.bot{align-self:flex-start;background:#eef3fb;color:#1c3154;border-bottom-left-radius:4px}
+.salman-chat-msg.user{align-self:flex-end;background:#285fb9;color:#fff;border-bottom-right-radius:4px}
+#salman-chat-compose{display:flex;gap:8px;padding:12px;border-top:1px solid #e7edf7;background:#fff}
+#salman-chat-input{flex:1;min-width:0;resize:none;max-height:100px;border:1px solid #dbe4f1;border-radius:12px;padding:10px 11px;font:inherit;font-size:13px;outline:none}
+#salman-chat-input:focus{border-color:#6795e5;box-shadow:0 0 0 3px #dce9ff}
+#salman-chat-send{border:0;border-radius:12px;background:#285fb9;color:#fff;padding:0 15px;font-weight:700;cursor:pointer}
+#salman-chat-send:disabled{opacity:.55;cursor:wait}
+#salman-chat-foot{font-size:10px;color:#8b98ad;text-align:center;padding:0 12px 10px;background:#fff}
+#salman-contact-status{margin:12px 0;padding:12px 14px;border-radius:10px;font-size:13px;line-height:1.5}
+@media(max-width:480px){#salman-chat-launch{right:14px;bottom:14px;width:56px;height:56px}#salman-chat-panel{right:12px;bottom:82px;height:min(70vh,560px);width:calc(100vw - 24px)}}
+</style>
+<button id="salman-chat-launch" type="button" aria-label="Open AI chat assistant" title="Ask me anything">✦</button>
+<section id="salman-chat-panel" aria-label="AI chat assistant" aria-hidden="true">
+  <header id="salman-chat-head"><div><strong>Salman’s AI Assistant</strong><small>Ask in Bangla, English or any language</small></div><button id="salman-chat-close" type="button" aria-label="Close chat">×</button></header>
+  <div id="salman-chat-log" role="log" aria-live="polite"><div class="salman-chat-msg bot">Hello! Ask me anything. I can chat in বাংলা, English and other languages.</div></div>
+  <form id="salman-chat-compose"><textarea id="salman-chat-input" rows="1" maxlength="3500" placeholder="Ask in any language…" aria-label="Your question" required></textarea><button id="salman-chat-send" type="submit">Send</button></form>
+  <div id="salman-chat-foot">AI can make mistakes. For project quotes, please use the contact form.</div>
+</section>
+<script id="salman-ai-chat-script">
+(function(){
+  var launch=document.getElementById('salman-chat-launch'),panel=document.getElementById('salman-chat-panel'),close=document.getElementById('salman-chat-close'),log=document.getElementById('salman-chat-log'),form=document.getElementById('salman-chat-compose'),input=document.getElementById('salman-chat-input'),send=document.getElementById('salman-chat-send');
+  if(!launch||!panel||!form)return;
+  var history=[];
+  function toggle(open){panel.classList.toggle('open',open);panel.setAttribute('aria-hidden',open?'false':'true');launch.setAttribute('aria-expanded',open?'true':'false');if(open)input.focus();}
+  launch.setAttribute('aria-expanded','false');launch.addEventListener('click',function(){toggle(!panel.classList.contains('open'));});close.addEventListener('click',function(){toggle(false);});
+  function addMessage(role,text){var node=document.createElement('div');node.className='salman-chat-msg '+(role==='user'?'user':'bot');node.textContent=text;log.appendChild(node);log.scrollTop=log.scrollHeight;}
+  form.addEventListener('submit',async function(e){
+    e.preventDefault();var text=input.value.trim();if(!text||send.disabled)return;
+    history.push({role:'user',content:text});history=history.slice(-12);addMessage('user',text);input.value='';send.disabled=true;send.textContent='…';
+    var pending=document.createElement('div');pending.className='salman-chat-msg bot';pending.textContent='Thinking…';log.appendChild(pending);log.scrollTop=log.scrollHeight;
+    try{
+      var response=await fetch('/api/chat',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({messages:history})});
+      var data=await response.json();pending.remove();
+      if(!response.ok)throw new Error(data.error||'Assistant is unavailable.');
+      var answer=String(data.answer||'Please try again.');history.push({role:'assistant',content:answer});history=history.slice(-12);addMessage('assistant',answer);
+    }catch(error){pending.remove();addMessage('assistant',error&&error.message?error.message:'Sorry, I could not answer right now. Please use the contact form.');}
+    finally{send.disabled=false;send.textContent='Send';input.focus();}
+  });
+  input.addEventListener('keydown',function(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();form.requestSubmit();}});
+  var contactForm=document.querySelector('form[action$="contact-submit.php"]');
+  if(contactForm){
+    var status=document.createElement('div');status.id='salman-contact-status';status.setAttribute('role','status');status.style.display='none';contactForm.parentNode.insertBefore(status,contactForm);
+    contactForm.addEventListener('submit',async function(e){
+      e.preventDefault();var button=contactForm.querySelector('button[type="submit"]'),old=button?button.textContent:'';
+      if(button){button.disabled=true;button.textContent='Sending…';}
+      status.style.display='block';status.style.background='#eef3fb';status.style.color='#29466e';status.textContent='Sending your message…';
+      try{
+        var response=await fetch(contactForm.action,{method:'POST',body:new FormData(contactForm),headers:{'Accept':'application/json'}});
+        var data=await response.json();if(!response.ok)throw new Error(data.message||data.error||'Could not send your message.');
+        status.style.background='#e8f8ef';status.style.color='#176c47';status.textContent=data.message||'Thank you! Your message has been received.';contactForm.reset();
+      }catch(error){status.style.background='#fff0ef';status.style.color='#a33a30';status.textContent=error&&error.message?error.message:'Could not send your message. Please try again.';}
+      finally{if(button){button.disabled=false;button.textContent=old;}}
+    });
+  }
+  var params=new URLSearchParams(window.location.search);
+  if(params.get('contact')==='sent'&&contactForm){var banner=document.getElementById('salman-contact-status');if(banner){banner.style.display='block';banner.style.background='#e8f8ef';banner.style.color='#176c47';banner.textContent='Thank you! Your message has been received.';}}
+  if(params.get('contact')==='error'&&contactForm){var banner2=document.getElementById('salman-contact-status');if(banner2){banner2.style.display='block';banner2.style.background='#fff0ef';banner2.style.color='#a33a30';banner2.textContent='Your message could not be sent. Please try again.';}}
+})();
+</script>
+
 </body></html>
