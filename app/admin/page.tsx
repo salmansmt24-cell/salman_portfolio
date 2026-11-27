@@ -70,7 +70,7 @@ export default async function AdminDashboard(){
   const quick=[
     {label:"Add New Content",icon:"▣",tone:"blue",href:"/admin/content"},
     {label:"Manage Orders",icon:"🛒",tone:"green",href:"/admin/manage/orders"},
-    {label:"View Messages",icon:"✉",tone:"purple",href:"/admin/manage/messages"},
+    {label:"Inbox & Reply",icon:"✉",tone:"purple",href:"/admin/manage/messages"},
     {label:"Update Portfolio",icon:"▧",tone:"orange",href:"/admin/content"},
     {label:"Manage Media",icon:"▣",tone:"teal",href:"/admin/media"},
     {label:"Settings",icon:"⚙",tone:"slate",href:"/admin/account"}
