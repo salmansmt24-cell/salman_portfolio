@@ -24,7 +24,7 @@ export async function POST(req:NextRequest){
   if(!gatewayAuth&&!directAuth)return NextResponse.json({error:"The AI assistant is not configured yet. Please use the contact form."},{status:503});
   const useGateway=!!gatewayAuth;
   const endpoint=useGateway?"https://ai-gateway.vercel.sh/v1/responses":"https://api.openai.com/v1/responses";
-  const model=process.env.CHATBOT_MODEL||(useGateway?"openai/gpt-6.2-sol":"gpt-6.2-astra");
+  const model=process.env.CHATBOT_MODEL||(useGateway?"nvidia/nemotron-3.5-lightning-free":"gpt-6.2-astra");
   let body:any;try{body=await req.json()}catch{return NextResponse.json({error:"Invalid request."},{status:400})}
   const input=Array.isArray(body.messages)?body.messages.slice(-12):[];
   const messages=input.map((m:any)=>({role:m?.role==="assistant"?"assistant":"user",content:typeof m?.content==="string"?m.content.trim().slice(0,3500):""})).filter((m:any)=>m.content);
@@ -44,7 +44,7 @@ export async function POST(req:NextRequest){
     const api=await fetch(endpoint,{method:"POST",headers:{"Authorization":"Bearer "+(gatewayAuth||directAuth),"Content-Type":"application/json"},signal:AbortSignal.timeout(35000),body:JSON.stringify({
       model,
       instructions,input:messages,store:false,max_output_tokens:700,
-      tools:[{type:"web_search"}]
+      // Free model route intentionally uses no paid web-search tool.
     })});
     const result:any=await api.json().catch(()=>({}));
     if(!api.ok){console.error("Chat model request failed",api.status,result?.error?.code||"provider_error");return NextResponse.json({error:"The assistant is temporarily unavailable. Please try again or contact Salman."},{status:502})}
