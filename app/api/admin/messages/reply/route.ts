@@ -40,7 +40,7 @@ export async function POST(req:NextRequest){
   const messageId=Number(b.messageId),body=typeof b.body==="string"?b.body.trim():"";
   if(!Number.isSafeInteger(messageId)||messageId<1||!body||body.length>5000)return NextResponse.json({error:"Enter a reply (up to 5,000 characters). "},{status:400});
   const apiKey=process.env.RESEND_API_KEY,from=process.env.CONTACT_FROM_EMAIL;
-  if(!apiKey||!from)return NextResponse.json({error:"Email is not configured yet. Add RESEND_API_KEY and CONTACT_FROM_EMAIL to Preview environment variables."},{status:503});
+  if(!apiKey||!from)return NextResponse.json({error:"Email is not configured yet. Add RESEND_API_KEY and CONTACT_FROM_EMAIL to Vercel Production environment variables."},{status:503});
   try{
     const sql=db();await ensureTable(sql);
     const found=await sql`SELECT id,name,email,service FROM cms_messages WHERE id=${messageId} LIMIT 1`;
