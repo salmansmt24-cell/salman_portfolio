@@ -48,8 +48,12 @@ export async function POST(req:NextRequest){
     })});
     const result:any=await api.json().catch(()=>({}));
     if(!api.ok){console.error("Chat model request failed",api.status,result?.error?.code||"provider_error");return NextResponse.json({error:"The assistant is temporarily unavailable. Please try again or contact Salman."},{status:502})}
-    const answer=(result.output||[]).flatMap((x:any)=>x.type==="message"?(x.content||[]).filter((c:any)=>c.type==="output_text").map((c:any)=>c.text):[]).join("\n").trim();
+    const textItems=(result.output||[]).flatMap((x:any)=>x.type==="message"?(x.content||[]).filter((c:any)=>c.type==="output_text"):[]);
+    const answer=textItems.map((c:any)=>c.text).join("\n").trim();
     if(!answer)return NextResponse.json({error:"I couldn't prepare an answer just now. Please try again."},{status:502});
-    return NextResponse.json({ok:true,answer});
+    const citations=new Map<string,string>();
+    for(const item of textItems)for(const annotation of item.annotations||[])if(annotation.type==="url_citation"&&typeof annotation.url==="string")citations.set(annotation.url,String(annotation.title||annotation.url));
+    const sourceText=citations.size?"\n\nSources:\n"+Array.from(citations.entries()).slice(0,5).map(([url,title])=>title+": "+url).join("\n"):"";
+    return NextResponse.json({ok:true,answer:answer+sourceText});
   }catch(e){console.error("Chat request failed",e);return NextResponse.json({error:"The assistant is temporarily unavailable. Please try again."},{status:503})}
 }
