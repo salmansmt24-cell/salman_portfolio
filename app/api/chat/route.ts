@@ -19,7 +19,7 @@ async function rateLimit(sql:any,hash:string,kind:string,limit:number,minutes:nu
   return Number(rows[0]?.request_count||0)<=limit;
 }
 export async function POST(req:NextRequest){
-  const gatewayAuth=process.env.AI_GATEWAY_API_KEY||process.env.VERCEL_OIDC_TOKEN;
+  const gatewayAuth=process.env.AI_GATEWAY_API_KEY||req.headers.get("x-vercel-oidc-token")||process.env.VERCEL_OIDC_TOKEN;
   const directAuth=process.env.OPENAI_API_KEY;
   if(!gatewayAuth&&!directAuth)return NextResponse.json({error:"The AI assistant is not configured yet. Please use the contact form."},{status:503});
   const useGateway=!!gatewayAuth;
