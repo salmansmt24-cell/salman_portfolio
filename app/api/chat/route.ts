@@ -9,12 +9,12 @@ function db(){if(!process.env.LEGACY_DATABASE_URL)throw new Error("Database is n
 function ipOf(req:NextRequest){return (req.headers.get("x-forwarded-for")||req.headers.get("x-real-ip")||"unknown").split(",")[0].trim().slice(0,100)}
 function hashIp(ip:string){return createHash("sha256").update((process.env.ADMIN_SESSION_SECRET||"site-chat-rate-limit")+":"+ip).digest("hex")}
 async function rateLimit(sql:any,hash:string){
-  await sql\`CREATE TABLE IF NOT EXISTS cms_public_rate_limits(key_hash CHAR(64) NOT NULL,kind VARCHAR(20) NOT NULL,window_start TIMESTAMPTZ NOT NULL DEFAULT NOW(),request_count INTEGER NOT NULL DEFAULT 0,PRIMARY KEY(key_hash,kind))\`;
-  const rows=await sql\`INSERT INTO cms_public_rate_limits(key_hash,kind,window_start,request_count) VALUES(\${hash},'chat',NOW(),1)
+  await sql`CREATE TABLE IF NOT EXISTS cms_public_rate_limits(key_hash CHAR(64) NOT NULL,kind VARCHAR(20) NOT NULL,window_start TIMESTAMPTZ NOT NULL DEFAULT NOW(),request_count INTEGER NOT NULL DEFAULT 0,PRIMARY KEY(key_hash,kind))`;
+  const rows=await sql`INSERT INTO cms_public_rate_limits(key_hash,kind,window_start,request_count) VALUES(${hash},'chat',NOW(),1)
     ON CONFLICT(key_hash,kind) DO UPDATE SET
       window_start=CASE WHEN cms_public_rate_limits.window_start<NOW()-INTERVAL '10 minutes' THEN NOW() ELSE cms_public_rate_limits.window_start END,
       request_count=CASE WHEN cms_public_rate_limits.window_start<NOW()-INTERVAL '10 minutes' THEN 1 ELSE cms_public_rate_limits.request_count+1 END
-    RETURNING request_count\`;
+    RETURNING request_count`;
   return Number(rows[0]?.request_count||0)<=15;
 }
 export async function POST(req:NextRequest){
