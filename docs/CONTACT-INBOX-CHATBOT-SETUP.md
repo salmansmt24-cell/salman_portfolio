@@ -16,7 +16,7 @@ Configure in Vercel Production:
 - OPENAI_API_KEY (required; add this secret in Vercel, never commit it)
 - CHATBOT_MODEL (optional; defaults to gpt-6.2-astra)
 
-The widget is embedded in the public portfolio template. It supports multilingual conversation, short context history, web search for current information, and a database-backed rate limit of 15 requests per IP per 10 minutes. Chat transcripts are not stored in the website database; the browser sends up to 12 recent messages with each request. The API uses OpenAI Responses API with store=false.
+The widget is embedded in the public portfolio template. It supports multilingual conversation, short context history, web search for current information, and a database-backed rate limit of 10 requests per IP per 10 minutes and a global cap of 100 requests per day. Chat transcripts are not stored in the website database; the browser sends up to 12 recent messages with each request. The API uses the Responses API with store=false. Vercel AI Gateway calls are billed according to the team's Gateway usage; the site-wide daily cap limits request volume.
 
 ## Release verification
 After adding environment variables, redeploy Production and test:
