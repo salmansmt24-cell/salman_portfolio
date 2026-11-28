@@ -2,8 +2,8 @@ import Link from "next/link";import {redirect} from "next/navigation";import {ne
 export const dynamic="force-dynamic";export const runtime="nodejs";
 const usd=(v:any)=>"$"+Number(v||0).toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2});
 export default async function AnalyticsPage(){
- const s=await getAdminSession();if(!s)redirect("/admin/login");if(!process.env.LEGACY_DATABASE_URL)throw new Error("DATABASE_URL missing");
- const sql=neon(process.env.LEGACY_DATABASE_URL);
+ const s=await getAdminSession();if(!s)redirect("/admin/login");if(!process.env.DATABASE_URL)throw new Error("DATABASE_URL missing");
+ const sql=neon(process.env.DATABASE_URL);
  const [totals,months,statuses]=await Promise.all([
  sql`SELECT COUNT(*)::int AS orders,COALESCE(SUM(gross_amount),SUM(amount),0)::float AS gross,COALESCE(SUM(net_amount),0)::float AS net,COALESCE(AVG(amount),0)::float AS average,COUNT(*) FILTER(WHERE LOWER(status) LIKE '%complete%' OR LOWER(status) LIKE '%deliver%')::int AS completed FROM cms_fiverr_orders`,
  sql`SELECT TO_CHAR(COALESCE(lead_date,created_at::date),'YYYY-MM') AS month,COUNT(*)::int AS orders,COALESCE(SUM(net_amount),0)::float AS net FROM cms_fiverr_orders WHERE COALESCE(lead_date,created_at::date)>=CURRENT_DATE-INTERVAL '11 months' GROUP BY 1 ORDER BY 1 DESC LIMIT 12`,
