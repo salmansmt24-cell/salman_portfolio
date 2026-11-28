@@ -7,7 +7,7 @@ export const dynamic="force-dynamic";
 const entities=new Set(["orders","profiles","messages","templates"]);
 async function guard(req:NextRequest){if(!(await getAdminSession()))return false;const origin=req.headers.get("origin"),host=req.headers.get("host");if(origin&&host){try{if(new URL(origin).host!==host)return false}catch{return false}}return true}
 function text(v:unknown,max:number,required=false){if(typeof v!=="string")return required?null:"";const s=v.trim();return s.length<=max&&( !required||!!s)?s:null}
-function db(){if(!process.env.LEGACY_DATABASE_URL)throw new Error("Database not configured");return neon(process.env.LEGACY_DATABASE_URL)}
+function db(){if(!process.env.DATABASE_URL)throw new Error("Database not configured");return neon(process.env.DATABASE_URL)}
 export async function GET(req:NextRequest){
  if(!(await guard(req)))return NextResponse.json({error:"Unauthorized"},{status:403});
  const entity=req.nextUrl.searchParams.get("entity")||"";if(!entities.has(entity))return NextResponse.json({error:"Invalid entity"},{status:400});
