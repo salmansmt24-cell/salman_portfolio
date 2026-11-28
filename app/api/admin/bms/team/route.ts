@@ -11,7 +11,7 @@ function rejectCrossOrigin(req: NextRequest) {
   if(!origin||!host)return false;
   try{return new URL(origin).host!==host;}catch{return true;}
 }
-function db(){if(!process.env.LEGACY_DATABASE_URL)throw new Error("Database is not configured.");return neon(process.env.LEGACY_DATABASE_URL);}
+function db(){if(!process.env.DATABASE_URL)throw new Error("Database is not configured.");return neon(process.env.DATABASE_URL);}
 export async function GET(){
  const session=await getAdminSession();if(!session)return NextResponse.json({error:"Unauthorized"},{status:401});
  try{const rows=await db()`SELECT id,full_name,email,role,status,created_at,approved_at,last_login_at FROM bms_team_members ORDER BY created_at DESC,id DESC LIMIT 250`;return NextResponse.json({members:rows});}
