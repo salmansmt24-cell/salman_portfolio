@@ -3,8 +3,8 @@ import { isIP } from "node:net";
 import { neon } from "@neondatabase/serverless";
 
 export function securitySql() {
-  if (!process.env.LEGACY_DATABASE_URL) throw new Error("LEGACY_DATABASE_URL is not configured.");
-  return neon(process.env.LEGACY_DATABASE_URL);
+  if (!process.env.DATABASE_URL) throw new Error("DATABASE_URL is not configured.");
+  return neon(process.env.DATABASE_URL);
 }
 export function tokenHash(token: string) {
   return createHash("sha256").update(token).digest("hex");
