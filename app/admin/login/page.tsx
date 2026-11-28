@@ -15,5 +15,5 @@ export default function AdminLoginPage(){
  {requiresTotp&&<><label style={{display:"block",fontSize:12,fontWeight:700,color:"#34445d"}}>Authenticator code</label><input inputMode="numeric" autoComplete="one-time-code" maxLength={6} required value={totp} onChange={e=>setTotp(e.target.value.replace(/\D/g,""))} placeholder="6-digit code" style={field}/></>}
  {error&&<p role="alert" style={{color:"#b42318",fontSize:12,margin:"0 0 14px"}}>{error}</p>}
  <button disabled={busy} style={{width:"100%",padding:14,border:0,borderRadius:10,background:"#315eb5",color:"#fff",fontSize:14,fontWeight:800,cursor:"pointer",opacity:busy ? 0.7 : 1}}>{busy?"Verifying…":requiresTotp?"Verify & sign in":"Sign in securely"}</button>
- <p style={{fontSize:11,color:"#929eb0",marginTop:20,textAlign:"center"}}>Protected administrator access · Preview environment</p></form></main>;
+ <p style={{fontSize:11,color:"#929eb0",marginTop:20,textAlign:"center"}}>Protected administrator access · Production</p></form></main>;
 }
