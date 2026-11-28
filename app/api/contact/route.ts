@@ -11,7 +11,8 @@ function redirect(req: NextRequest, status: "sent" | "error") {
 function clientIp(req: NextRequest) {
   return (req.headers.get("x-forwarded-for") || req.headers.get("x-real-ip") || "unknown").split(",")[0].trim().slice(0, 100);
 }
-async function allowSubmission(sql: ReturnType<typeof neon>, ip: string) {
+async function allowSubmission(databaseUrl: string, ip: string) {
+  const sql = neon(databaseUrl);
   await sql`CREATE TABLE IF NOT EXISTS cms_public_rate_limits (
     key_hash CHAR(64) NOT NULL, kind VARCHAR(20) NOT NULL,
     window_start TIMESTAMPTZ NOT NULL DEFAULT NOW(), request_count INTEGER NOT NULL DEFAULT 0,
@@ -43,8 +44,8 @@ export async function POST(req: NextRequest) {
     const message = String(data.get("message") || "").trim().slice(0, 5000);
     if (!name || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || !service || !message || message.length < 10) return redirect(req, "error");
     if (!process.env.DATABASE_URL) return redirect(req, "error");
+    if (!(await allowSubmission(process.env.DATABASE_URL, clientIp(req)))) return redirect(req, "error");
     const sql = neon(process.env.DATABASE_URL);
-    if (!(await allowSubmission(sql, clientIp(req)))) return redirect(req, "error");
     await sql`INSERT INTO cms_messages(id,name,email,service,message,is_read,created_at)
       VALUES(nextval('cms_messages_id_seq'),${name},${email},${service},${message},FALSE,NOW())`;
     return redirect(req, "sent");
