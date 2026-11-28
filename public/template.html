@@ -601,7 +601,8 @@
 
 EDUCATION SECTION END -->
 <section class="contact" id="contact"><div class="container"><div class="row align-items-center"><div class="col-lg-6"><div class="label">{{CMS:contact_text_0261}}</div><h2>{{CMS:contact_text_0262}}<br/><span>{{CMS:contact_text_0263}}</span></h2><p>{{CMS:contact_text_0264}}</p></div><div class="col-lg-5 ms-auto">
-<form action="/contact-submit.php" method="POST">
+<div id="contactFormStatus" class="mb-3" role="status" aria-live="polite"></div>
+<form action="/api/contact" method="POST">
 <h3>{{CMS:contact_text_0265}}</h3>
 <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px" />
 <input class="form-control mb-3" name="name" placeholder="{{CMS:contact_placeholder_0266}}" required="" type="text"/>
@@ -726,6 +727,20 @@ EDUCATION SECTION END -->
 </div>
 </div>
 </footer>
+<script>
+(function(){
+  const params=new URLSearchParams(window.location.search);
+  const state=params.get("contact");
+  const box=document.getElementById("contactFormStatus");
+  if(box&&state){
+    box.textContent=state==="sent"?"Thank you! Your message has been received.":"Sorry, your message could not be submitted. Please try again.";
+    box.className="mb-3 alert "+(state==="sent"?"alert-success":"alert-danger");
+    params.delete("contact");
+    const query=params.toString();
+    window.history.replaceState({}, "", window.location.pathname+(query?"?"+query:"")+"#contact");
+  }
+})();
+</script>
 <script>
 
 const footerYear = document.getElementById("footerYear");
