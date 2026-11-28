@@ -11,7 +11,7 @@ async function guard(req:NextRequest){
   if(origin&&host){try{if(new URL(origin).host!==host)return false}catch{return false}}
   return true;
 }
-function db(){if(!process.env.LEGACY_DATABASE_URL)throw new Error("Database is not configured");return neon(process.env.LEGACY_DATABASE_URL)}
+function db(){if(!process.env.DATABASE_URL)throw new Error("Database is not configured");return neon(process.env.DATABASE_URL)}
 function escapeHtml(s:string){return s.replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]!))}
 async function ensureTable(sql:any){
   await sql`CREATE TABLE IF NOT EXISTS cms_message_replies (
