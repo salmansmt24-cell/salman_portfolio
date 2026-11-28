@@ -14,8 +14,8 @@ const config:any={
 export default async function ManagePage({params}:{params:Promise<{entity:string}>}){
  const session=await getAdminSession();if(!session)redirect("/admin/login");
  const {entity}=await params;const cfg=config[entity];if(!cfg)notFound();
- if(!process.env.LEGACY_DATABASE_URL)throw new Error("DATABASE_URL missing");
- const sql=neon(process.env.LEGACY_DATABASE_URL);let rows:any[]=[];
+ if(!process.env.DATABASE_URL)throw new Error("DATABASE_URL missing");
+ const sql=neon(process.env.DATABASE_URL);let rows:any[]=[];
  if(entity==="orders")rows=await sql`SELECT id,order_id,client_username,project_title,category,amount,fiverr_fee,status,progress,order_url,notes,net_amount,created_at FROM cms_fiverr_orders ORDER BY created_at DESC,id DESC LIMIT 500`;
  if(entity==="profiles")rows=await sql`SELECT id,username,created_at FROM cms_fiverr_profiles ORDER BY username ASC`;
  if(entity==="messages")rows=await sql`SELECT id,name,email,service,message,is_read,created_at FROM cms_messages ORDER BY created_at DESC,id DESC LIMIT 500`;
