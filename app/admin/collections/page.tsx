@@ -6,8 +6,8 @@ import CollectionsManager, { type CollectionItem } from "./collections-manager";
 export const dynamic = "force-dynamic";export const runtime = "nodejs";
 export default async function AdminCollectionsPage() {
  const session=await getAdminSession();if(!session)redirect("/admin/login");
- if(!process.env.LEGACY_DATABASE_URL)throw new Error("DATABASE_URL is not configured");
- const sql=neon(process.env.LEGACY_DATABASE_URL);
+ if(!process.env.DATABASE_URL)throw new Error("DATABASE_URL is not configured");
+ const sql=neon(process.env.DATABASE_URL);
  const rows=await sql`SELECT id,module,title,description,subtitle,image_path,link_url,sort_order,is_published,created_at FROM cms_items ORDER BY module ASC,sort_order ASC,id DESC`;
  const items=rows as unknown as CollectionItem[];
  const counts=["services","portfolio","testimonials","faq","skills","experience","education"].map(module=>({module,count:items.filter(item=>item.module===module).length}));
