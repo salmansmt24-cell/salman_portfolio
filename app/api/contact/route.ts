@@ -24,7 +24,8 @@ async function allowSubmission(sql: ReturnType<typeof neon>, ip: string) {
       window_start=CASE WHEN cms_public_rate_limits.window_start<NOW()-INTERVAL '15 minutes' THEN NOW() ELSE cms_public_rate_limits.window_start END,
       request_count=CASE WHEN cms_public_rate_limits.window_start<NOW()-INTERVAL '15 minutes' THEN 1 ELSE cms_public_rate_limits.request_count+1 END
     RETURNING request_count`;
-  return Number(rows[0]?.request_count || 0) <= 5;
+  const resultRows = rows as Array<{ request_count: number | string }>;
+  return Number(resultRows[0]?.request_count || 0) <= 5;
 }
 export async function POST(req: NextRequest) {
   const origin = req.headers.get("origin");
