@@ -1,7 +1,7 @@
 import Link from "next/link";import {redirect} from "next/navigation";import {neon} from "@neondatabase/serverless";import {getAdminSession} from "@/lib/admin-auth";
 export const dynamic="force-dynamic";export const runtime="nodejs";
 const money=(v:any)=>"$"+Number(v||0).toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2});const bdt=(v:any)=>"৳"+Number(v||0).toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2});
-export default async function BmsAdminReports(){const s=await getAdminSession();if(!s)redirect("/admin/login");if(!process.env.LEGACY_DATABASE_URL)throw new Error("Database is not configured.");const sql=neon(process.env.LEGACY_DATABASE_URL);
+export default async function BmsAdminReports(){const s=await getAdminSession();if(!s)redirect("/admin/login");if(!process.env.DATABASE_URL)throw new Error("Database is not configured.");const sql=neon(process.env.DATABASE_URL);
 const [tasks,leads,orders,expenses,proposals,months,team]=await Promise.all([
 sql`SELECT COUNT(*)::int total,COUNT(*) FILTER(WHERE status='completed')::int completed,COUNT(*) FILTER(WHERE status IN ('todo','in_progress','review','blocked'))::int open,COUNT(*) FILTER(WHERE due_at<NOW() AND status NOT IN ('completed','cancelled'))::int overdue FROM bms_tasks`,
 sql`SELECT COUNT(*)::int total,COUNT(*) FILTER(WHERE stage='won')::int won,COUNT(*) FILTER(WHERE stage='lost')::int lost,COUNT(*) FILTER(WHERE stage NOT IN ('won','lost'))::int active,COALESCE(SUM(estimated_value) FILTER(WHERE stage NOT IN ('won','lost') AND currency='USD'),0)::float pipeline,COALESCE(SUM(estimated_value) FILTER(WHERE stage='won' AND currency='USD'),0)::float won_value FROM bms_leads`,
