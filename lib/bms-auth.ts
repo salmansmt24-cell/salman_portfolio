@@ -6,8 +6,8 @@ import { neon } from "@neondatabase/serverless";
 const COOKIE = "bms_team_session";
 const TTL_SECONDS = 60 * 60 * 24 * 7;
 export function bmsDb() {
-  if (!process.env.LEGACY_DATABASE_URL) throw new Error("Database is not configured.");
-  return neon(process.env.LEGACY_DATABASE_URL);
+  if (!process.env.DATABASE_URL) throw new Error("Database is not configured.");
+  return neon(process.env.DATABASE_URL);
 }
 export function hashBmsToken(value: string) {
   return createHash("sha256").update(value).digest("hex");
