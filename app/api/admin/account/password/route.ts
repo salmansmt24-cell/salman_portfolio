@@ -10,8 +10,8 @@ export async function POST(req:NextRequest){
  let b:any;try{b=await req.json()}catch{return NextResponse.json({error:"Invalid JSON"},{status:400})}
  if(typeof b.current!=="string"||typeof b.next!=="string"||b.next.length<12||b.next.length>200)return NextResponse.json({error:"New password must be 12–200 characters."},{status:400});
  if(!(await verifyAdminPassword(session.username,b.current)))return NextResponse.json({error:"Current password is incorrect."},{status:403});
- if(!process.env.LEGACY_DATABASE_URL)return NextResponse.json({error:"Database unavailable"},{status:503});
- const hash=await bcrypt.hash(b.next,12),sql=neon(process.env.LEGACY_DATABASE_URL);
+ if(!process.env.DATABASE_URL)return NextResponse.json({error:"Database unavailable"},{status:503});
+ const hash=await bcrypt.hash(b.next,12),sql=neon(process.env.DATABASE_URL);
  await sql`UPDATE cms_admins SET password_hash=${hash} WHERE TRIM(username)=${session.username}`;
  await sql`UPDATE admin_security_sessions SET revoked_at=NOW() WHERE username=${session.username} AND id<>${session.sessionId} AND revoked_at IS NULL`;
  await recordSecurityEvent(session.username,"password_changed",req.headers,{otherSessionsRevoked:true});
