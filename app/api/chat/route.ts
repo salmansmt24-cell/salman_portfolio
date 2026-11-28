@@ -5,7 +5,7 @@ import {neon} from "@neondatabase/serverless";
 export const runtime="nodejs";
 export const dynamic="force-dynamic";
 
-function db(){if(!process.env.LEGACY_DATABASE_URL)throw new Error("Database is not configured");return neon(process.env.LEGACY_DATABASE_URL)}
+function db(){if(!process.env.DATABASE_URL)throw new Error("Database is not configured");return neon(process.env.DATABASE_URL)}
 function ipOf(req:NextRequest){return (req.headers.get("x-forwarded-for")||req.headers.get("x-real-ip")||"unknown").split(",")[0].trim().slice(0,100)}
 function hashIp(ip:string){return createHash("sha256").update((process.env.ADMIN_SESSION_SECRET||"site-chat-rate-limit")+":"+ip).digest("hex")}
 async function rateLimit(sql:any,hash:string,kind:string,limit:number,minutes:number){
