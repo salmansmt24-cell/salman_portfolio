@@ -38,8 +38,8 @@ export default async function AdminDashboard(){
   let months:Month[]=[];
   let statuses:Status[]=[];
   try{
-    if(!process.env.LEGACY_DATABASE_URL) throw new Error("DATABASE_URL missing");
-    const sql=neon(process.env.LEGACY_DATABASE_URL);
+    if(!process.env.DATABASE_URL) throw new Error("DATABASE_URL missing");
+    const sql=neon(process.env.DATABASE_URL);
     const [s,o,m,monthly,statusRows]=await Promise.all([
       sql`SELECT (SELECT COUNT(*)::int FROM cms_content) content,(SELECT COUNT(*)::int FROM cms_fiverr_orders) orders,(SELECT COUNT(*)::int FROM cms_fiverr_profiles) profiles,(SELECT COUNT(*)::int FROM cms_messages) messages,(SELECT COUNT(*)::int FROM cms_messages WHERE is_read=FALSE) unread,(SELECT COUNT(*)::int FROM cms_private_templates) templates,(SELECT COUNT(*)::int FROM cms_items) items,(SELECT COALESCE(SUM(net_amount),0)::float FROM cms_fiverr_orders) revenue`,
       sql`SELECT id,order_id,client_username,project_title,amount,net_amount,status,created_at FROM cms_fiverr_orders ORDER BY created_at DESC,id DESC LIMIT 5`,
